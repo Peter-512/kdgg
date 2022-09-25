@@ -1,5 +1,11 @@
 package be.kdg.programming3;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,5 +32,33 @@ public class DataFactory {
 			user.createPost(channel, post);
 			return post;
 		}).limit(100).toList());
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = new GsonBuilder()
+				.setPrettyPrinting()
+				.registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+				.create();
+		String channelsJson = gson.toJson(DataFactory.channels);
+		String usersJson = gson.toJson(DataFactory.users);
+		String postsJson = gson.toJson(DataFactory.posts);
+
+
+		//		Saving to JSON
+		try (FileWriter jsonWriter = new FileWriter("src/main/resources/channels.json")) {
+			jsonWriter.write(channelsJson);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try (FileWriter jsonWriter = new FileWriter("src/main/resources/users.json")) {
+			jsonWriter.write(usersJson);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try (FileWriter jsonWriter = new FileWriter("src/main/resources/posts.json")) {
+			jsonWriter.write(postsJson);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

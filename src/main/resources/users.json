@@ -1,0 +1,127 @@
+[
+  {
+    "name": "Alva MacGyver",
+    "birthDate": "1957-10-15",
+    "role": "Admin"
+  },
+  {
+    "name": "Ms. Shavonda Hackett",
+    "birthDate": "1978-04-13",
+    "role": "Admin"
+  },
+  {
+    "name": "Jack Lakin",
+    "birthDate": "1960-04-29",
+    "role": "Mod"
+  },
+  {
+    "name": "Elmer Cummings",
+    "birthDate": "1960-10-07",
+    "role": "User"
+  },
+  {
+    "name": "Benito Nitzsche",
+    "birthDate": "1971-06-21",
+    "role": "Mod"
+  },
+  {
+    "name": "Ms. Alonso Nienow",
+    "birthDate": "2002-10-26",
+    "role": "Mod"
+  },
+  {
+    "name": "Collin Hagenes",
+    "birthDate": "1968-05-21",
+    "role": "Mod"
+  },
+  {
+    "name": "Miss Perry Ryan",
+    "birthDate": "1965-10-06",
+    "role": "Mod"
+  },
+  {
+    "name": "Virgil Fisher",
+    "birthDate": "1969-03-02",
+    "role": "Mod"
+  },
+  {
+    "name": "Dr. Jere Glover",
+    "birthDate": "1962-11-09",
+    "role": "Mod"
+  },
+  {
+    "name": "Lanette Walsh",
+    "birthDate": "1986-04-13",
+    "role": "Mod"
+  },
+  {
+    "name": "Derek Emard",
+    "birthDate": "1971-12-20",
+    "role": "Admin"
+  },
+  {
+    "name": "Katheleen Gerhold",
+    "birthDate": "1972-06-11",
+    "role": "User"
+  },
+  {
+    "name": "Sid Stark",
+    "birthDate": "1992-06-10",
+    "role": "Mod"
+  },
+  {
+    "name": "Mr. Rory Nolan",
+    "birthDate": "1988-12-28",
+    "role": "Mod"
+  },
+  {
+    "name": "Randolph Mann",
+    "birthDate": "1970-10-23",
+    "role": "User"
+  },
+  {
+    "name": "Tobie Schultz",
+    "birthDate": "1974-05-11",
+    "role": "Mod"
+  },
+  {
+    "name": "Mr. Selena Kautzer",
+    "birthDate": "1985-05-21",
+    "role": "Mod"
+  },
+  {
+    "name": "Jana Schaden",
+    "birthDate": "1971-11-19",
+    "role": "Admin"
+  },
+  {
+    "name": "Mrs. Danita Dickinson",
+    "birthDate": "1987-05-23",
+    "role": "Mod"
+  },
+  {
+    "name": "Nia Torp",
+    "birthDate": "1985-12-23",
+    "role": "Admin"
+  },
+  {
+    "name": "Miss Theressa Reichel",
+    "birthDate": "2004-08-18",
+    "role": "Mod"
+  },
+  {
+    "name": "Mr. Marcia Lindgren",
+    "birthDate": "1958-05-15",
+    "role": "User"
+  },
+  {
+    "name": "Shanon Quigley",
+    "birthDate": "1974-03-18",
+    "role": "Admin"
+  },
+  {
+    "name": "Coralie Fadel",
+    "birthDate": "2001-07-02",
+    "role": "User"
+  }
+]
