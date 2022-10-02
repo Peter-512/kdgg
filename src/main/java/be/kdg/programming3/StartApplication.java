@@ -1,8 +1,16 @@
 package be.kdg.programming3;
 
-// TODO You create and use an enum in one of the classes
+import be.kdg.programming3.view.View;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
+@SpringBootApplication
+
 public class StartApplication {
 	public static void main(String[] args) {
-		//		DataFactory.seed();
+		ConfigurableApplicationContext context = SpringApplication.run(StartApplication.class, args);
+		context.getBean(View.class).show();
+		context.close();
 	}
 }

@@ -1,27 +1,24 @@
-package be.kdg.programming3;
-
-import com.github.javafaker.Faker;
+package be.kdg.programming3.domain;
 
 import java.time.LocalDate;
 
 public class Post {
 	private User user;
-	private Channel channel;
+	transient private Channel channel;
 	private String content;
 	private int upVotes;
 	private LocalDate date;
 
 	public Post(User user, Channel channel, String content) {
-		this.user = user;
+		this(user, content);
 		this.channel = channel;
-		this.content = content;
-		this.upVotes = 0;
-		this.date = LocalDate.now(); // ? could be faker data
 	}
 
-	public static Post createRandom(User user, Channel channel) {
-		Faker faker = new Faker();
-		return new Post(user, channel, faker.lorem().sentence());
+	public Post(User user, String content) {
+		this.user = user;
+		this.content = content;
+		this.upVotes = 0;
+		this.date = LocalDate.now();
 	}
 
 	public User getUser() {
@@ -40,12 +37,27 @@ public class Post {
 		return upVotes;
 	}
 
+	public void setUpVotes(int votes) {
+		upVotes = votes;
+	}
+
 	public LocalDate getDate() {
 		return date;
 	}
 
+	public void upVote() {
+		upVotes++;
+	}
+
+	public void downVote() {
+		upVotes--;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Post(%s): %s\n", date, content);
+		return String.format("""
+				%s: %s
+				%d - %s
+				""", user.getName(), content, upVotes, date);
 	}
 }

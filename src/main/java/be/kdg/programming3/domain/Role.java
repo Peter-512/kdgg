@@ -1,4 +1,4 @@
-package be.kdg.programming3;
+package be.kdg.programming3.domain;
 
 import java.util.Random;
 
