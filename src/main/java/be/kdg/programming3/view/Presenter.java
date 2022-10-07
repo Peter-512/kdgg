@@ -8,7 +8,7 @@ import be.kdg.programming3.service.ChatService;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.IntStream;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Presenter {
 	private final Scanner scanner;
@@ -34,10 +34,9 @@ public class Presenter {
 	public int getChannelIndex() throws RuntimeException {
 		System.out.println("0. (Cancel)");
 		int input;
-		IntStream.range(0, chatService.getChannels().size())
-		         .forEach(i -> System.out.printf("%d. %s\n", i + 1, chatService.getChannels()
-		                                                                       .get(i)
-		                                                                       .getName()));
+		AtomicInteger i = new AtomicInteger(1);
+		chatService.getChannels()
+		           .forEach(channel -> System.out.printf("%d. %s\n", i.getAndIncrement(), channel.getName()));
 		System.out.printf("Choose a channel (1-%d): ", chatService.getChannels().size());
 		try {
 			input = handleChoice();
