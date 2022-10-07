@@ -21,15 +21,15 @@ public class FakeChatRepository implements ChatRepository {
 	private static final int INITIAL_USERS = 25;
 	private static final int MAX_INITIAL_POSTS = 100;
 	private static final int MIN_INITIAL_POSTS = 20;
-	public static List<User> users = new ArrayList<>();
-	public static List<Channel> channels = new ArrayList<>();
+	public List<User> users = new ArrayList<>();
+	public List<Channel> channels = new ArrayList<>();
 
 	@Autowired
 	public FakeChatRepository() {
 		seed();
 	}
 
-	public static void seed() {
+	public void seed() {
 		Random random = new Random();
 		Faker faker = new Faker();
 		channels.addAll(Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda().quote()))
@@ -84,12 +84,12 @@ public class FakeChatRepository implements ChatRepository {
 	}
 
 	@Override
-	public Channel deleteChannel(Channel channel) {
-		return null;
+	public boolean deleteChannel(Channel channel) {
+		return true;
 	}
 
 	@Override
-	public Post deletePost(Post post) {
-		return null;
+	public boolean deletePost(Post post) {
+		return true;
 	}
 }

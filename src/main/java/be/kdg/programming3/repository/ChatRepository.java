@@ -17,7 +17,7 @@ public interface ChatRepository {
 
 	boolean deleteUser(User user);
 
-	Channel deleteChannel(Channel channel);
+	boolean deleteChannel(Channel channel);
 
-	Post deletePost(Post post);
+	boolean deletePost(Post post);
 }
