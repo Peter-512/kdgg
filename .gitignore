@@ -157,3 +157,4 @@ replay_pid*
 
 # custom
 src/**/*.json
+/.fleet/run.json
