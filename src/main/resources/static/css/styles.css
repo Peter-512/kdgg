@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 1em;
+}
+
+h1 {
+    margin: 1.5em 0;
+}
+
+h2 {
+    margin-top: 1em;
+}
+
+h4 {
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-bottom: 0.25em;
+}
+
+.username {
+    color: red;
+}
+
+.date {
+    color: gray;
+}
