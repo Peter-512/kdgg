@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Channel {
-	private List<User> users;
-	private List<Post> posts;
-	private String name;
-	private double upVotesRatio;
-	private String description;
+	private final List<User> users;
+	private final List<Post> posts;
+	private final String name;
+	private final double upVotesRatio;
+	private final String description;
 
 	public Channel(String name, String description) {
 		this.users = new ArrayList<>();
@@ -40,6 +40,10 @@ public class Channel {
 
 	public void addUser(User user) {
 		users.add(user);
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	@Override
