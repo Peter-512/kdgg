@@ -20,10 +20,12 @@
 	<tr>
 		<th>Channel name</th>
 		<th>Channel description</th>
+		<th>Upvote Ratio</th>
 	</tr>
 	<tr th:each="channel: ${channels}">
 		<td th:text="${channel.getName()}"></td>
-		<td th:text="${channel.getDescription()}"></td>
+		<td style="max-width: 60%" th:text="${channel.getDescription()}"></td>
+		<td th:text="${#numbers.formatDecimal(channel.getUpVotesRatio(), 1, 2)}"></td>
 	</tr>
 </table>
 

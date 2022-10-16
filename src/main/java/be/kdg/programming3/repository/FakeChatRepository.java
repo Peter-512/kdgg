@@ -64,6 +64,7 @@ public class FakeChatRepository implements ChatRepository {
 			       .addAll(posts.stream()
 			                    .sorted(Comparator.comparing(Post::getDate))
 			                    .toList());
+			channel.calculateUpvoteRatio();
 		});
 	}
 

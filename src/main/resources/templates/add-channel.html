@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Adding a channel</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="icon" th:href="@{/images/icon.png}">
+</head>
+<body>
+<h2>Adding a channel...</h2>
+<form method="post">
+	<label for="name">Channel name:</label>
+	<input id="name" name="name" required type="text" />
+	<label for="description">Description:</label>
+	<textarea cols="80"
+			  id="description"
+			  name="description"
+			  required
+			  rows="5">This is your channel description...</textarea>
+	<input type="submit" value="Submit" />
+</form>
+</body>
+</html>

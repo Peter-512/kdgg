@@ -20,6 +20,12 @@
 <a th:href="users">
 	<button>Users</button>
 </a>
+<a th:href="add-channel">
+	<button>Add Channel</button>
+</a>
+<a th:href="add-user">
+	<button>Add User</button>
+</a>
 
 <main>
 	<section th:each="channel: ${chatService.getChannels()}">

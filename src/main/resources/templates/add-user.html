@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Adding a user</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="icon" th:href="@{/images/icon.png}">
+</head>
+<body>
+<h2>Adding a user...</h2>
+<form method="post">
+	<label for="name">Username:</label>
+	<input id="name" name="name" required th:placeholder="${faker.funnyName().name()}" type="text" />
+	<label for="birthdate">Birthdate:</label>
+	<input id="birthdate" name="birthdate" required type="date">
+	<label for="role">Role:</label>
+	<select id="role" name="role">
+		<option th:each="role: ${roles}" th:text="${role}" th:value="${role}"></option>
+	</select>
+	<input type="submit" value="Submit" />
+</form>
+</body>
+</html>

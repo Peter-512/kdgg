@@ -12,6 +12,8 @@ public interface ChatService {
 
 	User addUser(String name, LocalDate birthdate, Role role);
 
+	//	User addUser(String name, LocalDate birthdate);
+
 	List<Channel> getChannels();
 
 	Channel addChannel(String name, String description);

@@ -29,6 +29,11 @@ public class ChatServiceImpl implements ChatService {
 		return chatFactory.createUser(new User(name, birthdate, role));
 	}
 
+	//	@Override
+	//	public User addUser(String name, LocalDate birthdate) {
+	//		return chatFactory.createUser(new User(name, birthdate));
+	//	}
+
 	@Override
 	public List<Channel> getChannels() {
 		return chatFactory.readChannels();

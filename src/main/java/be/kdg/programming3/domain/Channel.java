@@ -12,8 +12,8 @@ public class Channel {
 	private final List<User> users;
 	private final List<Post> posts;
 	private final String name;
-	private final double upVotesRatio;
 	private final String description;
+	private double upVotesRatio;
 
 	public Channel(String name, String description) {
 		this.users = new ArrayList<>();
@@ -37,5 +37,10 @@ public class Channel {
 				Channel %s
 				\t- %s
 				""", name, description);
+	}
+
+	public void calculateUpvoteRatio() {
+		final int upVotes = posts.stream().mapToInt(Post::getUpVotes).sum();
+		setUpVotesRatio((double) upVotes / posts.size());
 	}
 }

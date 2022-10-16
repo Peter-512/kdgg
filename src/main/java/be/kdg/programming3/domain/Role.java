@@ -3,9 +3,9 @@ package be.kdg.programming3.domain;
 import java.util.Random;
 
 public enum Role {
-	Admin,
+	User,
 	Mod,
-	User;
+	Admin;
 
 	public static Role randomRole() {
 		Random random = new Random();

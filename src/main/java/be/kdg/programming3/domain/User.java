@@ -16,13 +16,20 @@ public class User {
 	private LocalDate birthdate;
 	private Role role;
 
-	public User(String name, LocalDate birthDate, Role role) {
+	public User(String name, LocalDate birthdate, Role role) {
+		//		this(name, birthdate);
 		this.channels = new ArrayList<>();
 		this.posts = new ArrayList<>();
-		this.name = name;
-		this.birthdate = birthDate;
 		this.role = role;
+		this.name = name;
+		this.birthdate = birthdate;
 	}
+
+	//	public User(String name, LocalDate birthdate) {
+	//		this.name = name;
+	//		this.birthdate = birthdate;
+	//		role = Role.User;
+	//	}
 
 	public void createPost(Channel channel, String content) {
 		Post post = new Post(this, channel, content);
