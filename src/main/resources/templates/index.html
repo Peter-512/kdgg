@@ -3,22 +3,40 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
-	<title>KdChat</title>
+	<link rel="icon" th:href="@{/images/icon.png}">
+	<title>kdGG</title>
 </head>
 <body>
-<h1>KdChat</h1>
+<header>
+	<a th:href="@{/}">
+		<img alt="icon" th:src="@{/images/icon.png}">
+		<h1>kdGG</h1>
+	</a>
+</header>
+
+<a th:href="channels">
+	<button>Channels</button>
+</a>
+<a th:href="users">
+	<button>Users</button>
+</a>
 
 <main>
 	<section th:each="channel: ${chatService.getChannels()}">
 		<h2 th:text="${channel.getName()}"></h2>
 		<h4 th:text="${channel.getDescription()}"></h4>
-		<div th:each="post: ${channel.getPosts()}">
+		<section class="post" th:each="post: ${channel.getPosts()}">
+			<div class="upVotes-wrapper">
+				<span class="arrow">&uarr;</span>
+				<span class="upVotes" th:text="${post.getUpVotes()}"></span>
+				<span class="arrow">&darr;</span>
+			</div>
 			<article>
 				<span class="username" th:text="${post.getUser().getName()}"></span>
 				<span class="date" th:text="${post.getDate()}"></span>
 				<p th:text="${post.getContent()}"></p>
 			</article>
-		</div>
+		</section>
 	</section>
 </main>
 </body>

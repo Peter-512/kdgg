@@ -6,16 +6,18 @@ import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-@Component
+@Repository
 public class FakeChatRepository implements ChatRepository {
 	private static final int INITIAL_CHANNELS = 5;
 	private static final int INITIAL_USERS = 25;
@@ -46,13 +48,22 @@ public class FakeChatRepository implements ChatRepository {
 		}).limit(INITIAL_USERS).toList());
 
 		channels.forEach(channel -> {
-			final List<User> userList = channel.getUsers();
-			List<Post> posts = Stream.generate(() -> new Post(userList.get(random.nextInt(userList.size())), channel, faker.lorem()
-			                                                                                                               .sentence()))
+			final User[] userArr = channel.getUsers().toArray(new User[0]);
+			List<Post> posts = Stream.generate(() -> new Post(
+					                         faker.options().option(userArr),
+					                         channel,
+					                         faker.lorem().sentence(),
+					                         faker.number().numberBetween(-20, 200),
+					                         LocalDate.ofInstant(faker.date()
+					                                                  .past(730, TimeUnit.DAYS)
+					                                                  .toInstant(), ZoneId.systemDefault())))
 			                         .limit(faker.number().numberBetween(MIN_INITIAL_POSTS, MAX_INITIAL_POSTS))
 			                         .toList();
 			posts.forEach(post -> post.setUpVotes(faker.number().numberBetween(-10, 100)));
-			channel.getPosts().addAll(posts);
+			channel.getPosts()
+			       .addAll(posts.stream()
+			                    .sorted(Comparator.comparing(Post::getDate))
+			                    .toList());
 		});
 	}
 

@@ -10,6 +10,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class StartApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(StartApplication.class, args);
-		context.getBean("webView", View.class).show();
+		context.getBean(View.class).show();
 	}
 }

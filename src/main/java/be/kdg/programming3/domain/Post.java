@@ -1,7 +1,12 @@
 package be.kdg.programming3.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class Post {
 	private User user;
 	transient private Channel channel;
@@ -9,40 +14,18 @@ public class Post {
 	private int upVotes;
 	private LocalDate date;
 
+	public Post(User user, Channel channel, String content, int upVotes, LocalDate date) {
+		this(user, channel, content);
+		this.upVotes = upVotes;
+		this.date = date;
+	}
+
 	public Post(User user, Channel channel, String content) {
-		this(user, content);
-		this.channel = channel;
-	}
-
-	public Post(User user, String content) {
 		this.user = user;
+		this.channel = channel;
 		this.content = content;
-		this.upVotes = 0;
-		this.date = LocalDate.now();
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public Channel getChannel() {
-		return channel;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public int getUpVotes() {
-		return upVotes;
-	}
-
-	public void setUpVotes(int votes) {
-		upVotes = votes;
-	}
-
-	public LocalDate getDate() {
-		return date;
+		upVotes = 0;
+		date = LocalDate.now();
 	}
 
 	public void upVote() {

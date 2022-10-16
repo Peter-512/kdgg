@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Channels</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="icon" th:href="@{/images/icon.png}">
+</head>
+<body>
+<header>
+	<a th:href="@{/}">
+		<img alt="icon" th:src="@{/images/icon.png}">
+		<h1>kdGG</h1>
+	</a>
+</header>
+<a th:href="users">
+	<button>Users</button>
+</a>
+<table>
+	<tr>
+		<th>Channel name</th>
+		<th>Channel description</th>
+	</tr>
+	<tr th:each="channel: ${channels}">
+		<td th:text="${channel.getName()}"></td>
+		<td th:text="${channel.getDescription()}"></td>
+	</tr>
+</table>
+
+</body>
+</html>

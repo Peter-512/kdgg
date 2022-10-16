@@ -1,9 +1,14 @@
 package be.kdg.programming3.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class User {
 	transient private List<Channel> channels;
 	transient private List<Post> posts;
@@ -17,26 +22,6 @@ public class User {
 		this.name = name;
 		this.birthdate = birthDate;
 		this.role = role;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public LocalDate getBirthdate() {
-		return birthdate;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public List<Channel> getChannels() {
-		return channels;
-	}
-
-	public List<Post> getPosts() {
-		return posts;
 	}
 
 	public void createPost(Channel channel, String content) {

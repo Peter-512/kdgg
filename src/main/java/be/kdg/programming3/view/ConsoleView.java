@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component ("consoleView")
+@Component
 public class ConsoleView implements View {
 	private final ChatService chatService;
 	private final Presenter presenter;

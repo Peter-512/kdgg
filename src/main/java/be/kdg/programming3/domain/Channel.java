@@ -1,8 +1,13 @@
 package be.kdg.programming3.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class Channel {
 	private final List<User> users;
 	private final List<Post> posts;
@@ -18,32 +23,12 @@ public class Channel {
 		this.description = description;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public List<Post> getPosts() {
-		return posts;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public double getUpVotesRatio() {
-		return upVotesRatio;
-	}
-
 	public void createPost(Post post) {
 		posts.add(post);
 	}
 
 	public void addUser(User user) {
 		users.add(user);
-	}
-
-	public String getDescription() {
-		return description;
 	}
 
 	@Override

@@ -5,12 +5,12 @@ import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
 import be.kdg.programming3.repository.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
+@Service
 public class ChatServiceImpl implements ChatService {
 	private final ChatRepository chatFactory;
 
