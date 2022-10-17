@@ -28,7 +28,9 @@ test:
 
 
 pages:
-  script: []
+  script: [
+    build
+  ]
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
