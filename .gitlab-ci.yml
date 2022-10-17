@@ -28,9 +28,7 @@ test:
 
 
 pages:
-  script: [
-    build
-  ]
+  script: gradle --build-cache assemble
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
