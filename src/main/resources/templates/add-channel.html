@@ -2,22 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Adding a channel</title>
-	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<title>Adding a channel...</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body>
-<h2>Adding a channel...</h2>
-<form method="post">
-	<label for="name">Channel name:</label>
-	<input id="name" name="name" required type="text" />
-	<label for="description">Description:</label>
-	<textarea cols="80"
+<body class="my-3 w-75 mx-auto bg-dark text-light">
+
+<th:block th:insert="~{fragments::nav(4)}"></th:block>
+
+<h2 class="my-2">Adding a channel...</h2>
+<form class="my-5 d-flex flex-column align-items-start" method="post" th:action="@{/channels}">
+	<label class="form-label" for="name">Channel name:</label>
+	<input class="form-text form-control border-0 form-control-lg bg-black text-light"
+		   id="name"
+		   name="name"
+		   required
+		   type="text" />
+	<label class="form-label mt-3" for="description">Description:</label>
+	<textarea class="form-text form-control form-control-lg bg-black text-light" cols="80"
 			  id="description"
 			  name="description"
 			  required
 			  rows="5">This is your channel description...</textarea>
-	<input type="submit" value="Submit" />
+	<input class="btn btn-primary mt-4" type="submit" value="Submit" />
 </form>
+
+<th:block th:insert="~{fragments::footer}"></th:block>
+
 </body>
 </html>

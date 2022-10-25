@@ -2,48 +2,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" th:href="@{/css/styles.css}">
-	<link rel="icon" th:href="@{/images/icon.png}">
 	<title>kdGG</title>
+	<link rel="icon" th:href="@{/images/icon.png}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body>
-<header>
-	<a th:href="@{/}">
-		<img alt="icon" th:src="@{/images/icon.png}">
-		<h1>kdGG</h1>
-	</a>
-</header>
+<body class="my-3 w-75 mx-auto bg-dark text-light">
 
-<a th:href="channels">
-	<button>Channels</button>
-</a>
-<a th:href="users">
-	<button>Users</button>
-</a>
-<a th:href="add-channel">
-	<button>Add Channel</button>
-</a>
-<a th:href="add-user">
-	<button>Add User</button>
-</a>
+<th:block th:insert="~{fragments::nav(1)}"></th:block>
+
+<!--<h1 th:utext="#{messages.Adding}">Adding</h1>-->
 
 <main>
-	<section th:each="channel: ${chatService.getChannels()}">
-		<h2 th:text="${channel.getName()}"></h2>
-		<h4 th:text="${channel.getDescription()}"></h4>
-		<section class="post" th:each="post: ${channel.getPosts()}">
-			<div class="upVotes-wrapper">
-				<span class="arrow">&uarr;</span>
-				<span class="upVotes" th:text="${post.getUpVotes()}"></span>
-				<span class="arrow">&darr;</span>
-			</div>
-			<article>
-				<span class="username" th:text="${post.getUser().getName()}"></span>
-				<span class="date" th:text="${post.getDate()}"></span>
-				<p th:text="${post.getContent()}"></p>
-			</article>
+	<section class="my-5" th:each="channel: ${chatService.getChannels()}">
+		<h2><a class="text-info text-decoration-none"
+			   th:href="@{/channels/{channelName}(channelName=${channel.getName()})}"
+			   th:text="${channel.getName()}"></a></h2>
+		<h4 class="text-secondary" th:text="${channel.getDescription()}"></h4>
+		<section class="my-3 d-flex flex-row gap-2 align-items-center" th:each="post: ${channel.getPosts()}">
+			<th:block th:insert="~{fragments::post(${post})}"></th:block>
 		</section>
 	</section>
 </main>
+
+<th:block th:insert="~{fragments::footer}"></th:block>
+
 </body>
 </html>

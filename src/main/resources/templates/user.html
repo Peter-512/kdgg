@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${username}"></title>
+	<link rel="icon" th:href="@{/images/icon.png}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="my-3 w-75 mx-auto bg-dark text-light">
+
+<th:block th:insert="~{fragments::nav(0)}"></th:block>
+
+<main class="my-5">
+	<h1 th:text="${user.getName()}"></h1>
+	<h3 class="text-secondary" th:text="${user.getRole()}"></h3>
+	<h5 th:text="${user.getBirthdate().format(dateFormatter)}"></h5>
+
+	<hr class="border-info border border-2">
+
+	<h6>Channels:</h6>
+	<article th:unless="${#lists.size(user.getChannels())>0}"><span th:text="${username}"></span> is not part of any
+																								  channel yet...
+	</article>
+	<ul class="list-group align-items-sm-start" th:each="channel: ${user.getChannels()}">
+		<li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-start my-1">
+			<a class="ms-2 me-auto"
+			   th:href="@{/channels/{channelName}(channelName=${channel.getName()})}"
+			   th:text="${channel.getName()}"></a>
+			<span class="badge bg-danger rounded-pill ms-3" th:text="${channel.getPosts().size()}"></span>
+		</li>
+	</ul>
+</main>
+
+<th:block th:insert="~{fragments::footer}"></th:block>
+
+</body>
+</html>

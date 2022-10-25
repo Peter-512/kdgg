@@ -3,30 +3,37 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Users</title>
-	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<link rel="icon" th:href="@{/images/icon.png}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body>
-<header>
-	<a th:href="@{/}">
-		<img alt="icon" th:src="@{/images/icon.png}">
-		<h1>kdGG</h1>
-	</a>
-</header>
-<a th:href="channels">
-	<button>Channel</button>
-</a>
-<table>
+<body class="my-3 w-75 mx-auto bg-dark text-light">
+
+<th:block th:insert="~{fragments::nav(3)}"></th:block>
+
+<table class="table table-dark table-striped table-hover my-5">
+	<thead>
 	<tr>
 		<th>Username</th>
 		<th>Role</th>
 		<th>Birthdate</th>
 	</tr>
+	</thead>
+	<tbody class="table-group-divider">
 	<tr th:each="user: ${users}">
-		<td th:text="${user.getName()}"></td>
+		<td><a class="text-decoration-none"
+			   th:href="@{/users/{username}(username=${user.getName()})}"
+			   th:text="${user.getName()}">></a>
+		</td>
 		<td th:text="${user.getRole()}"></td>
-		<td th:text="${user.getBirthdate()}"></td>
+		<td th:text="${user.getBirthdate().format(dateFormatter)}"></td>
 	</tr>
+	</tbody>
 </table>
+
+<th:block th:insert="~{fragments::footer}"></th:block>
+
 </body>
 </html>

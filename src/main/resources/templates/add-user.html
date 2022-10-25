@@ -3,21 +3,45 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Adding a user</title>
-	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<link rel="icon" th:href="@{/images/icon.png}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body>
-<h2>Adding a user...</h2>
-<form method="post">
-	<label for="name">Username:</label>
-	<input id="name" name="name" required th:placeholder="${faker.funnyName().name()}" type="text" />
-	<label for="birthdate">Birthdate:</label>
-	<input id="birthdate" name="birthdate" required type="date">
-	<label for="role">Role:</label>
-	<select id="role" name="role">
-		<option th:each="role: ${roles}" th:text="${role}" th:value="${role}"></option>
+<body class="my-3 w-75 mx-auto bg-dark text-light">
+
+<th:block th:insert="~{fragments::nav(5)}"></th:block>
+
+<h2 class="my-2">Adding a user...</h2>
+<form class="my-5 d-flex flex-column align-items-start" method="post" th:action="@{/users}">
+	<label class="form-label" for="name">Username:</label>
+	<input class="form-control form-control-lg form-text border-0 bg-black text-light"
+		   id="name"
+		   name="name"
+		   required
+		   th:placeholder="${faker.funnyName().name()}"
+		   type="text" />
+	<label class="form-label mt-3" for="birthdate">Birthdate:</label>
+	<input class="form-control form-control-lg border-0 bg-black text-light"
+		   id="birthdate"
+		   name="birthdate"
+		   required
+		   style="color-scheme: dark"
+		   type="date">
+	<label class="form-label mt-3" for="role">Role:</label>
+	<select class="form-control form-control-lg w-auto border-0 bg-black text-light form-select"
+			id="role"
+			name="role">
+		<option th:each="role: ${roles}"
+				th:text="${role}"
+				th:value="${role}"></option>
 	</select>
-	<input type="submit" value="Submit" />
+
+	<input class="btn btn-primary mt-4" type="submit" value="Submit" />
 </form>
+
+<th:block th:insert="~{fragments::footer}"></th:block>
+
 </body>
 </html>

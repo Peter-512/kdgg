@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Fragments</title>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark" th:fragment="nav(index)">
+	<div class="container-fluid">
+		<a class="navbar-brand" th:href="@{/}">
+			<img alt="Logo" class="" th:height="50" th:src="@{/images/icon.png}">
+			kdGG
+		</a>
+		<button aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+				class="navbar-toggler"
+				data-bs-target="#navbarSupportedContent"
+				data-bs-toggle="collapse"
+				type="button">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a th:class="${index==1}?'nav-link active':'nav-link'"
+					   th:href="@{/}"><i class="me-1 bi-house-fill"></i>Home</a>
+				</li>
+				<li class="nav-item">
+					<a th:class="${index==2}?'nav-link active':'nav-link'"
+					   th:href="@{/channels}"><i class="me-1 bi-chat-dots-fill"></i>Channels</a>
+				</li>
+				<li class="nav-item">
+					<a th:class="${index==3}?'nav-link active':'nav-link'"
+					   th:href="@{/users}"><i class="me-1 bi-people-fill"></i>Users</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a aria-expanded="false"
+					   data-bs-toggle="dropdown"
+					   href="#"
+					   role="button"
+					   th:class="${index==4||index==5}?'nav-link active dropdown-toggle':'nav-link dropdown-toggle'">
+						<i class="bi-plus-circle-fill"></i>
+						Adding
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark">
+						<li><a th:class="${index==4}?'dropdown-item active':'dropdown-item'" th:href="@{/channels/add}">Channel</a>
+						</li>
+						<li><a th:class="${index==5}?'dropdown-item active':'dropdown-item'"
+							   th:href="@{/users/add}">User</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<th:block th:fragment="post(post)">
+	<div class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
+		 style="width: 50px">
+		<span class="text-success">&uarr;</span>
+		<span class="text-warning" th:text="${post.getUpVotes()}"></span>
+		<span class="text-danger">&darr;</span>
+	</div>
+	<article style="width: calc(100% - 50px)">
+		<a class="text-decoration-none"
+		   th:href="@{/users/{username}(username=${post.getUser().getName()})}"
+		   th:text="${post.getUser().getName()}"></a>
+		<span class="text-secondary" th:text="${post.getDate().format(dateFormatter)}"></span>
+		<p class="m-0" th:text="${post.getContent()}"></p>
+	</article>
+</th:block>
+
+<footer class="modal-footer m-2" th:fragment="footer">
+	&copy; kdGG
+</footer>
+
+
+</body>
+</html>

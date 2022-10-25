@@ -13,7 +13,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -32,18 +31,21 @@ public class FakeChatRepository implements ChatRepository {
 	}
 
 	public void seed() {
-		Random random = new Random();
 		Faker faker = new Faker();
+		channels.add(new Channel("DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
 		channels.addAll(Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda().quote()))
 		                      .limit(INITIAL_CHANNELS)
 		                      .toList());
+
+		final User peter = new User("peter.buschenreiter", LocalDate.of(1992, 11, 19), Role.Admin);
+		users.add(peter);
+		channels.stream().filter(channel -> Math.random() < 0.6).forEach(peter::joinChannel);
 
 		users.addAll(Stream.generate(() -> {
 			final User user = new User(faker.name().username(), LocalDate.ofInstant(faker.date()
 			                                                                             .birthday()
 			                                                                             .toInstant(), ZoneId.systemDefault()), Role.randomRole());
-			final Channel channel = channels.get(random.nextInt(channels.size()));
-			user.joinChannel(channel);
+			channels.stream().filter(channel -> Math.random() < 0.6).forEach(user::joinChannel);
 			return user;
 		}).limit(INITIAL_USERS).toList());
 
@@ -52,14 +54,13 @@ public class FakeChatRepository implements ChatRepository {
 			List<Post> posts = Stream.generate(() -> new Post(
 					                         faker.options().option(userArr),
 					                         channel,
-					                         faker.lorem().sentence(),
+					                         faker.elderScrolls().quote(),
 					                         faker.number().numberBetween(-20, 200),
 					                         LocalDate.ofInstant(faker.date()
 					                                                  .past(730, TimeUnit.DAYS)
 					                                                  .toInstant(), ZoneId.systemDefault())))
 			                         .limit(faker.number().numberBetween(MIN_INITIAL_POSTS, MAX_INITIAL_POSTS))
 			                         .toList();
-			posts.forEach(post -> post.setUpVotes(faker.number().numberBetween(-10, 100)));
 			channel.getPosts()
 			       .addAll(posts.stream()
 			                    .sorted(Comparator.comparing(Post::getDate))

@@ -3,31 +3,37 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Channels</title>
-	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<link rel="icon" th:href="@{/images/icon.png}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body>
-<header>
-	<a th:href="@{/}">
-		<img alt="icon" th:src="@{/images/icon.png}">
-		<h1>kdGG</h1>
-	</a>
-</header>
-<a th:href="users">
-	<button>Users</button>
-</a>
-<table>
-	<tr>
-		<th>Channel name</th>
+<body class="my-3 w-75 mx-auto bg-dark text-light">
+
+<th:block th:insert="~{fragments::nav(2)}"></th:block>
+
+<table class="table table-dark table-striped table-hover my-5">
+	<thead>
+	<tr class="table-header">
+		<th class="text-nowrap">Channel name</th>
 		<th>Channel description</th>
-		<th>Upvote Ratio</th>
+		<th class="text-nowrap">Upvote ratio</th>
 	</tr>
+	</thead>
+	<tbody class="table-group-divider">
 	<tr th:each="channel: ${channels}">
-		<td th:text="${channel.getName()}"></td>
-		<td style="max-width: 60%" th:text="${channel.getDescription()}"></td>
+		<td>
+			<a class="text-decoration-none" th:href="@{/channels/{channelName}(channelName=${channel.getName()})}"
+			   th:text="${channel.getName()}"></a>
+		</td>
+		<td th:text="${channel.getDescription()}"></td>
 		<td th:text="${#numbers.formatDecimal(channel.getUpVotesRatio(), 1, 2)}"></td>
 	</tr>
+	</tbody>
 </table>
+
+<th:block th:insert="~{fragments::footer}"></th:block>
 
 </body>
 </html>

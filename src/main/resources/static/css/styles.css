@@ -1,12 +1,12 @@
-:root {
-    --background: #0A1A2B;
-    --primary: #E20077;
-    --accenct: #F300F9;
-    --secondary: #626871;
-    --tertiary: #EC7383;
-    --accent-dark: #261A30;
-    --text: #CEBAD3;
-}
+/*:root {*/
+/*    --background: #0A1A2B;*/
+/*    --primary: #E20077;*/
+/*    --accenct: #F300F9;*/
+/*    --secondary: #626871;*/
+/*    --tertiary: #EC7383;*/
+/*    --accent-dark: #261A30;*/
+/*    --text: #CEBAD3;*/
+/*}*/
 
 @font-face {
     font-family: moon;
@@ -14,137 +14,5 @@
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: var(--text);
     font-family: moon, serif;
-}
-
-html {
-    background: var(--background);
-}
-
-body {
-    max-width: 1000px;
-    margin: 1em auto;
-}
-
-h2 {
-    color: var(--primary);
-}
-
-h4 {
-    margin-bottom: 0.5em;
-    color: var(--accenct);
-}
-
-main > section {
-    margin: 1em 0;
-}
-
-main > section > section {
-    margin: 0.25em 0;
-}
-
-
-.username {
-    color: var(--tertiary);
-}
-
-p {
-    color: var(--text);
-}
-
-.date, .upVotes {
-    color: var(--secondary);
-}
-
-header {
-    margin: 1.5em 0;
-    color: var(--primary);
-}
-
-header a {
-    display: flex;
-    height: 50px;
-    align-items: center;
-    gap: 1em;
-}
-
-img {
-    height: inherit;
-}
-
-a {
-    text-decoration: none;
-    color: unset;
-}
-
-button, input[type=submit] {
-    font-size: 1.25em;
-    background: var(--primary);
-    color: var(--accent-dark);
-    padding: 0.5em;
-    border-radius: 8px;
-    border: none;
-    margin: 0.5em
-}
-
-button:hover, input[type=submit]:hover {
-    box-shadow: 0 0 20px 4px var(--primary);
-    cursor: pointer;
-}
-
-table {
-    border-spacing: 1em;
-}
-
-th {
-    color: var(--tertiary)
-}
-
-.post {
-    display: flex;
-    gap: 1em;
-}
-
-.upVotes-wrapper {
-    justify-content: center;
-    width: 6%;
-    display: flex;
-    gap: 4px;
-}
-
-.arrow {
-    color: var(--accenct);
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 4px;
-    margin: 1em 0;
-}
-
-input[type=text], textarea, input[type=date], select {
-    border-radius: 8px;
-    padding: 4px;
-    color: var(--tertiary);
-    background: var(--secondary);
-    border: none;
-}
-
-textarea {
-    resize: none;
-}
-
-input[type=text]:focus, textarea:focus, input[type=date]:focus, select {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--primary);
-}
-
-input[type=text]::placeholder, textarea::placeholder {
-    color: darkgray;
 }
