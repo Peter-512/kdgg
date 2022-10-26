@@ -65,14 +65,14 @@
 						<li>
 							<a th:class="${index==4}?'dropdown-item active':'dropdown-item'"
 							   th:href="@{/channels/add}"
-							   th:text="#{navbar.Channel}">
+							   th:utext="#{navbar.Channel}">
 								Channel
 							</a>
 						</li>
 						<li>
 							<a th:class="${index==5}?'dropdown-item active':'dropdown-item'"
 							   th:href="@{/users/add}"
-							   th:text="#{navbar.User}">
+							   th:utext="#{navbar.User}">
 								User
 							</a>
 						</li>
