@@ -29,26 +29,23 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
 					<a th:class="${index==1}?'nav-link active':'nav-link'"
-					   th:href="@{/}"
-					   th:utext="#{navbar.Home}">
-						<i class="me-1 bi-house-fill"></i>
-						Home
+					   th:href="@{/}">
+						<i class="bi-house-fill"></i>
+						<th:block th:text="#{navbar.Home}">Home</th:block>
 					</a>
 				</li>
 				<li class="nav-item">
 					<a th:class="${index==2}?'nav-link active':'nav-link'"
-					   th:href="@{/channels}"
-					   th:utext="#{navbar.Channels}">
-						<i class="me-1 bi-chat-dots-fill"></i>
-						Channels
+					   th:href="@{/channels}">
+						<i class="bi-chat-dots-fill"></i>
+						<th:block th:text="#{navbar.Channels}">Channels</th:block>
 					</a>
 				</li>
 				<li class="nav-item">
 					<a th:class="${index==3}?'nav-link active':'nav-link'"
-					   th:href="@{/users}"
-					   th:utext="#{navbar.Users}">
-						<i class="me-1 bi-people-fill"></i>
-						Users
+					   th:href="@{/users}">
+						<i class="bi-people-fill"></i>
+						<th:block th:text="#{navbar.Users}">Users</th:block>
 					</a>
 				</li>
 				<li class="nav-item dropdown">
@@ -56,24 +53,23 @@
 					   data-bs-toggle="dropdown"
 					   href="#"
 					   role="button"
-					   th:class="${index==4||index==5}?'nav-link active dropdown-toggle':'nav-link dropdown-toggle'"
-					   th:utext="#{navbar.Adding}">
+					   th:class="${index==4||index==5}?'nav-link active dropdown-toggle':'nav-link dropdown-toggle'">
 						<i class="bi-plus-circle-fill"></i>
-						Adding
+						<th:block th:text="#{navbar.Adding}">Adding</th:block>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark">
 						<li>
 							<a th:class="${index==4}?'dropdown-item active':'dropdown-item'"
-							   th:href="@{/channels/add}"
-							   th:utext="#{navbar.Channel}">
-								Channel
+							   th:href="@{/channels/add}">
+								<i class="me-2 bi-people"></i>
+								<th:block th:text="#{navbar.Channel}">Channel</th:block>
 							</a>
 						</li>
 						<li>
 							<a th:class="${index==5}?'dropdown-item active':'dropdown-item'"
-							   th:href="@{/users/add}"
-							   th:utext="#{navbar.User}">
-								User
+							   th:href="@{/users/add}">
+								<i class="me-2 bi-chat-dots"></i>
+								<th:block th:text="#{navbar.User}">User</th:block>
 							</a>
 						</li>
 					</ul>
