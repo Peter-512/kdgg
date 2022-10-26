@@ -29,30 +29,53 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
 					<a th:class="${index==1}?'nav-link active':'nav-link'"
-					   th:href="@{/}"><i class="me-1 bi-house-fill"></i>Home</a>
+					   th:href="@{/}"
+					   th:utext="#{navbar.Home}">
+						<i class="me-1 bi-house-fill"></i>
+						Home
+					</a>
 				</li>
 				<li class="nav-item">
 					<a th:class="${index==2}?'nav-link active':'nav-link'"
-					   th:href="@{/channels}"><i class="me-1 bi-chat-dots-fill"></i>Channels</a>
+					   th:href="@{/channels}"
+					   th:utext="#{navbar.Channels}">
+						<i class="me-1 bi-chat-dots-fill"></i>
+						Channels
+					</a>
 				</li>
 				<li class="nav-item">
 					<a th:class="${index==3}?'nav-link active':'nav-link'"
-					   th:href="@{/users}"><i class="me-1 bi-people-fill"></i>Users</a>
+					   th:href="@{/users}"
+					   th:utext="#{navbar.Users}">
+						<i class="me-1 bi-people-fill"></i>
+						Users
+					</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a aria-expanded="false"
 					   data-bs-toggle="dropdown"
 					   href="#"
 					   role="button"
-					   th:class="${index==4||index==5}?'nav-link active dropdown-toggle':'nav-link dropdown-toggle'">
+					   th:class="${index==4||index==5}?'nav-link active dropdown-toggle':'nav-link dropdown-toggle'"
+					   th:utext="#{navbar.Adding}">
 						<i class="bi-plus-circle-fill"></i>
 						Adding
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark">
-						<li><a th:class="${index==4}?'dropdown-item active':'dropdown-item'" th:href="@{/channels/add}">Channel</a>
+						<li>
+							<a th:class="${index==4}?'dropdown-item active':'dropdown-item'"
+							   th:href="@{/channels/add}"
+							   th:text="#{navbar.Channel}">
+								Channel
+							</a>
 						</li>
-						<li><a th:class="${index==5}?'dropdown-item active':'dropdown-item'"
-							   th:href="@{/users/add}">User</a></li>
+						<li>
+							<a th:class="${index==5}?'dropdown-item active':'dropdown-item'"
+							   th:href="@{/users/add}"
+							   th:text="#{navbar.User}">
+								User
+							</a>
+						</li>
 					</ul>
 				</li>
 			</ul>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Channels</title>
+	<title th:text="#{messages.Channels}">Channels</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -16,9 +16,9 @@
 <table class="table table-dark table-striped table-hover my-5">
 	<thead>
 	<tr class="table-header">
-		<th class="text-nowrap">Channel name</th>
-		<th>Channel description</th>
-		<th class="text-nowrap">Upvote ratio</th>
+		<th class="text-nowrap" th:text="#{messages.Channel_name}">Channel name</th>
+		<th th:text="#{messages.Channel_description}">Channel description</th>
+		<th class="text-nowrap" th:text="#{messages.Upvote_ratio}">Upvote ratio</th>
 	</tr>
 	</thead>
 	<tbody class="table-group-divider">

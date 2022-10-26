@@ -13,8 +13,6 @@
 
 <th:block th:insert="~{fragments::nav(1)}"></th:block>
 
-<!--<h1 th:utext="#{messages.Adding}">Adding</h1>-->
-
 <main>
 	<section class="my-5" th:each="channel: ${chatService.getChannels()}">
 		<h2><a class="text-info text-decoration-none"

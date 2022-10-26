@@ -20,9 +20,9 @@
 
 	<hr class="border-info border border-2">
 
-	<h6>Channels:</h6>
-	<article th:unless="${#lists.size(user.getChannels())>0}"><span th:text="${username}"></span> is not part of any
-																								  channel yet...
+	<h6 th:text="#{messages.Channels}">Channels</h6>
+	<article th:text="#{messages.No_channels_yet}" th:unless="${#lists.size(user.getChannels())>0}">
+		<span th:text="${username}"></span> is not part of any channel yet...
 	</article>
 	<ul class="list-group align-items-sm-start" th:each="channel: ${user.getChannels()}">
 		<li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-start my-1">

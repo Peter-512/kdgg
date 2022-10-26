@@ -20,7 +20,7 @@
 </header>
 <div class="d-flex flex-row my-5">
 	<main class="col-12 col-md-9" th:switch="${#lists.size(channel.getPosts())}">
-		<h1 th:case="0">No posts yet!<i class="ms-3 bi-emoji-dizzy"></i></h1>
+		<h1 th:case="0" th:text="#{messages.No_posts_yet}">No posts yet!<i class="ms-3 bi-emoji-dizzy"></i></h1>
 		<th:block th:case="*">
 			<article class="d-flex flex-row" th:each="post: ${channel.getPosts()}">
 				<th:block th:insert="~{fragments::post(${post})}"></th:block>
@@ -30,7 +30,8 @@
 
 	<aside class="d-none d-md-block ms-3 col-3" th:if="${#lists.size(channel.getUsers())>0}">
 		<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white rounded">
-			<span class="d-flex align-items-center flex-shrink-0 p-3 border-bottom fs-5 fw-semibold text-dark">
+			<span class="d-flex align-items-center flex-shrink-0 p-3 border-bottom fs-5 fw-semibold text-dark"
+				  th:utext="#{navbar.Users}">
 				<i class="bi-people me-2"></i>
 				Users
 			</span>
