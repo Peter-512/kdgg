@@ -22,7 +22,7 @@
 	<main class="col-12 col-md-9" th:switch="${#lists.size(channel.getPosts())}">
 		<h1 th:case="0" th:text="#{messages.No_posts_yet}">No posts yet!<i class="ms-3 bi-emoji-dizzy"></i></h1>
 		<th:block th:case="*">
-			<article class="d-flex flex-row" th:each="post: ${channel.getPosts()}">
+			<article class="d-flex flex-row my-3" th:each="post: ${channel.getPosts()}">
 				<th:block th:insert="~{fragments::post(${post})}"></th:block>
 			</article>
 		</th:block>
