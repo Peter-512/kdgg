@@ -1,7 +1,7 @@
 package be.kdg.programming3.presentation;
 
 
-import be.kdg.programming3.service.ChatService;
+import be.kdg.programming3.service.ChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +16,18 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping
 public class HomeController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private final ChatService chatService;
+	private final ChannelService channelService;
 
 	@Autowired
-	public HomeController(ChatService chatService) {
-		this.chatService = chatService;
+	public HomeController(ChannelService chatService) {
+		this.channelService = chatService;
 	}
 
 	@GetMapping
 	public ModelAndView showHomeView() {
 		logger.info("Controller is running showHomeView!");
 		final ModelAndView modelAndView = new ModelAndView("index");
-		modelAndView.addObject("chatService", chatService);
+		modelAndView.addObject("channels", channelService.getChannels());
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
 		return modelAndView;
 	}

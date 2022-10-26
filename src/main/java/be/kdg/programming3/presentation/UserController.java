@@ -1,7 +1,7 @@
 package be.kdg.programming3.presentation;
 
 import be.kdg.programming3.domain.Role;
-import be.kdg.programming3.service.ChatService;
+import be.kdg.programming3.service.UserService;
 import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,18 +17,18 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping ("/users")
 public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private final ChatService chatService;
+	private final UserService userService;
 
 	@Autowired
-	public UserController(ChatService chatService) {
-		this.chatService = chatService;
+	public UserController(UserService chatService) {
+		this.userService = chatService;
 	}
 
 	@GetMapping
 	public ModelAndView showUsersView() {
 		logger.info("Controller is running showUsersView!");
 		final ModelAndView modelAndView = new ModelAndView("users");
-		modelAndView.addObject("users", chatService.getUsers());
+		modelAndView.addObject("users", userService.getUsers());
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
 		return modelAndView;
 	}
@@ -37,7 +37,7 @@ public class UserController {
 	public ModelAndView showUserView(@PathVariable String username) {
 		logger.info(String.format("Controller is running showUserView with user %s!", username));
 		final ModelAndView modelAndView = new ModelAndView("user");
-		modelAndView.addObject("user", chatService.getUser(username));
+		modelAndView.addObject("user", userService.getUser(username));
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
 		return modelAndView;
 	}
@@ -57,7 +57,7 @@ public class UserController {
 			@RequestParam ("birthdate") @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate birthdate,
 			@RequestParam ("role") Role role) {
 		logger.info("Controller is running processAddChannel!");
-		chatService.addUser(name, birthdate, role);
+		userService.addUser(name, birthdate, role);
 		return new ModelAndView("redirect:users");
 	}
 }

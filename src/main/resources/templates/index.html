@@ -14,7 +14,7 @@
 <th:block th:insert="~{fragments::nav(1)}"></th:block>
 
 <main>
-	<section class="my-5" th:each="channel: ${chatService.getChannels()}">
+	<section class="my-5" th:each="channel: ${channels}">
 		<h2><a class="text-info text-decoration-none"
 			   th:href="@{/channels/{channelName}(channelName=${channel.getName()})}"
 			   th:text="${channel.getName()}"></a></h2>

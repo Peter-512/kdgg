@@ -6,50 +6,73 @@ import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-@Repository
-public class FakeChatRepository implements ChatRepository {
+@Component
+public class DataBaseSeeder implements CommandLineRunner {
 	private static final int INITIAL_CHANNELS = 5;
 	private static final int INITIAL_USERS = 25;
-	private static final int MAX_INITIAL_POSTS = 100;
 	private static final int MIN_INITIAL_POSTS = 20;
-	public List<User> users = new ArrayList<>();
-	public List<Channel> channels = new ArrayList<>();
+	private static final int MAX_INITIAL_POSTS = 100;
+	private final int PERCENT = 60;
+	private final ChannelRepository channelRepository;
+	private final UserRepository userRepository;
 
 	@Autowired
-	public FakeChatRepository() {
+	public DataBaseSeeder(ChannelRepository channelRepository, UserRepository userRepository) {
+		this.channelRepository = channelRepository;
+		this.userRepository = userRepository;
+	}
+
+	@Override
+	public void run(String... args) {
 		seed();
 	}
 
-	public void seed() {
+	private void seed() {
+		seedChannels();
+		seedUsers();
+		seedPosts();
+	}
+
+	private void seedChannels() {
 		Faker faker = new Faker();
-		channels.add(new Channel("DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
-		channels.addAll(Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda().quote()))
-		                      .limit(INITIAL_CHANNELS)
-		                      .toList());
+
+		channelRepository.readChannels()
+		                 .add(new Channel("DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
+		channelRepository.readChannels()
+		                 .addAll(Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda().quote()))
+		                               .limit(INITIAL_CHANNELS)
+		                               .toList());
+	}
+
+	private void seedUsers() {
+		Faker faker = new Faker();
 
 		final User peter = new User("peter.buschenreiter", LocalDate.of(1992, 11, 19), Role.Admin);
-		users.add(peter);
-		channels.stream().filter(channel -> Math.random() < 0.6).forEach(peter::joinChannel);
+		userRepository.readUsers().add(peter);
+		channelRepository.readChannels().stream().filter(channel -> randomizer(PERCENT)).forEach(peter::joinChannel);
 
-		users.addAll(Stream.generate(() -> {
+		userRepository.readUsers().addAll(Stream.generate(() -> {
 			final User user = new User(faker.name().username(), LocalDate.ofInstant(faker.date()
 			                                                                             .birthday()
 			                                                                             .toInstant(), ZoneId.systemDefault()), Role.randomRole());
-			channels.stream().filter(channel -> Math.random() < 0.6).forEach(user::joinChannel);
+			channelRepository.readChannels().stream().filter(channel -> randomizer(PERCENT)).forEach(user::joinChannel);
 			return user;
 		}).limit(INITIAL_USERS).toList());
+	}
 
-		channels.forEach(channel -> {
+	private void seedPosts() {
+		Faker faker = new Faker();
+		channelRepository.readChannels().forEach(channel -> {
 			final User[] userArr = channel.getUsers().toArray(new User[0]);
 			List<Post> posts = Stream.generate(() -> new Post(
 					                         faker.options().option(userArr),
@@ -69,40 +92,8 @@ public class FakeChatRepository implements ChatRepository {
 		});
 	}
 
-	@Override
-	public Channel createChannel(Channel channel) {
-		channels.add(channel);
-		return channel;
-	}
-
-	@Override
-	public List<Channel> readChannels() {
-		return channels;
-	}
-
-	@Override
-	public User createUser(User user) {
-		users.add(user);
-		return user;
-	}
-
-	@Override
-	public List<User> readUsers() {
-		return users;
-	}
-
-	@Override
-	public boolean deleteUser(User user) {
-		return users.removeIf(u -> u == user);
-	}
-
-	@Override
-	public boolean deleteChannel(Channel channel) {
-		return true;
-	}
-
-	@Override
-	public boolean deletePost(Post post) {
-		return true;
+	private boolean randomizer(int percent) {
+		double cutoff = (double) percent / 100;
+		return Math.random() < cutoff;
 	}
 }

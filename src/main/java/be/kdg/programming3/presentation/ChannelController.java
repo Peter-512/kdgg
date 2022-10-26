@@ -1,7 +1,7 @@
 package be.kdg.programming3.presentation;
 
 import be.kdg.programming3.domain.Channel;
-import be.kdg.programming3.service.ChatService;
+import be.kdg.programming3.service.ChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +14,18 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping ("/channels")
 public class ChannelController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private final ChatService chatService;
+	private final ChannelService channelService;
 
 	@Autowired
-	public ChannelController(ChatService chatService) {
-		this.chatService = chatService;
+	public ChannelController(ChannelService chatService) {
+		this.channelService = chatService;
 	}
 
 	@GetMapping
 	public ModelAndView showChannelsView() {
 		logger.info("Controller is running showChannelsView!");
 		final ModelAndView modelAndView = new ModelAndView("channels");
-		modelAndView.addObject("channels", chatService.getChannels());
+		modelAndView.addObject("channels", channelService.getChannels());
 		return modelAndView;
 	}
 
@@ -33,7 +33,7 @@ public class ChannelController {
 	public ModelAndView showChannelView(@PathVariable String channelName) {
 		logger.info(String.format("Controller is running showChannelView with channel %s!", channelName));
 		final ModelAndView modelAndView = new ModelAndView("channel");
-		modelAndView.addObject("channel", chatService.getChannel(channelName));
+		modelAndView.addObject("channel", channelService.getChannel(channelName));
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
 		return modelAndView;
 	}
@@ -47,7 +47,7 @@ public class ChannelController {
 	@PostMapping
 	public ModelAndView processAddChannel(Channel channel) {
 		logger.info("Controller is running processAddChannel!");
-		chatService.addChannel(channel.getName(), channel.getDescription());
+		channelService.addChannel(channel.getName(), channel.getDescription());
 		return new ModelAndView("redirect:channels");
 	}
 }
