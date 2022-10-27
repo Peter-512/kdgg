@@ -23,6 +23,7 @@ public class DataBaseSeeder implements CommandLineRunner {
 	private static final int MIN_INITIAL_POSTS = 20;
 	private static final int MAX_INITIAL_POSTS = 100;
 	private final int PERCENT = 60;
+	private final Faker faker;
 	private final ChannelRepository channelRepository;
 	private final UserRepository userRepository;
 
@@ -30,6 +31,7 @@ public class DataBaseSeeder implements CommandLineRunner {
 	public DataBaseSeeder(ChannelRepository channelRepository, UserRepository userRepository) {
 		this.channelRepository = channelRepository;
 		this.userRepository = userRepository;
+		faker = new Faker();
 	}
 
 	@Override
@@ -44,8 +46,6 @@ public class DataBaseSeeder implements CommandLineRunner {
 	}
 
 	private void seedChannels() {
-		Faker faker = new Faker();
-
 		channelRepository.readChannels()
 		                 .add(new Channel("DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
 		channelRepository.readChannels()
@@ -55,8 +55,6 @@ public class DataBaseSeeder implements CommandLineRunner {
 	}
 
 	private void seedUsers() {
-		Faker faker = new Faker();
-
 		final User peter = new User("peter.buschenreiter", LocalDate.of(1992, 11, 19), Role.Admin);
 		userRepository.readUsers().add(peter);
 		channelRepository.readChannels().stream().filter(channel -> randomizer(PERCENT)).forEach(peter::joinChannel);
@@ -71,7 +69,6 @@ public class DataBaseSeeder implements CommandLineRunner {
 	}
 
 	private void seedPosts() {
-		Faker faker = new Faker();
 		channelRepository.readChannels().forEach(channel -> {
 			final User[] userArr = channel.getUsers().toArray(new User[0]);
 			List<Post> posts = Stream.generate(() -> new Post(
