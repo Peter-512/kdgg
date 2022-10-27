@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ChannelServiceImpl implements ChannelService {
@@ -23,8 +24,11 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 
 	@Override
-	public Channel getChannel(String channelName) {
-		return getChannels().stream().filter(channel -> Objects.equals(channel.getName(), channelName)).toList().get(0);
+	public Optional<Channel> getChannel(String channelName) {
+		final List<Channel> channels = getChannels().stream()
+		                                            .filter(channel -> Objects.equals(channel.getName(), channelName))
+		                                            .toList();
+		return channels.isEmpty() ? Optional.empty() : Optional.of(channels.get(0));
 	}
 
 	@Override

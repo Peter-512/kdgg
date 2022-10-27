@@ -11,7 +11,7 @@
 </head>
 <body class="bg-dark text-light">
 <div class="vh-100 d-flex align-items-center flex-column justify-content-center">
-	<h1 class="" style="font-size: 150px" th:text="${status}">Error Code</h1>
+	<h1 class="" style="font-size: 150px" th:text="${status.getReasonPhrase()}">Error Code</h1>
 	<button class="btn btn-dark btn-lg m-5 btn-outline-light btn"
 			th:onclick="window.history.back()">
 		<i class="bi-caret-left"></i>

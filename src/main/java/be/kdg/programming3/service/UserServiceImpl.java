@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,8 +26,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(String username) {
-		return getUsers().stream().filter(user -> Objects.equals(user.getName(), username)).toList().get(0);
+	public Optional<User> getUser(String username) {
+		final List<User> users = getUsers().stream()
+		                                   .filter(user -> Objects.equals(user.getName(), username))
+		                                   .toList();
+		return users.isEmpty() ? Optional.empty() : Optional.of(users.get(0));
 	}
 
 	@Override

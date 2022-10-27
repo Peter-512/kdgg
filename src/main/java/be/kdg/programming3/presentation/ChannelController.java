@@ -5,20 +5,25 @@ import be.kdg.programming3.service.ChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @RestController
 @RequestMapping ("/channels")
 public class ChannelController {
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger;
 	private final ChannelService channelService;
+	private final ErrorController errorController;
 
 	@Autowired
 	public ChannelController(ChannelService chatService) {
 		this.channelService = chatService;
+		logger = LoggerFactory.getLogger(this.getClass());
+		errorController = new ErrorController();
 	}
 
 	@GetMapping
@@ -32,8 +37,14 @@ public class ChannelController {
 	@GetMapping ("/{channelName}")
 	public ModelAndView showChannelView(@PathVariable String channelName) {
 		logger.info(String.format("Controller is running showChannelView with channel %s!", channelName));
+		final Optional<Channel> channel = channelService.getChannel(channelName);
+		if (channel.isEmpty()) {
+			logger.error(String.format("No channel with name %s found.", channelName));
+			return errorController.showErrorView(HttpStatus.NOT_FOUND);
+		}
+
 		final ModelAndView modelAndView = new ModelAndView("channels/channel");
-		modelAndView.addObject("channel", channelService.getChannel(channelName));
+		modelAndView.addObject("channel", channel.get());
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
 		return modelAndView;
 	}
