@@ -24,7 +24,7 @@ public class ChannelController {
 	@GetMapping
 	public ModelAndView showChannelsView() {
 		logger.info("Controller is running showChannelsView!");
-		final ModelAndView modelAndView = new ModelAndView("channels");
+		final ModelAndView modelAndView = new ModelAndView("channels/channels");
 		modelAndView.addObject("channels", channelService.getChannels());
 		return modelAndView;
 	}
@@ -32,7 +32,7 @@ public class ChannelController {
 	@GetMapping ("/{channelName}")
 	public ModelAndView showChannelView(@PathVariable String channelName) {
 		logger.info(String.format("Controller is running showChannelView with channel %s!", channelName));
-		final ModelAndView modelAndView = new ModelAndView("channel");
+		final ModelAndView modelAndView = new ModelAndView("channels/channel");
 		modelAndView.addObject("channel", channelService.getChannel(channelName));
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
 		return modelAndView;
@@ -41,7 +41,7 @@ public class ChannelController {
 	@GetMapping ("/add")
 	public ModelAndView showAddChannelView() {
 		logger.info("Controller is running showAddChannelView!");
-		return new ModelAndView("add-channel");
+		return new ModelAndView("channels/add-channel");
 	}
 
 	@PostMapping

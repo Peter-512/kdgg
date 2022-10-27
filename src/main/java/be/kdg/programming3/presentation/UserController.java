@@ -27,7 +27,7 @@ public class UserController {
 	@GetMapping
 	public ModelAndView showUsersView() {
 		logger.info("Controller is running showUsersView!");
-		final ModelAndView modelAndView = new ModelAndView("users");
+		final ModelAndView modelAndView = new ModelAndView("users/users");
 		modelAndView.addObject("users", userService.getUsers());
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
 		return modelAndView;
@@ -36,7 +36,7 @@ public class UserController {
 	@GetMapping ("/{username}")
 	public ModelAndView showUserView(@PathVariable String username) {
 		logger.info(String.format("Controller is running showUserView with user %s!", username));
-		final ModelAndView modelAndView = new ModelAndView("user");
+		final ModelAndView modelAndView = new ModelAndView("users/user");
 		modelAndView.addObject("user", userService.getUser(username));
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
 		return modelAndView;
@@ -45,7 +45,7 @@ public class UserController {
 	@GetMapping ("/add")
 	public ModelAndView showAddUserView() {
 		logger.info("Controller is running showAddUserView!");
-		final ModelAndView modelAndView = new ModelAndView("add-user");
+		final ModelAndView modelAndView = new ModelAndView("users/add-user");
 		modelAndView.addObject("faker", new Faker());
 		modelAndView.addObject("roles", Role.values());
 		return modelAndView;
