@@ -29,7 +29,7 @@ public class UserController {
 	public UserController(UserService chatService) {
 		this.userService = chatService;
 		logger = LoggerFactory.getLogger(this.getClass());
-		dateTimeFormatter = DateTimeFormatter.ofPattern("d. LLLL yyyy");
+		dateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy");
 		errorController = new ErrorController();
 	}
 
