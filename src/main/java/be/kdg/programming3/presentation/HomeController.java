@@ -32,7 +32,7 @@ public class HomeController {
 		logger.info("Controller is running showHomeView!");
 		final ModelAndView modelAndView = new ModelAndView("index");
 		modelAndView.addObject("channels", channelService.getChannels());
-		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
+		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. M. yyyy"));
 		return modelAndView;
 	}
 

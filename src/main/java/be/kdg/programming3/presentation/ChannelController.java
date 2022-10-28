@@ -45,7 +45,7 @@ public class ChannelController {
 
 		final ModelAndView modelAndView = new ModelAndView("channels/channel");
 		modelAndView.addObject("channel", channel.get());
-		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. LLLL yyyy"));
+		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. MMMM yyyy"));
 		return modelAndView;
 	}
 
