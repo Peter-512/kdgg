@@ -8,9 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -61,8 +63,13 @@ public class ChannelController {
 	}
 
 	@PostMapping
-	public ModelAndView processAddChannel(Channel channel) {
+	public ModelAndView processAddChannel(@Valid @ModelAttribute ("channel") ChannelViewModel channel, BindingResult errors) { // @Valid @ModelAttribute ("channel") in front of channelViewModel
 		logger.info("Controller is running processAddChannel!");
+		if (errors.hasErrors()) {
+			errors.getAllErrors().forEach(error -> logger.error(error.toString()));
+			return new ModelAndView("channels/add-channel").addObject("faker", new Faker());
+		}
+
 		channelService.addChannel(channel.getName(), channel.getDescription());
 		return new ModelAndView("redirect:channels");
 	}
