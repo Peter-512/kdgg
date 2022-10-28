@@ -29,21 +29,22 @@
 		</th:block>
 	</main>
 
-	<aside class="d-none d-md-block ms-3 col-3" th:if="${#lists.size(channel.getUsers())>0}">
+	<aside class="d-none d-md-block mx-3 col-3" th:if="${#lists.size(channel.getUsers())>0}">
 		<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white rounded">
 			<span class="d-flex align-items-center flex-shrink-0 p-3 border-bottom fs-5 fw-semibold text-dark"
 				  th:utext="#{navbar.Users}">
 				<i class="bi-people me-2"></i>
 				Users
 			</span>
-			<div class="list-group list-group-flush border-bottom" th:each="user: ${channel.getUsers()}">
-				<div class="list-group-item list-group-item-dark py-3">
-					<a class="d-flex w-100 align-items-center justify-content-between text-decoration-none"
+			<ul class="list-group list-group-flush border-bottom rounded-bottom">
+				<li class="py-3 list-group-item list-group-item-dark"
+					th:each="user: ${channel.getUsers()}">
+					<a class="d-flex align-items-center justify-content-between text-decoration-none"
 					   th:href="@{/users/{username}(username=${user.getName()})}"
 					   th:text="${user.getName()}">
 					</a>
-				</div>
-			</div>
+				</li>
+			</ul>
 		</div>
 	</aside>
 </div>
