@@ -22,8 +22,8 @@ public class ChannelController {
 	private final ErrorController errorController;
 
 	@Autowired
-	public ChannelController(ChannelService chatService) {
-		this.channelService = chatService;
+	public ChannelController(ChannelService channelService) {
+		this.channelService = channelService;
 		logger = LoggerFactory.getLogger(this.getClass());
 		errorController = new ErrorController();
 	}

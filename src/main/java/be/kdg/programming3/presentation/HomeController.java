@@ -21,8 +21,8 @@ public class HomeController {
 	private final ErrorController errorController;
 
 	@Autowired
-	public HomeController(ChannelService chatService) {
-		this.channelService = chatService;
+	public HomeController(ChannelService channelService) {
+		this.channelService = channelService;
 		logger = LoggerFactory.getLogger(this.getClass());
 		errorController = new ErrorController();
 	}

@@ -26,8 +26,8 @@ public class UserController {
 	private final ErrorController errorController;
 
 	@Autowired
-	public UserController(UserService chatService) {
-		this.userService = chatService;
+	public UserController(UserService userService) {
+		this.userService = userService;
 		logger = LoggerFactory.getLogger(this.getClass());
 		dateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy");
 		errorController = new ErrorController();
