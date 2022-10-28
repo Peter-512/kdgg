@@ -20,6 +20,6 @@ public class ErrorController {
 	@ResponseStatus (value = HttpStatus.NOT_FOUND)
 	public ModelAndView showErrorView(HttpStatus status) {
 		logger.info(String.format("Controller is running showErrorView with status %s", status));
-		return new ModelAndView("error").addObject("status", status);
+		return new ModelAndView("error").addObject("status", status.getReasonPhrase());
 	}
 }
