@@ -14,20 +14,27 @@
 <th:block th:insert="~{fragments::nav(4)}"></th:block>
 
 <h2 class="my-2" th:text="#{messages.Adding_a_channel}">Adding a channel...</h2>
-<form class="my-5 d-flex flex-column align-items-start" method="post" th:action="@{/channels}">
-	<label class="form-label" for="name" th:text="#{messages.Channel_name}">Channel name</label>
-	<input class="form-text form-control border-0 form-control-lg bg-black text-light"
-		   id="name"
-		   name="name"
-		   required
-		   type="text" />
-	<label class="form-label mt-3" for="description" th:text="#{messages.Channel_description}">Description:</label>
-	<textarea class="form-text form-control form-control-lg bg-black text-light" cols="80"
-			  id="description"
-			  name="description"
-			  required
-			  rows="5"
-			  th:text="#{messages.Default_description}">This is your channel description...</textarea>
+<form class="my-5 d-flex flex-column align-items-start" method="post" th:action="@{/channels}" th:object="${channel}">
+	<label class="form-label" th:for="name">
+		<th:block th:text="#{messages.Channel_name}">Channel name</th:block>
+		<input class="form-text form-control border-0 form-control-lg bg-black text-light"
+			   name="name"
+			   required
+			   th:field="*{name}"
+			   th:placeholder="${faker.ancient().primordial()}"
+			   type="text" />
+	</label>
+	<label class="form-label mt-3" th:for="description">
+		<th:block th:text="#{messages.Channel_description}">Description:</th:block>
+		<textarea class="form-text form-control form-control-lg bg-black text-light border-0" cols="80"
+				  name="description"
+				  required
+				  rows="5"
+				  th:field="*{description}"
+				  th:placeholder="#{messages.Default_description}">
+			This is your channel description...
+		</textarea>
+	</label>
 	<input class="btn btn-primary mt-4" th:value="#{messages.Submit}" type="submit" />
 </form>
 

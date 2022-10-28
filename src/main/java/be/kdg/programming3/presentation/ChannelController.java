@@ -1,7 +1,9 @@
 package be.kdg.programming3.presentation;
 
 import be.kdg.programming3.domain.Channel;
+import be.kdg.programming3.presentation.viewmodel.ChannelViewModel;
 import be.kdg.programming3.service.ChannelService;
+import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,10 @@ public class ChannelController {
 	@GetMapping ("/add")
 	public ModelAndView showAddChannelView() {
 		logger.info("Controller is running showAddChannelView!");
-		return new ModelAndView("channels/add-channel");
+		final ModelAndView modelAndView = new ModelAndView("channels/add-channel");
+		modelAndView.addObject("channel", new ChannelViewModel());
+		modelAndView.addObject("faker", new Faker());
+		return modelAndView;
 	}
 
 	@PostMapping

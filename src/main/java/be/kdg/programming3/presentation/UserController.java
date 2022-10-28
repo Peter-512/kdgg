@@ -2,6 +2,7 @@ package be.kdg.programming3.presentation;
 
 import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
+import be.kdg.programming3.presentation.viewmodel.UserViewModel;
 import be.kdg.programming3.service.UserService;
 import com.github.javafaker.Faker;
 import org.slf4j.Logger;
@@ -60,6 +61,7 @@ public class UserController {
 	public ModelAndView showAddUserView() {
 		logger.info("Controller is running showAddUserView!");
 		final ModelAndView modelAndView = new ModelAndView("users/add-user");
+		modelAndView.addObject("user", new UserViewModel());
 		modelAndView.addObject("faker", new Faker());
 		modelAndView.addObject("roles", Role.values());
 		return modelAndView;

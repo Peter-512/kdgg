@@ -14,29 +14,35 @@
 <th:block th:insert="~{fragments::nav(5)}"></th:block>
 
 <h2 class="my-2" th:text="#{messages.Adding_a_user}">Adding a user...</h2>
-<form class="my-5 d-flex flex-column align-items-start" method="post" th:action="@{/users}">
-	<label class="form-label" for="name" th:text="#{messages.Username}">Username</label>
-	<input class="form-control form-control-lg form-text border-0 bg-black text-light"
-		   id="name"
-		   name="name"
-		   required
-		   th:placeholder="${faker.funnyName().name()}"
-		   type="text" />
-	<label class="form-label mt-3" for="birthdate" th:text="#{messages.Birthdate}">Birthdate</label>
-	<input class="form-control form-control-lg border-0 bg-black text-light"
-		   id="birthdate"
-		   name="birthdate"
-		   required
-		   style="color-scheme: dark"
-		   type="date">
-	<label class="form-label mt-3" for="role" th:text="#{messages.Role}">Role</label>
-	<select class="form-control form-control-lg w-auto border-0 bg-black text-light form-select"
-			id="role"
-			name="role">
-		<option th:each="role: ${roles}"
-				th:text="${role}"
-				th:value="${role}"></option>
-	</select>
+<form class="my-5 d-flex flex-column align-items-start" method="post" th:action="@{/users}" th:object="${user}">
+	<label class="form-label" th:for="name">
+		<th:block th:text="#{messages.Username}">Username</th:block>
+		<input class="form-control form-control-lg form-text border-0 bg-black text-light"
+			   name="name"
+			   required
+			   th:field="*{name}"
+			   th:placeholder="${faker.funnyName().name()}"
+			   type="text" />
+	</label>
+	<label class="form-label mt-3" th:for="birthdate">
+		<th:block th:text="#{messages.Birthdate}">Birthdate</th:block>
+		<input class="form-control form-control-lg border-0 bg-black text-light"
+			   name="birthdate"
+			   required
+			   style="color-scheme: dark"
+			   th:field="*{birthdate}"
+			   type="date">
+	</label>
+	<label class="form-label mt-3" th:for="role">
+		<th:block th:text="#{messages.Role}">Role</th:block>
+		<select class="form-control form-control-lg border-0 bg-black text-light form-select"
+				name="role"
+				th:field="*{role}">
+			<option th:each="role: ${roles}"
+					th:text="${role}"
+					th:value="${role}"></option>
+		</select>
+	</label>
 
 	<input class="btn btn-primary mt-4" type="submit" value="Submit" />
 </form>
