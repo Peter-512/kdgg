@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{messages.Session_history}">Session history</title>
+	<link rel="icon" th:href="@{/images/icon.png}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="bg-dark text-light w-75 my-3 mx-auto">
+
+<th:block th:insert="~{fragments::nav(0)}"></th:block>
+
+<h1 th:text="#{messages.Session_history}">Session history</h1>
+<table class="table table-dark table-striped table-hover my-5">
+	<thead>
+	<tr class="table-header">
+		<th>URL</th>
+		<th>Timestamp</th>
+	</tr>
+	</thead>
+	<tbody class="table-group-divider">
+	<tr th:each="sessionX: ${sessions}">
+		<td th:text="${sessionX.getUrl()}"></td>
+		<td th:text="${sessionX.getTimestamp().format(dateTimeFormatter)}"></td>
+	</tr>
+	</tbody>
+</table>
+
+<th:block th:insert="~{fragments::footer}"></th:block>
+
+</body>
+</html>
