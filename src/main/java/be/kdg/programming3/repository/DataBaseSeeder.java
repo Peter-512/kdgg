@@ -22,7 +22,7 @@ public class DataBaseSeeder implements CommandLineRunner {
 	private static final int INITIAL_USERS = 25;
 	private static final int MIN_INITIAL_POSTS = 20;
 	private static final int MAX_INITIAL_POSTS = 100;
-	private final int PERCENT = 60;
+	private static final int PERCENT = 60;
 	private final Faker faker;
 	private final ChannelRepository channelRepository;
 	private final UserRepository userRepository;
