@@ -41,7 +41,7 @@ public class HomeController {
 		return modelAndView;
 	}
 
-	@GetMapping ("*")
+	@GetMapping ("/*/error")
 	public ModelAndView showErrorView() {
 		return errorController.showErrorView(HttpStatus.NOT_FOUND);
 	}
