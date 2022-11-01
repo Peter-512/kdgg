@@ -4,7 +4,6 @@ import be.kdg.programming3.domain.Channel;
 import be.kdg.programming3.domain.session.PageVisit;
 import be.kdg.programming3.presentation.viewmodel.ChannelViewModel;
 import be.kdg.programming3.service.ChannelService;
-import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,17 +63,16 @@ public class ChannelController {
 		logger.info("Controller is running showAddChannelView!");
 		final ModelAndView modelAndView = new ModelAndView("channels/add-channel");
 		modelAndView.addObject("channel", new ChannelViewModel());
-		modelAndView.addObject("faker", new Faker());
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
 	}
 
 	@PostMapping
-	public ModelAndView processAddChannel(@Valid @ModelAttribute ("channel") ChannelViewModel channel, BindingResult errors) { // @Valid @ModelAttribute ("channel") in front of channelViewModel
+	public ModelAndView processAddChannel(@Valid @ModelAttribute ("channel") ChannelViewModel channel, BindingResult errors) {
 		logger.info("Controller is running processAddChannel!");
 		if (errors.hasErrors()) {
 			errors.getAllErrors().forEach(error -> logger.error(error.toString()));
-			return new ModelAndView("channels/add-channel").addObject("faker", new Faker());
+			return new ModelAndView("channels/add-channel");
 		}
 
 		channelService.addChannel(channel.getName(), channel.getDescription());

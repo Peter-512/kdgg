@@ -5,7 +5,6 @@ import be.kdg.programming3.domain.User;
 import be.kdg.programming3.domain.session.PageVisit;
 import be.kdg.programming3.presentation.viewmodel.UserViewModel;
 import be.kdg.programming3.service.UserService;
-import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +67,6 @@ public class UserController {
 		logger.info("Controller is running showAddUserView!");
 		final ModelAndView modelAndView = new ModelAndView("users/add-user");
 		modelAndView.addObject("user", new UserViewModel());
-		modelAndView.addObject("faker", new Faker());
 		modelAndView.addObject("roles", Role.values());
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
