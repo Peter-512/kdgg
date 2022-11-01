@@ -1,4 +1,4 @@
-package be.kdg.programming3.json;
+package be.kdg.programming3.util;
 
 import com.google.gson.*;
 import org.springframework.stereotype.Component;

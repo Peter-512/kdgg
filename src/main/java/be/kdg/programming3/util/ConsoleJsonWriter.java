@@ -1,4 +1,4 @@
-package be.kdg.programming3.json;
+package be.kdg.programming3.util;
 
 import be.kdg.programming3.domain.Post;
 import be.kdg.programming3.domain.User;
