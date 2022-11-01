@@ -8,13 +8,13 @@ import be.kdg.programming3.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -73,12 +73,15 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ModelAndView processAddChannel(
-			@RequestParam ("name") String name,
-			@RequestParam ("birthdate") @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate birthdate,
-			@RequestParam ("role") Role role) {
+	public ModelAndView processAddChannel(@Valid @ModelAttribute ("user") UserViewModel user, BindingResult errors) {
 		logger.info("Controller is running processAddChannel!");
-		userService.addUser(name, birthdate, role);
+		if (errors.hasErrors()) {
+			errors.getAllErrors().forEach(error -> logger.error(error.toString()));
+			final ModelAndView modelAndView = new ModelAndView("users/add-user");
+			modelAndView.addObject("roles", Role.values());
+			return modelAndView;
+		}
+		userService.addUser(user.getName(), user.getBirthdate(), user.getRole());
 		return new ModelAndView("redirect:users");
 	}
 }
