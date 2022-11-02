@@ -25,8 +25,8 @@
 			<input class="form-text form-control form-control-lg bg-black text-light"
 				   placeholder="blank"
 				   th:class="${#fields.hasErrors('name')?
-				   'form-text form-control form-control-lg bg-black text-light is-invalid':
-				   'form-text form-control form-control-lg bg-black text-light border-0'}"
+				   'form-control form-control-lg bg-black text-light is-invalid':
+				   'form-control form-control-lg bg-black text-light border-0'}"
 				   th:field="*{name}"
 				   type="text" />
 			<label class="form-label" th:for="*{name}" th:text="#{messages.Channel_name}">Channel name</label>
@@ -41,8 +41,8 @@
 		<textarea placeholder="blank"
 				  style="height: 150px"
 				  th:class="${#fields.hasErrors('description')?
-				  'form-text form-control form-control-lg bg-black text-light is-invalid':
-				  'form-text form-control form-control-lg bg-black text-light border-0'}"
+				  'form-control form-control-lg bg-black text-light is-invalid':
+				  'form-control form-control-lg bg-black text-light border-0'}"
 				  th:field="*{description}">
 		</textarea>
 			<label class="form-label"

@@ -24,8 +24,8 @@
 		<div th:class="${#fields.hasErrors('name')?'form-floating is-invalid':'form-floating'}">
 			<input placeholder="blank"
 				   th:class="${#fields.hasErrors('name')?
-				   'form-control form-control-lg form-text is-invalid bg-black text-light':
-				   'form-control form-control-lg form-text border-0 bg-black text-light'}"
+				   'form-control form-control-lg is-invalid bg-black text-light':
+				   'form-control form-control-lg border-0 bg-black text-light'}"
 				   th:field="*{name}"
 				   type="text" />
 			<label class="form-label" th:for="name" th:text="#{messages.Username}">Username</label>
