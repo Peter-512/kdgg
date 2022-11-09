@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public class ChannelRepositoryImpl implements ChannelRepository {
-	public List<Channel> channels;
+	private final List<Channel> channels;
 
 	@Autowired
 	public ChannelRepositoryImpl() {

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
-	public List<User> users;
+	private final List<User> users;
 
 	@Autowired
 	public UserRepositoryImpl() {
