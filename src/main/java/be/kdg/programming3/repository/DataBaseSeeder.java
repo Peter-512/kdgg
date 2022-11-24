@@ -4,9 +4,12 @@ import be.kdg.programming3.domain.Channel;
 import be.kdg.programming3.domain.Post;
 import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
+import be.kdg.programming3.repository.channels.ChannelRepository;
+import be.kdg.programming3.repository.users.UserRepository;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -17,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 @Component
+@Profile ("old")
 public class DataBaseSeeder implements CommandLineRunner {
 	private static final int INITIAL_CHANNELS = 5;
 	private static final int INITIAL_USERS = 25;
@@ -46,30 +50,31 @@ public class DataBaseSeeder implements CommandLineRunner {
 	}
 
 	private void seedChannels() {
-		channelRepository.readChannels()
+		channelRepository.findAll()
 		                 .add(new Channel("DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
-		channelRepository.readChannels()
-		                 .addAll(Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda().quote()))
+		channelRepository.findAll()
+		                 .addAll(Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda()
+		                                                                                              .quote()))
 		                               .limit(INITIAL_CHANNELS)
 		                               .toList());
 	}
 
 	private void seedUsers() {
 		final User peter = new User("peter.buschenreiter", LocalDate.of(1992, 11, 19), Role.Admin);
-		userRepository.readUsers().add(peter);
-		channelRepository.readChannels().stream().filter(channel -> randomizer(PERCENT)).forEach(peter::joinChannel);
+		userRepository.findAll().add(peter);
+		channelRepository.findAll().stream().filter(channel -> randomizer(PERCENT)).forEach(peter::joinChannel);
 
-		userRepository.readUsers().addAll(Stream.generate(() -> {
+		userRepository.findAll().addAll(Stream.generate(() -> {
 			final User user = new User(faker.name().username(), LocalDate.ofInstant(faker.date()
 			                                                                             .birthday()
 			                                                                             .toInstant(), ZoneId.systemDefault()), Role.randomRole());
-			channelRepository.readChannels().stream().filter(channel -> randomizer(PERCENT)).forEach(user::joinChannel);
+			channelRepository.findAll().stream().filter(channel -> randomizer(PERCENT)).forEach(user::joinChannel);
 			return user;
 		}).limit(INITIAL_USERS).toList());
 	}
 
 	private void seedPosts() {
-		channelRepository.readChannels().forEach(channel -> {
+		channelRepository.findAll().forEach(channel -> {
 			final User[] userArr = channel.getUsers().toArray(new User[0]);
 			List<Post> posts = Stream.generate(() -> new Post(
 					                         faker.options().option(userArr),

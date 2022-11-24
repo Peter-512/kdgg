@@ -1,4 +1,4 @@
-package be.kdg.programming3.presentation.configuration;
+package be.kdg.programming3.config;
 
 import be.kdg.programming3.presentation.converters.LocalDateToStringConverter;
 import be.kdg.programming3.presentation.converters.StringToLocalDateConverter;

@@ -158,3 +158,4 @@ replay_pid*
 # custom
 src/**/*.json
 public
+/db/*

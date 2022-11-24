@@ -1,13 +1,15 @@
-package be.kdg.programming3.repository;
+package be.kdg.programming3.repository.channels;
 
 import be.kdg.programming3.domain.Channel;
 
 import java.util.List;
 
 public interface ChannelRepository {
+	List<Channel> findAll();
+
 	Channel createChannel(Channel channel);
 
-	List<Channel> readChannels();
+	void updateChannel(Channel channel);
 
 	boolean deleteChannel(Channel channel);
 }

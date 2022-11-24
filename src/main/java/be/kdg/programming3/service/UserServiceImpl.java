@@ -2,7 +2,7 @@ package be.kdg.programming3.service;
 
 import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
-import be.kdg.programming3.repository.UserRepository;
+import be.kdg.programming3.repository.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getUsers() {
-		return userRepository.readUsers();
+		return userRepository.findAll();
 	}
 
 	@Override

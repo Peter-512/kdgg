@@ -16,6 +16,8 @@ public class User {
 	private LocalDate birthdate;
 	private Role role;
 
+	private int id;
+
 	public User(String name, LocalDate birthdate, Role role) {
 		//		this(name, birthdate);
 		this.channels = new ArrayList<>();

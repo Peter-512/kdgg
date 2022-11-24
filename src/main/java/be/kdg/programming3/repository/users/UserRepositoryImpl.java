@@ -1,13 +1,15 @@
-package be.kdg.programming3.repository;
+package be.kdg.programming3.repository.users;
 
 import be.kdg.programming3.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Profile ("old")
 public class UserRepositoryImpl implements UserRepository {
 	private final List<User> users;
 
@@ -17,14 +19,19 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
+	public List<User> findAll() {
+		return users;
+	}
+
+	@Override
 	public User createUser(User user) {
 		users.add(user);
 		return user;
 	}
 
 	@Override
-	public List<User> readUsers() {
-		return users;
+	public void updateUser(User user) {
+		//		TODO
 	}
 
 	@Override

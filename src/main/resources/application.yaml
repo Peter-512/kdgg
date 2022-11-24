@@ -1,8 +1,7 @@
 spring:
-  devtools:
-    restart:
-      enabled: true  # Set to enable hot deployment
-      additional-paths: src/main/java # restart directory
-      exclude: WEB-INF/**
-  thymeleaf:
-    cache: false # Use Thymeleaf template engine, turn off caching
+    profiles:
+        active: old
+    messages:
+        basename: templates/messages
+server:
+    port: 8081

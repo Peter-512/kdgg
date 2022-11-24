@@ -1,13 +1,15 @@
-package be.kdg.programming3.repository;
+package be.kdg.programming3.repository.channels;
 
 import be.kdg.programming3.domain.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Profile ("old")
 public class ChannelRepositoryImpl implements ChannelRepository {
 	private final List<Channel> channels;
 
@@ -23,12 +25,17 @@ public class ChannelRepositoryImpl implements ChannelRepository {
 	}
 
 	@Override
-	public List<Channel> readChannels() {
-		return channels;
+	public void updateChannel(Channel channel) {
+		//		TODO
 	}
 
 	@Override
 	public boolean deleteChannel(Channel channel) {
-		return channels.removeIf(c -> c == channel);
+		return channels.remove(channel);
+	}
+
+	@Override
+	public List<Channel> findAll() {
+		return channels;
 	}
 }

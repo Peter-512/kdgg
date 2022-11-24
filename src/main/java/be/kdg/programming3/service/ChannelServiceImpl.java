@@ -1,7 +1,7 @@
 package be.kdg.programming3.service;
 
 import be.kdg.programming3.domain.Channel;
-import be.kdg.programming3.repository.ChannelRepository;
+import be.kdg.programming3.repository.channels.ChannelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class ChannelServiceImpl implements ChannelService {
 
 	@Override
 	public List<Channel> getChannels() {
-		return channelRepository.readChannels();
+		return channelRepository.findAll();
 	}
 
 	@Override
