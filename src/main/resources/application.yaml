@@ -1,6 +1,6 @@
 spring:
     profiles:
-        active: old
+        active: dev
     messages:
         basename: templates/messages
 server:
