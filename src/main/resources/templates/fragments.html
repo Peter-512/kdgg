@@ -22,28 +22,32 @@
 				class="navbar-toggler"
 				data-bs-target="#navbarSupportedContent"
 				data-bs-toggle="collapse"
-				type="button">
+				type="button"
+		>
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
 					<a th:class="${index==1}?'nav-link active':'nav-link'"
-					   th:href="@{/}">
+					   th:href="@{/}"
+					>
 						<i class="bi-house-fill"></i>
 						<th:block th:text="#{navbar.Home}">Home</th:block>
 					</a>
 				</li>
 				<li class="nav-item">
 					<a th:class="${index==2}?'nav-link active':'nav-link'"
-					   th:href="@{/channels}">
+					   th:href="@{/channels}"
+					>
 						<i class="bi-chat-dots-fill"></i>
 						<th:block th:text="#{navbar.Channels}">Channels</th:block>
 					</a>
 				</li>
 				<li class="nav-item">
 					<a th:class="${index==3}?'nav-link active':'nav-link'"
-					   th:href="@{/users}">
+					   th:href="@{/users}"
+					>
 						<i class="bi-people-fill"></i>
 						<th:block th:text="#{navbar.Users}">Users</th:block>
 					</a>
@@ -53,21 +57,24 @@
 					   data-bs-toggle="dropdown"
 					   href="#"
 					   role="button"
-					   th:class="${index==4||index==5}?'nav-link active dropdown-toggle':'nav-link dropdown-toggle'">
+					   th:class="${index==4||index==5}?'nav-link active dropdown-toggle':'nav-link dropdown-toggle'"
+					>
 						<i class="bi-plus-circle-fill"></i>
 						<th:block th:text="#{navbar.Adding}">Adding</th:block>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark">
 						<li>
 							<a th:class="${index==4}?'dropdown-item active':'dropdown-item'"
-							   th:href="@{/channels/add}">
+							   th:href="@{/channels/add}"
+							>
 								<i class="me-2 bi-people"></i>
 								<th:block th:text="#{navbar.Channel}">Channel</th:block>
 							</a>
 						</li>
 						<li>
 							<a th:class="${index==5}?'dropdown-item active':'dropdown-item'"
-							   th:href="@{/users/add}">
+							   th:href="@{/users/add}"
+							>
 								<i class="me-2 bi-chat-dots"></i>
 								<th:block th:text="#{navbar.User}">User</th:block>
 							</a>
@@ -81,15 +88,17 @@
 
 <th:block th:fragment="post(post)">
 	<div class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
-		 style="width: 50px">
+		 style="width: 50px"
+	>
 		<span class="text-success">&uarr;</span>
 		<span class="text-warning" th:text="${post.getUpVotes()}"></span>
 		<span class="text-danger">&darr;</span>
 	</div>
 	<article style="width: calc(100% - 50px)">
 		<a class="text-decoration-none"
-		   th:href="@{/users/{username}(username=${post.getUser().getName()})}"
-		   th:text="${post.getUser().getName()}"></a>
+		   th:href="@{/users/{id}(id=${post.getUser().getName()})}"
+		   th:text="${post.getUser().getName()}"
+		></a>
 		<span class="text-secondary" th:text="${post.getDate().format(dateFormatter)}"></span>
 		<p class="m-0" th:text="${post.getContent()}"></p>
 	</article>

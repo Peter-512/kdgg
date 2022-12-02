@@ -24,7 +24,7 @@ public class H2DatabaseCreator implements DatabaseCreator {
 		jdbcTemplate.update("CREATE TYPE IF NOT EXISTS role AS ENUM ('User', 'Mod', 'Admin')");
 		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS users ( user_id INTEGER AUTO_INCREMENT PRIMARY KEY, user_name CHARACTER VARYING NOT NULL, birthdate DATE NOT NULL, role ROLE NOT NULL)");
 		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS channels (channel_id INTEGER AUTO_INCREMENT PRIMARY KEY, channel_name CHARACTER VARYING NOT NULL,description CHARACTER VARYING NOT NULL)");
-		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS posts (post_id INTEGER AUTO_INCREMENT PRIMARY KEY, content CHARACTER VARYING NOT NULL, upvotes INTEGER NOT NULL DEFAULT 0)");
+		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS posts (post_id INTEGER AUTO_INCREMENT PRIMARY KEY, content CHARACTER VARYING NOT NULL, upvotes INTEGER NOT NULL DEFAULT 0, date DATE NOT NULL DEFAULT NOW())");
 
 		jdbcTemplate.update("""
 				INSERT INTO users( user_name, birthdate, role )

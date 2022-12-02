@@ -1,37 +1,55 @@
 package be.kdg.programming3.domain;
 
+import be.kdg.programming3.util.PostgreSQLEnumType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@TypeDef (name = "role", typeClass = PostgreSQLEnumType.class)
+@Entity
+@Table (name = "users")
 public class User {
-	transient private List<Channel> channels;
-	transient private List<Post> posts;
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Column (name = "user_id", nullable = false)
+	private Long userID;
+
+	@ManyToMany
+	@JoinTable (name = "user_channels", joinColumns = @JoinColumn (name = "channel_id"), inverseJoinColumns = @JoinColumn (name = "user_id"))
+	private List<Channel> channels;
+	@OneToMany (mappedBy = "channel")
+	private List<Post> posts;
+	@Column (name = "user_name")
 	private String name;
+	@Column
 	private LocalDate birthdate;
+	@Column
+	@Enumerated (EnumType.STRING)
+	@Type (type = "role")
 	private Role role;
 
-	private int id;
-
 	public User(String name, LocalDate birthdate, Role role) {
-		//		this(name, birthdate);
-		this.channels = new ArrayList<>();
-		this.posts = new ArrayList<>();
+		this(name, birthdate);
 		this.role = role;
-		this.name = name;
-		this.birthdate = birthdate;
 	}
 
-	//	public User(String name, LocalDate birthdate) {
-	//		this.name = name;
-	//		this.birthdate = birthdate;
-	//		role = Role.User;
-	//	}
+	public User(String name, LocalDate birthdate) {
+		channels = new ArrayList<>();
+		posts = new ArrayList<>();
+		this.name = name;
+		this.birthdate = birthdate;
+		role = Role.User;
+	}
 
 	public void createPost(Channel channel, String content) {
 		Post post = new Post(this, channel, content);

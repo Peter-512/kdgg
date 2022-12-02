@@ -1,6 +1,10 @@
 spring:
+    mvc:
+        hiddenmethod:
+            filter:
+                enabled: true
     profiles:
-        active: dev
+        active: prod
     messages:
         basename: templates/messages
 server:

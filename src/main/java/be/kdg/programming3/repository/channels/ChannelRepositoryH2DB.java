@@ -38,18 +38,18 @@ public class ChannelRepositoryH2DB implements ChannelRepository {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("channel_name", channel.getName());
 		parameters.put("description", channel.getDescription());
-		channel.setId(channelInserter.executeAndReturnKey(parameters).intValue());
+		channel.setChannelID(channelInserter.executeAndReturnKey(parameters).longValue());
 		return channel;
 	}
 
 	@Override
 	public void updateChannel(Channel channel) {
 		jdbcTemplate.update("UPDATE channels SET channel_name = ?, description= ? WHERE channel_id = ?",
-				channel.getName(), channel.getDescription(), channel.getId());
+				channel.getName(), channel.getDescription(), channel.getChannelID());
 	}
 
 	@Override
 	public boolean deleteChannel(Channel channel) {
-		return jdbcTemplate.update("DELETE FROM channels WHERE channel_id = ?", channel.getId()) != 0;
+		return jdbcTemplate.update("DELETE FROM channels WHERE channel_id = ?", channel.getChannelID()) != 0;
 	}
 }

@@ -4,7 +4,7 @@ import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
 import be.kdg.programming3.domain.session.PageVisit;
 import be.kdg.programming3.presentation.viewmodel.UserViewModel;
-import be.kdg.programming3.service.UserService;
+import be.kdg.programming3.service.users.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,14 +46,16 @@ public class UserController {
 		return modelAndView;
 	}
 
-	@GetMapping ("/{username}")
-	public ModelAndView showUserView(@PathVariable String username, HttpServletRequest request) {
-		logger.info(String.format("Controller is running showUserView with user %s!", username));
-		final Optional<User> user = userService.getUser(username);
+	@GetMapping ("/{id}")
+	public ModelAndView showUserView(@PathVariable Long id, HttpServletRequest request) {
+		final Optional<User> user = userService.getUser(id);
 		if (user.isEmpty()) {
-			logger.error(String.format("User %s not found.", username));
+			logger.error(String.format("User %s not found.", id));
 			return errorController.showErrorView(HttpStatus.NOT_FOUND);
 		}
+		logger.info(String.format("Controller is running showUserView with user %s!", userService.getUser(id)
+		                                                                                         .get()
+		                                                                                         .getName()));
 
 		final ModelAndView modelAndView = new ModelAndView("users/user");
 		modelAndView.addObject("user", user.get());

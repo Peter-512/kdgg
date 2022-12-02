@@ -19,16 +19,27 @@
 		<th class="text-nowrap" th:text="#{messages.Channel_name}">Channel name</th>
 		<th th:text="#{messages.Channel_description}">Channel description</th>
 		<th class="text-nowrap" th:text="#{messages.Upvote_ratio}">Upvote ratio</th>
+		<th></th>
 	</tr>
 	</thead>
 	<tbody class="table-group-divider">
 	<tr th:each="channel: ${channels}">
 		<td>
-			<a class="text-decoration-none" th:href="@{/channels/{channelName}(channelName=${channel.getName()})}"
-			   th:text="${channel.getName()}"></a>
+			<a class="text-decoration-none" th:href="@{/channels/{id}(id=${channel.getChannelID()})}"
+			   th:text="${channel.getName()}"
+			></a>
 		</td>
 		<td th:text="${channel.getDescription()}"></td>
 		<td th:text="${#numbers.formatDecimal(channel.getUpVotesRatio(), 1, 2)}"></td>
+		<td class="text-center">
+			<form th:action="@{/channels/delete/{id}(id=${channel.getChannelID()})}"
+				  th:method="delete"
+			>
+				<button class="btn p-0" type="submit">
+					<i class="bi bi-trash text-danger"></i>
+				</button>
+			</form>
+		</td>
 	</tr>
 	</tbody>
 </table>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="${username}"></title>
+	<title th:text="${user.getName()}"></title>
 	<link rel="icon" th:href="@{/images/icon.png}">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -27,10 +27,12 @@
 	</article>
 	<ul class="list-group align-items-sm-start">
 		<li class="list-group-item list-group-item-dark col-5 d-flex justify-content-between align-items-start border-dark border-bottom"
-			th:each="channel: ${user.getChannels()}">
+			th:each="channel: ${user.getChannels()}"
+		>
 			<a class="ms-2 text-decoration-none"
-			   th:href="@{/channels/{channelName}(channelName=${channel.getName()})}"
-			   th:text="${channel.getName()}"></a>
+			   th:href="@{/channels/{id}(id=${channel.getChannelID()})}"
+			   th:text="${channel.getName()}"
+			></a>
 			<span class="badge bg-danger rounded-pill ms-3" th:text="${channel.getPosts().size()}"></span>
 		</li>
 	</ul>

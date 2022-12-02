@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="${channelName}"></title>
+	<title th:text="${channel.getName()}"></title>
 	<link rel="icon" th:href="@{/images/icon.png}">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -21,7 +21,8 @@
 	<main class="col-12 col-md-9" th:switch="${#lists.size(channel.getPosts())}">
 		<h1 th:case="0">
 			<th:block th:text="#{messages.No_posts_yet}">No posts yet!</th:block>
-			<i class="ms-2 bi-emoji-dizzy"></i></h1>
+			<i class="ms-2 bi-emoji-dizzy"></i>
+		</h1>
 		<th:block th:case="*">
 			<article class="d-flex flex-row my-3" th:each="post: ${channel.getPosts()}">
 				<th:block th:insert="~{fragments::post(${post})}"></th:block>
@@ -32,16 +33,19 @@
 	<aside class="d-none d-md-block mx-3 col-3" th:if="${#lists.size(channel.getUsers())>0}">
 		<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white rounded">
 			<span class="d-flex align-items-center flex-shrink-0 p-3 border-bottom fs-5 fw-semibold text-dark"
-				  th:utext="#{navbar.Users}">
+				  th:utext="#{navbar.Users}"
+			>
 				<i class="bi-people me-2"></i>
 				Users
 			</span>
 			<ul class="list-group list-group-flush border-bottom rounded-bottom">
 				<li class="py-3 list-group-item list-group-item-dark"
-					th:each="user: ${channel.getUsers()}">
+					th:each="user: ${channel.getUsers()}"
+				>
 					<a class="d-flex align-items-center justify-content-between text-decoration-none"
-					   th:href="@{/users/{username}(username=${user.getName()})}"
-					   th:text="${user.getName()}">
+					   th:href="@{/users/{id}(id=${user.getUserID()})}"
+					   th:text="${user.getName()}"
+					>
 					</a>
 				</li>
 			</ul>

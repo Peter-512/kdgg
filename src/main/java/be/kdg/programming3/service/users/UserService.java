@@ -1,4 +1,4 @@
-package be.kdg.programming3.service;
+package be.kdg.programming3.service.users;
 
 import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
@@ -10,7 +10,9 @@ import java.util.Optional;
 public interface UserService {
 	List<User> getUsers();
 
-	Optional<User> getUser(String username);
+	Optional<User> getUser(Long id);
 
 	User addUser(String name, LocalDate birthdate, Role role);
+
+	void deleteUser(Long id);
 }

@@ -2,7 +2,7 @@ package be.kdg.programming3.presentation;
 
 
 import be.kdg.programming3.domain.session.PageVisit;
-import be.kdg.programming3.service.ChannelService;
+import be.kdg.programming3.service.channels.ChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

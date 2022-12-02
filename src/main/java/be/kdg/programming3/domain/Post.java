@@ -1,17 +1,33 @@
 package be.kdg.programming3.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@Entity
+@Table (name = "posts")
 public class Post {
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Column (name = "post_id", nullable = false)
+	private Long postID;
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn (name = "user_id", nullable = false)
 	private User user;
-	transient private Channel channel;
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn (name = "channel_id", nullable = false)
+	private Channel channel;
+	@Column (nullable = false)
 	private String content;
+	@Column (nullable = false)
 	private int upVotes;
+	@Column (nullable = false)
 	private LocalDate date;
 
 	public Post(User user, Channel channel, String content, int upVotes, LocalDate date) {

@@ -8,14 +8,16 @@ import org.springframework.context.annotation.Profile;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile ("dev")
-public class DataSourceH2DB implements DataSourceConfig {
+@Profile ("prod")
+public class DataSourcePostgres implements DataSourceConfig {
 	@Bean
 	@Override
 	public DataSource setup() {
 		return DataSourceBuilder.create()
-		                        .driverClassName("org.h2.Driver")
-		                        .url("jdbc:h2:file:./db/chatDB")
+		                        .driverClassName("org.postgresql.Driver")
+		                        .username("postgres")
+		                        .password("anubis512")
+		                        .url("jdbc:postgresql://localhost:5432/kdGG")
 		                        .build();
 	}
 }

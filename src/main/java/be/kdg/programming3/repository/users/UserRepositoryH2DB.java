@@ -43,19 +43,19 @@ public class UserRepositoryH2DB implements UserRepository {
 		parameters.put("user_name", user.getName());
 		parameters.put("birthdate", user.getBirthdate());
 		parameters.put("role", user.getRole());
-		user.setId(userInserter.executeAndReturnKey(parameters).intValue());
+		user.setUserID(userInserter.executeAndReturnKey(parameters).longValue());
 		return user;
 	}
 
 	@Override
 	public void updateUser(User user) {
 		jdbcTemplate.update("UPDATE users SET user_name = ?, birthdate = ?, role = ? WHERE user_id = ?",
-				user.getName(), user.getBirthdate(), user.getRole(), user.getId());
+				user.getName(), user.getBirthdate(), user.getRole(), user.getUserID());
 	}
 
 	@Override
 	public boolean deleteUser(User user) {
-		return jdbcTemplate.update("DELETE FROM users WHERE user_id = ?", user.getId()) != 0;
+		return jdbcTemplate.update("DELETE FROM users WHERE user_id = ?", user.getUserID()) != 0;
 	}
 
 }

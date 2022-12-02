@@ -1,9 +1,10 @@
-package be.kdg.programming3.service;
+package be.kdg.programming3.service.users;
 
 import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
 import be.kdg.programming3.repository.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Profile ({"old", "dev"})
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 
@@ -26,9 +28,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> getUser(String username) {
+	public Optional<User> getUser(Long id) {
 		final List<User> users = getUsers().stream()
-		                                   .filter(user -> Objects.equals(user.getName(), username))
+		                                   .filter(user -> Objects.equals(user.getUserID(), id))
 		                                   .toList();
 		return users.isEmpty() ? Optional.empty() : Optional.of(users.get(0));
 	}
@@ -36,5 +38,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User addUser(String name, LocalDate birthdate, Role role) {
 		return userRepository.createUser(new User(name, birthdate, role));
+	}
+
+	@Override
+	public void deleteUser(Long id) {
+		// TODO
 	}
 }

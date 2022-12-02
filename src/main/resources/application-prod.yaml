@@ -1,0 +1,20 @@
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: create
+        database: POSTGRESQL
+        show-sql: true
+    devtools:
+        restart:
+            enabled: true
+            additional-paths: src/main/java
+            additional-exclude: WEB-INF/**
+    thymeleaf:
+        cache: false
+    sql:
+        init:
+            mode: always
+logging:
+    level:
+        #        web: debug
+        be.kdg.programming3: debug

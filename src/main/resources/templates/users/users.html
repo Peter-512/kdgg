@@ -23,9 +23,12 @@
 	</thead>
 	<tbody class="table-group-divider">
 	<tr th:each="user: ${users}">
-		<td><a class="text-decoration-none"
-			   th:href="@{/users/{username}(username=${user.getName()})}"
-			   th:text="${user.getName()}">></a>
+		<td>
+			<a class="text-decoration-none"
+			   th:href="@{/users/{id}(id=${user.getUserID()})}"
+			   th:text="${user.getName()}"
+			>>
+			</a>
 		</td>
 		<td th:text="${user.getRole()}"></td>
 		<td th:text="${user.getBirthdate().format(dateFormatter)}"></td>

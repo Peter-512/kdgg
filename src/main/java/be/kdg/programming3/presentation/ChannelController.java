@@ -3,7 +3,7 @@ package be.kdg.programming3.presentation;
 import be.kdg.programming3.domain.Channel;
 import be.kdg.programming3.domain.session.PageVisit;
 import be.kdg.programming3.presentation.viewmodel.ChannelViewModel;
-import be.kdg.programming3.service.ChannelService;
+import be.kdg.programming3.service.channels.ChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +42,16 @@ public class ChannelController {
 		return modelAndView;
 	}
 
-	@GetMapping ("/{channelName}")
-	public ModelAndView showChannelView(@PathVariable String channelName, HttpServletRequest request) {
-		logger.info(String.format("Controller is running showChannelView with channel %s!", channelName));
-		final Optional<Channel> channel = channelService.getChannel(channelName);
+	@GetMapping ("/{id}")
+	public ModelAndView showChannelView(@PathVariable Long id, HttpServletRequest request) {
+		final Optional<Channel> channel = channelService.getChannel(id);
 		if (channel.isEmpty()) {
-			logger.error(String.format("No channel with name %s found.", channelName));
+			logger.error(String.format("No channel with id %s found.", id));
 			return errorController.showErrorView(HttpStatus.NOT_FOUND);
 		}
+		logger.info(String.format("Controller is running showChannelView with channel %s!", channelService.getChannel(id)
+		                                                                                                  .get()
+		                                                                                                  .getName()));
 
 		final ModelAndView modelAndView = new ModelAndView("channels/channel");
 		modelAndView.addObject("channel", channel.get());
@@ -77,5 +79,12 @@ public class ChannelController {
 
 		channelService.addChannel(channel.getName(), channel.getDescription());
 		return new ModelAndView("redirect:channels");
+	}
+
+	@DeleteMapping ("delete/{id}")
+	public ModelAndView deleteChannel(@PathVariable Long id) {
+		logger.info(String.format("Channel %s getting deleted", channelService.getChannel(id)));
+		channelService.deleteChannel(id);
+		return new ModelAndView("redirect:/channels");
 	}
 }
