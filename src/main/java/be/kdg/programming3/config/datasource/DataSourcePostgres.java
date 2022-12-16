@@ -1,4 +1,4 @@
-package be.kdg.programming3.config;
+package be.kdg.programming3.config.datasource;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;

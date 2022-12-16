@@ -10,11 +10,11 @@ import java.util.List;
 
 @Repository
 @Profile ("list")
-public class ChannelRepositoryImpl implements ChannelRepository {
+public class ChannelRepositoryList implements ChannelRepository {
 	private final List<Channel> channels;
 
 	@Autowired
-	public ChannelRepositoryImpl() {
+	public ChannelRepositoryList() {
 		channels = new ArrayList<>();
 	}
 

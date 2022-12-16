@@ -10,11 +10,11 @@ import java.util.List;
 
 @Repository
 @Profile ("list")
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryList implements UserRepository {
 	private final List<User> users;
 
 	@Autowired
-	public UserRepositoryImpl() {
+	public UserRepositoryList() {
 		users = new ArrayList<>();
 	}
 
