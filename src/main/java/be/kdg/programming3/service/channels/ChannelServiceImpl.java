@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@Profile ({"old", "dev"})
+@Profile ({"list", "dev"})
 public class ChannelServiceImpl implements ChannelService {
 	private final ChannelRepository channelRepository;
 

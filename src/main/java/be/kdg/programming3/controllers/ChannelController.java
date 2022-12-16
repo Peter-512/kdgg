@@ -1,4 +1,4 @@
-package be.kdg.programming3.presentation;
+package be.kdg.programming3.controllers;
 
 import be.kdg.programming3.domain.Channel;
 import be.kdg.programming3.domain.session.PageVisit;

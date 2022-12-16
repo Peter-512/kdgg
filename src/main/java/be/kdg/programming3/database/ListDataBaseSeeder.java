@@ -1,4 +1,4 @@
-package be.kdg.programming3.repository;
+package be.kdg.programming3.database;
 
 import be.kdg.programming3.domain.Channel;
 import be.kdg.programming3.domain.Post;
@@ -20,8 +20,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 @Component
-@Profile ("old")
-public class DataBaseSeeder implements CommandLineRunner {
+@Profile ("list")
+public class ListDataBaseSeeder implements CommandLineRunner {
 	private static final int INITIAL_CHANNELS = 5;
 	private static final int INITIAL_USERS = 25;
 	private static final int MIN_INITIAL_POSTS = 20;
@@ -32,7 +32,7 @@ public class DataBaseSeeder implements CommandLineRunner {
 	private final UserRepository userRepository;
 
 	@Autowired
-	public DataBaseSeeder(ChannelRepository channelRepository, UserRepository userRepository) {
+	public ListDataBaseSeeder(ChannelRepository channelRepository, UserRepository userRepository) {
 		this.channelRepository = channelRepository;
 		this.userRepository = userRepository;
 		faker = new Faker();

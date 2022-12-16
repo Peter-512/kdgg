@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Profile ("old")
+@Profile ("list")
 public class UserRepositoryImpl implements UserRepository {
 	private final List<User> users;
 

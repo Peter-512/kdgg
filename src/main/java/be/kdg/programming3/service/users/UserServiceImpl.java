@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@Profile ({"old", "dev"})
+@Profile ({"list", "dev"})
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 

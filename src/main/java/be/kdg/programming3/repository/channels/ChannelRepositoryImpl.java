@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Profile ("old")
+@Profile ("list")
 public class ChannelRepositoryImpl implements ChannelRepository {
 	private final List<Channel> channels;
 
