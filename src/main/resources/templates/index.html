@@ -15,9 +15,12 @@
 
 <main>
 	<section class="my-5" th:each="channel: ${channels}">
-		<h2><a class="text-info text-decoration-none"
-			   th:href="@{/channels/{channelName}(channelName=${channel.getName()})}"
-			   th:text="${channel.getName()}"></a></h2>
+		<h2>
+			<a class="text-info text-decoration-none"
+			   th:href="@{/channels/{id}(id=${channel.getChannelID()})}"
+			   th:text="${channel.getName()}"
+			></a>
+		</h2>
 		<h4 class="text-secondary" th:text="${channel.getDescription()}"></h4>
 		<section class="my-3 d-flex flex-row gap-2 align-items-center" th:each="post: ${channel.getPosts()}">
 			<th:block th:insert="~{fragments::post(${post})}"></th:block>

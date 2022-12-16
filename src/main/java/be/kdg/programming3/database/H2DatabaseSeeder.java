@@ -9,11 +9,11 @@ import javax.annotation.PostConstruct;
 
 @Component
 @Profile ("dev")
-public class H2DatabaseCreator implements DatabaseCreator {
+public class H2DatabaseSeeder implements DatabaseSeeder {
 	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public H2DatabaseCreator(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
+	public H2DatabaseSeeder(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
 
 	@Override
 	@PostConstruct
@@ -21,7 +21,7 @@ public class H2DatabaseCreator implements DatabaseCreator {
 		jdbcTemplate.update("DROP TABLE IF EXISTS users");
 		jdbcTemplate.update("DROP TABLE IF EXISTS channels");
 		jdbcTemplate.update("DROP TABLE IF EXISTS posts");
-		jdbcTemplate.update("CREATE TYPE IF NOT EXISTS role AS ENUM ('User', 'Mod', 'Admin')");
+		jdbcTemplate.update("CREATE TYPE IF NOT EXISTS ROLE AS ENUM ('User', 'Mod', 'Admin')");
 		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS users ( user_id INTEGER AUTO_INCREMENT PRIMARY KEY, user_name CHARACTER VARYING NOT NULL, birthdate DATE NOT NULL, role ROLE NOT NULL)");
 		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS channels (channel_id INTEGER AUTO_INCREMENT PRIMARY KEY, channel_name CHARACTER VARYING NOT NULL,description CHARACTER VARYING NOT NULL)");
 		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS posts (post_id INTEGER AUTO_INCREMENT PRIMARY KEY, content CHARACTER VARYING NOT NULL, upvotes INTEGER NOT NULL DEFAULT 0, date DATE NOT NULL DEFAULT NOW())");

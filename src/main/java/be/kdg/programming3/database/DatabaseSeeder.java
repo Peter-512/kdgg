@@ -1,5 +1,5 @@
 package be.kdg.programming3.database;
 
-public interface DatabaseCreator {
+public interface DatabaseSeeder {
 	void loadData();
 }

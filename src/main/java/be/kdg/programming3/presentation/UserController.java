@@ -86,4 +86,11 @@ public class UserController {
 		userService.addUser(user.getName(), user.getBirthdate(), user.getRole());
 		return new ModelAndView("redirect:users");
 	}
+
+	@DeleteMapping ("delete/{id}")
+	public ModelAndView deleteChannel(@PathVariable Long id) {
+		logger.info(String.format("User %s getting deleted", userService.getUser(id)));
+		userService.deleteUser(id);
+		return new ModelAndView("redirect:/users");
+	}
 }

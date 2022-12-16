@@ -90,7 +90,7 @@ public class DataBaseSeeder implements CommandLineRunner {
 			       .addAll(posts.stream()
 			                    .sorted(Comparator.comparing(Post::getDate))
 			                    .toList());
-			channel.calculateUpvoteRatio();
+			channel.setUpVotesRatio(channel.calculateUpvoteRatio());
 		});
 	}
 

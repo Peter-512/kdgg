@@ -18,9 +18,10 @@ public class Channel {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "channel_id", nullable = false)
 	private Long channelID;
-	@ManyToMany (mappedBy = "channels")
+	@ManyToMany
+	@JoinTable (name = "user_channels", joinColumns = @JoinColumn (name = "user_id"), inverseJoinColumns = @JoinColumn (name = "channel_id"))
 	private List<User> users;
-	@OneToMany (mappedBy = "channel")
+	@OneToMany (cascade = CascadeType.ALL, mappedBy = "channel")
 	private List<Post> posts;
 	@Column (name = "channel_name", nullable = false)
 	private String name;
@@ -57,8 +58,8 @@ public class Channel {
 				""", name, description);
 	}
 
-	public void calculateUpvoteRatio() {
+	public double calculateUpvoteRatio() {
 		final int upVotes = posts.stream().mapToInt(Post::getUpVotes).sum();
-		setUpVotesRatio((double) upVotes / posts.size());
+		return (double) upVotes / posts.size();
 	}
 }

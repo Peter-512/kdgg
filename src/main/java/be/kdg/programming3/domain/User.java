@@ -27,7 +27,7 @@ public class User {
 	@ManyToMany
 	@JoinTable (name = "user_channels", joinColumns = @JoinColumn (name = "channel_id"), inverseJoinColumns = @JoinColumn (name = "user_id"))
 	private List<Channel> channels;
-	@OneToMany (mappedBy = "channel")
+	@OneToMany (cascade = CascadeType.ALL, mappedBy = "channel")
 	private List<Post> posts;
 	@Column (name = "user_name")
 	private String name;

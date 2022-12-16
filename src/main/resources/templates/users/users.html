@@ -19,6 +19,7 @@
 		<th th:text="#{messages.Username}">Username</th>
 		<th th:text="#{messages.Role}">Role</th>
 		<th th:text="#{messages.Birthdate}">Birthdate</th>
+		<th></th>
 	</tr>
 	</thead>
 	<tbody class="table-group-divider">
@@ -32,6 +33,15 @@
 		</td>
 		<td th:text="${user.getRole()}"></td>
 		<td th:text="${user.getBirthdate().format(dateFormatter)}"></td>
+		<td class="text-center">
+			<form th:action="@{/users/delete/{id}(id=${user.getUserID()})}"
+				  th:method="delete"
+			>
+				<button class="btn p-0" type="submit">
+					<i class="bi bi-trash text-danger"></i>
+				</button>
+			</form>
+		</td>
 	</tr>
 	</tbody>
 </table>

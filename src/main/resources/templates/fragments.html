@@ -90,13 +90,17 @@
 	<div class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
 		 style="width: 50px"
 	>
-		<span class="text-success">&uarr;</span>
-		<span class="text-warning" th:text="${post.getUpVotes()}"></span>
-		<span class="text-danger">&darr;</span>
+		<button class="btn p-0">
+			<i class="bi bi-arrow-up text-success"></i>
+		</button>
+		<span class="text-warning" th:id="${post.getPostID()}" th:text="${post.getUpVotes()}"></span>
+		<button class="btn p-0">
+			<i class="bi bi-arrow-down text-danger"></i>
+		</button>
 	</div>
 	<article style="width: calc(100% - 50px)">
 		<a class="text-decoration-none"
-		   th:href="@{/users/{id}(id=${post.getUser().getName()})}"
+		   th:href="@{/users/{id}(id=${post.getUser().getUserID()})}"
 		   th:text="${post.getUser().getName()}"
 		></a>
 		<span class="text-secondary" th:text="${post.getDate().format(dateFormatter)}"></span>

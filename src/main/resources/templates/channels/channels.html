@@ -30,7 +30,7 @@
 			></a>
 		</td>
 		<td th:text="${channel.getDescription()}"></td>
-		<td th:text="${#numbers.formatDecimal(channel.getUpVotesRatio(), 1, 2)}"></td>
+		<td th:text="${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}"></td>
 		<td class="text-center">
 			<form th:action="@{/channels/delete/{id}(id=${channel.getChannelID()})}"
 				  th:method="delete"

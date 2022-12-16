@@ -15,7 +15,7 @@
 	<th:block th:insert="~{fragments::nav(0)}"></th:block>
 	<h1 class="mt-5 text-info" th:text="${channel.getName()}"></h1>
 	<h3 class="text-secondary" th:text="${channel.getDescription()}"></h3>
-	<h5 th:text="${#numbers.formatDecimal(channel.getUpVotesRatio(), 1, 2)}"></h5>
+	<h5 th:text="${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}"></h5>
 </header>
 <div class="d-flex flex-row my-5">
 	<main class="col-12 col-md-9" th:switch="${#lists.size(channel.getPosts())}">
