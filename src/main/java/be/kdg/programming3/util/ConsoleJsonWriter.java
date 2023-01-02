@@ -66,6 +66,7 @@ public class ConsoleJsonWriter implements JsonWriter {
 	}
 
 	public <T> byte[] getJsonBytes(List<T> list) {
+		logger.info("Converting to JSON...");
 		return gson.toJson(list).getBytes();
 	}
 }
