@@ -159,3 +159,5 @@ replay_pid*
 src/**/*.json
 public
 /db/*
+/.env
+/.settings/org.eclipse.buildship.core.prefs
