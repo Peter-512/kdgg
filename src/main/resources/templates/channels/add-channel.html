@@ -18,7 +18,8 @@
 <form class="my-5 d-flex flex-column align-items-start gap-3"
 	  method="post"
 	  th:action="@{/channels}"
-	  th:object="${channel}">
+	  th:object="${channel}"
+>
 
 	<div class="input-group has-validation">
 		<div th:class="${#fields.hasErrors('name')?'form-floating is-invalid':'form-floating'}">
@@ -28,12 +29,14 @@
 				   'form-control form-control-lg bg-black text-light is-invalid':
 				   'form-control form-control-lg bg-black text-light border-0'}"
 				   th:field="*{name}"
-				   type="text" />
+				   type="text"
+			/>
 			<label class="form-label" th:for="*{name}" th:text="#{messages.Channel_name}">Channel name</label>
 		</div>
 		<div class="invalid-feedback"
 			 th:if="${#fields.hasErrors('name')}"
-			 th:text="${#fields.errors('name').get(0).toString()}"></div>
+			 th:text="${#fields.errors('name').get(0).toString()}"
+		></div>
 	</div>
 
 	<div class="input-group has-validation">
@@ -43,15 +46,18 @@
 				  th:class="${#fields.hasErrors('description')?
 				  'form-control form-control-lg bg-black text-light is-invalid':
 				  'form-control form-control-lg bg-black text-light border-0'}"
-				  th:field="*{description}">
+				  th:field="*{description}"
+		>
 		</textarea>
 			<label class="form-label"
 				   th:for="*{description}"
-				   th:text="#{messages.Channel_description}">Description:</label>
+				   th:text="#{messages.Channel_description}"
+			>Description:</label>
 		</div>
 		<div class="invalid-feedback"
 			 th:if="${#fields.hasErrors('description')}"
-			 th:text="${#fields.errors('description').get(0).toString()}"></div>
+			 th:text="${#fields.errors('description').get(0).toString()}"
+		></div>
 	</div>
 
 	<input class="btn btn-primary" th:value="#{messages.Submit}" type="submit" />

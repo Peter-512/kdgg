@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @Profile ("dev")
@@ -30,7 +31,7 @@ public class ChannelRepositoryH2DB implements ChannelRepository {
 	@Override
 	public List<Channel> findAll() {
 		return jdbcTemplate.query("SELECT * FROM channels",
-				(rs, rowNum) -> new Channel(rs.getString("channel_name"), rs.getString("description")));
+				(rs, rowNum) -> new Channel(rs.getLong("channel_id"), rs.getString("channel_name"), rs.getString("description")));
 	}
 
 	@Override
@@ -51,5 +52,11 @@ public class ChannelRepositoryH2DB implements ChannelRepository {
 	@Override
 	public boolean deleteChannel(Channel channel) {
 		return jdbcTemplate.update("DELETE FROM channels WHERE channel_id = ?", channel.getChannelID()) != 0;
+	}
+
+	@Override
+	public Optional<Channel> findById(Long id) {
+		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM channels WHERE channel_id = ?",
+				(rs, rowNum) -> new Channel(rs.getString("channel_name"), rs.getString("description")), id));
 	}
 }

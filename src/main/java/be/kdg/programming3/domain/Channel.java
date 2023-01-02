@@ -60,6 +60,6 @@ public class Channel {
 
 	public double calculateUpvoteRatio() {
 		final int upVotes = posts.stream().mapToInt(Post::getUpVotes).sum();
-		return (double) upVotes / posts.size();
+		return posts.isEmpty() ? 0 : (double) upVotes / posts.size();
 	}
 }

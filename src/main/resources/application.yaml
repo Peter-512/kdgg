@@ -4,7 +4,7 @@ spring:
             filter:
                 enabled: true
     profiles:
-        active: prod
+        active: em # options: dev, prod, em, list
     messages:
         basename: templates/messages
 server:

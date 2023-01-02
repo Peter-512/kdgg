@@ -50,27 +50,27 @@ public class ListDataBaseSeeder implements CommandLineRunner {
 	}
 
 	private void seedChannels() {
-		channelRepository.findAll()
-		                 .add(new Channel("DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
-		channelRepository.findAll()
-		                 .addAll(Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda()
-		                                                                                              .quote()))
-		                               .limit(INITIAL_CHANNELS)
-		                               .toList());
+		channelRepository.createChannel(new Channel("DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
+		final List<Channel> channels = Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda()
+		                                                                                                    .quote()))
+		                                     .limit(INITIAL_CHANNELS)
+		                                     .toList();
+		channels.forEach(channelRepository::createChannel);
 	}
 
 	private void seedUsers() {
 		final User peter = new User("peter.buschenreiter", LocalDate.of(1992, 11, 19), Role.Admin);
-		userRepository.findAll().add(peter);
+		userRepository.createUser(peter);
 		channelRepository.findAll().stream().filter(channel -> randomizer(PERCENT)).forEach(peter::joinChannel);
 
-		userRepository.findAll().addAll(Stream.generate(() -> {
+		final List<User> users = Stream.generate(() -> {
 			final User user = new User(faker.name().username(), LocalDate.ofInstant(faker.date()
 			                                                                             .birthday()
 			                                                                             .toInstant(), ZoneId.systemDefault()), Role.randomRole());
 			channelRepository.findAll().stream().filter(channel -> randomizer(PERCENT)).forEach(user::joinChannel);
 			return user;
-		}).limit(INITIAL_USERS).toList());
+		}).limit(INITIAL_USERS).toList();
+		users.forEach(userRepository::createUser);
 	}
 
 	private void seedPosts() {

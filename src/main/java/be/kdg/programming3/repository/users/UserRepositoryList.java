@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 @Profile ("list")
 public class UserRepositoryList implements UserRepository {
+	private static Long idCounter = 0L;
 	private final List<User> users;
 
 	@Autowired
@@ -25,6 +26,7 @@ public class UserRepositoryList implements UserRepository {
 
 	@Override
 	public User createUser(User user) {
+		user.setUserID(idCounter++);
 		users.add(user);
 		return user;
 	}

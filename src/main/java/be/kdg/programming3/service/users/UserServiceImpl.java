@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@Profile ({"list", "dev"})
+@Profile ({"list", "dev", "em"})
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 
@@ -42,6 +42,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUser(Long id) {
-		// TODO
+		getUser(id).ifPresent(userRepository::deleteUser);
 	}
 }

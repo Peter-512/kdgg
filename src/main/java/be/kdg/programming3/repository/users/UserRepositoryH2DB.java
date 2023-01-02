@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@Primary
 @Repository
 @Profile ("dev")
 public class UserRepositoryH2DB implements UserRepository {
@@ -31,10 +30,8 @@ public class UserRepositoryH2DB implements UserRepository {
 
 	@Override
 	public List<User> findAll() {
-		return jdbcTemplate.query("SELECT * FROM users", (rs, rowNum) -> new User(
-				rs.getString("user_name"),
-				rs.getDate("birthdate").toLocalDate(),
-				Role.valueOf(rs.getString("role"))));
+		return jdbcTemplate.query("SELECT * FROM users", (rs, rowNum) -> new User(rs.getLong("user_id"), rs.getString("user_name"), rs.getDate("birthdate")
+		                                                                                                                              .toLocalDate(), Role.valueOf(rs.getString("role"))));
 	}
 
 	@Override
@@ -42,7 +39,7 @@ public class UserRepositoryH2DB implements UserRepository {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("user_name", user.getName());
 		parameters.put("birthdate", user.getBirthdate());
-		parameters.put("role", user.getRole());
+		parameters.put("role", user.getRole().name());
 		user.setUserID(userInserter.executeAndReturnKey(parameters).longValue());
 		return user;
 	}
@@ -50,7 +47,7 @@ public class UserRepositoryH2DB implements UserRepository {
 	@Override
 	public void updateUser(User user) {
 		jdbcTemplate.update("UPDATE users SET user_name = ?, birthdate = ?, role = ? WHERE user_id = ?",
-				user.getName(), user.getBirthdate(), user.getRole(), user.getUserID());
+				user.getName(), user.getBirthdate(), user.getRole().name(), user.getUserID());
 	}
 
 	@Override

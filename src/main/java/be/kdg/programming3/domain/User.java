@@ -51,6 +51,11 @@ public class User {
 		role = Role.User;
 	}
 
+	public User(Long userID, String name, LocalDate birthdate, Role role) {
+		this(name, birthdate, role);
+		this.userID = userID;
+	}
+
 	public void createPost(Channel channel, String content) {
 		Post post = new Post(this, channel, content);
 		posts.add(post);
