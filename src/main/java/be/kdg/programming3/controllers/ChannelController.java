@@ -4,16 +4,21 @@ import be.kdg.programming3.domain.Channel;
 import be.kdg.programming3.domain.session.PageVisit;
 import be.kdg.programming3.presentation.viewmodel.ChannelViewModel;
 import be.kdg.programming3.service.channels.ChannelService;
+import be.kdg.programming3.util.JsonWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -24,10 +29,12 @@ public class ChannelController {
 	private final ChannelService channelService;
 	private final ErrorController errorController;
 	private final SessionHistoryController sessionHistoryController;
+	private final JsonWriter jsonWriter;
 
 	@Autowired
-	public ChannelController(ChannelService channelService, SessionHistoryController sessionHistoryController) {
+	public ChannelController(ChannelService channelService, SessionHistoryController sessionHistoryController, JsonWriter jsonWriter) {
 		this.channelService = channelService;
+		this.jsonWriter = jsonWriter;
 		logger = LoggerFactory.getLogger(this.getClass());
 		errorController = new ErrorController();
 		this.sessionHistoryController = sessionHistoryController;
@@ -86,5 +93,16 @@ public class ChannelController {
 		logger.info(String.format("Channel %s getting deleted", channelService.getChannel(id)));
 		channelService.deleteChannel(id);
 		return new ModelAndView("redirect:/channels");
+	}
+
+	@GetMapping (value = "/download", produces = "application/json")
+	public ResponseEntity<InputStreamResource> downloadJSONFile() {
+		final byte[] buf = jsonWriter.getJsonBytes(channelService.getChannels());
+		return ResponseEntity
+				.ok()
+				.contentLength(buf.length)
+				.contentType(MediaType.parseMediaType("application/octet-stream"))
+				.header("Content-Disposition", "attachment; filename=\"channels.json\"")
+				.body(new InputStreamResource(new ByteArrayInputStream(buf)));
 	}
 }

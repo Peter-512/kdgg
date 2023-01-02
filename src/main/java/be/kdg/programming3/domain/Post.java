@@ -1,5 +1,6 @@
 package be.kdg.programming3.domain;
 
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,10 +24,13 @@ public class Post {
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "channel_id", nullable = false)
 	private Channel channel;
+	@Expose
 	@Column (nullable = false)
 	private String content;
+	@Expose
 	@Column (nullable = false)
 	private int upVotes;
+	@Expose
 	@Column (nullable = false)
 	private LocalDate date;
 

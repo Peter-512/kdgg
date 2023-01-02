@@ -5,16 +5,21 @@ import be.kdg.programming3.domain.User;
 import be.kdg.programming3.domain.session.PageVisit;
 import be.kdg.programming3.presentation.viewmodel.UserViewModel;
 import be.kdg.programming3.service.users.UserService;
+import be.kdg.programming3.util.JsonWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -26,10 +31,12 @@ public class UserController {
 	private final DateTimeFormatter dateTimeFormatter;
 	private final ErrorController errorController;
 	private final SessionHistoryController sessionHistoryController;
+	private final JsonWriter jsonWriter;
 
 	@Autowired
-	public UserController(UserService userService, SessionHistoryController sessionHistoryController) {
+	public UserController(UserService userService, SessionHistoryController sessionHistoryController, JsonWriter jsonWriter) {
 		this.userService = userService;
+		this.jsonWriter = jsonWriter;
 		logger = LoggerFactory.getLogger(this.getClass());
 		dateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy");
 		errorController = new ErrorController();
@@ -92,5 +99,16 @@ public class UserController {
 		logger.info(String.format("User %s getting deleted", userService.getUser(id)));
 		userService.deleteUser(id);
 		return new ModelAndView("redirect:/users");
+	}
+
+	@GetMapping (value = "/download", produces = "application/json")
+	public ResponseEntity<InputStreamResource> downloadJSONFile() {
+		final byte[] buf = jsonWriter.getJsonBytes(userService.getUsers());
+		return ResponseEntity
+				.ok()
+				.contentLength(buf.length)
+				.contentType(MediaType.parseMediaType("application/octet-stream"))
+				.header("Content-Disposition", "attachment; filename=\"users.json\"")
+				.body(new InputStreamResource(new ByteArrayInputStream(buf)));
 	}
 }

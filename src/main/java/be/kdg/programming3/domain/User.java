@@ -1,6 +1,7 @@
 package be.kdg.programming3.domain;
 
 import be.kdg.programming3.util.PostgreSQLEnumType;
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,10 +30,13 @@ public class User {
 	private List<Channel> channels;
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "channel")
 	private List<Post> posts;
+	@Expose
 	@Column (name = "user_name")
 	private String name;
+	@Expose
 	@Column
 	private LocalDate birthdate;
+	@Expose
 	@Column
 	@Enumerated (EnumType.STRING)
 	@Type (type = "role")

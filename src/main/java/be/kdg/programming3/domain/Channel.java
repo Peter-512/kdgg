@@ -1,5 +1,6 @@
 package be.kdg.programming3.domain;
 
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,12 +22,16 @@ public class Channel {
 	@ManyToMany
 	@JoinTable (name = "user_channels", joinColumns = @JoinColumn (name = "user_id"), inverseJoinColumns = @JoinColumn (name = "channel_id"))
 	private List<User> users;
+	@Expose
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "channel")
 	private List<Post> posts;
+	@Expose
 	@Column (name = "channel_name", nullable = false)
 	private String name;
 	@Column (nullable = false)
+	@Expose
 	private String description;
+	@Expose
 	transient private double upVotesRatio;
 
 	public Channel(String name, String description) {
