@@ -3,6 +3,7 @@ package be.kdg.programming3.controllers;
 import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
 import be.kdg.programming3.domain.session.PageVisit;
+import be.kdg.programming3.exceptions.UserNotFoundException;
 import be.kdg.programming3.presentation.viewmodel.UserViewModel;
 import be.kdg.programming3.service.users.UserService;
 import be.kdg.programming3.util.JsonWriter;
@@ -10,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -29,7 +29,6 @@ public class UserController {
 	private final Logger logger;
 	private final UserService userService;
 	private final DateTimeFormatter dateTimeFormatter;
-	private final ErrorController errorController;
 	private final SessionHistoryController sessionHistoryController;
 	private final JsonWriter jsonWriter;
 
@@ -39,8 +38,14 @@ public class UserController {
 		this.jsonWriter = jsonWriter;
 		logger = LoggerFactory.getLogger(this.getClass());
 		dateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy");
-		errorController = new ErrorController();
 		this.sessionHistoryController = sessionHistoryController;
+	}
+
+	@ExceptionHandler (UserNotFoundException.class)
+	public ModelAndView handleUserNotFoundException(Exception e, ModelAndView modelAndView) {
+		logger.error(e.getMessage());
+		modelAndView.addObject("em", e.getMessage());
+		return modelAndView;
 	}
 
 	@GetMapping
@@ -57,12 +62,12 @@ public class UserController {
 	public ModelAndView showUserView(@PathVariable Long id, HttpServletRequest request) {
 		final Optional<User> user = userService.getUser(id);
 		if (user.isEmpty()) {
-			logger.error(String.format("User %s not found.", id));
-			return errorController.showErrorView(HttpStatus.NOT_FOUND);
+			final String errorMessage = String.format("User %s not found.", id);
+			logger.error(errorMessage);
+			throw new UserNotFoundException(errorMessage);
 		}
-		logger.info(String.format("Controller is running showUserView with user %s!", userService.getUser(id)
-		                                                                                         .get()
-		                                                                                         .getName()));
+		logger.info(String.format("Controller is running showUserView with user %s!",
+				userService.getUser(id).get().getName()));
 
 		final ModelAndView modelAndView = new ModelAndView("users/user");
 		modelAndView.addObject("user", user.get());

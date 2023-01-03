@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Error</title>
+	<title th:text="${message}">Not Found</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -10,9 +10,11 @@
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body class="bg-dark text-light">
+
 <div class="vh-100 d-flex align-items-center flex-column justify-content-center">
 	<h1 style="font-size: 150px" th:text="${status}">Error Code</h1>
-	<h3 th:text="${error}">Error</h3>
+	<h3 th:text="${message}" th:unless="${message == 'No message available'}">Error message</h3>
+	<h3 th:if="${message == 'No message available'}" th:text="${error}">Error message</h3>
 	<button class="btn btn-dark btn-lg m-5 btn-outline-light btn"
 			th:onclick="window.history.back()"
 	>

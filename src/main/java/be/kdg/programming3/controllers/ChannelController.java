@@ -2,6 +2,7 @@ package be.kdg.programming3.controllers;
 
 import be.kdg.programming3.domain.Channel;
 import be.kdg.programming3.domain.session.PageVisit;
+import be.kdg.programming3.exceptions.ChannelNotFoundException;
 import be.kdg.programming3.presentation.viewmodel.ChannelViewModel;
 import be.kdg.programming3.service.channels.ChannelService;
 import be.kdg.programming3.util.JsonWriter;
@@ -9,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -27,7 +27,6 @@ import java.util.Optional;
 public class ChannelController {
 	private final Logger logger;
 	private final ChannelService channelService;
-	private final ErrorController errorController;
 	private final SessionHistoryController sessionHistoryController;
 	private final JsonWriter jsonWriter;
 
@@ -36,9 +35,16 @@ public class ChannelController {
 		this.channelService = channelService;
 		this.jsonWriter = jsonWriter;
 		logger = LoggerFactory.getLogger(this.getClass());
-		errorController = new ErrorController();
 		this.sessionHistoryController = sessionHistoryController;
 	}
+
+	@ExceptionHandler (ChannelNotFoundException.class)
+	public ModelAndView handleChannelNotFoundException(Exception e, ModelAndView modelAndView) {
+		logger.error(e.getMessage());
+		modelAndView.addObject("em", e.getMessage());
+		return modelAndView;
+	}
+
 
 	@GetMapping
 	public ModelAndView showChannelsView(HttpServletRequest request) {
@@ -53,12 +59,12 @@ public class ChannelController {
 	public ModelAndView showChannelView(@PathVariable Long id, HttpServletRequest request) {
 		final Optional<Channel> channel = channelService.getChannel(id);
 		if (channel.isEmpty()) {
-			logger.error(String.format("No channel with id %s found.", id));
-			return errorController.showErrorView(HttpStatus.NOT_FOUND);
+			final String errorMessage = String.format("No channel with id %s found.", id);
+			logger.error(errorMessage);
+			throw new ChannelNotFoundException(errorMessage);
 		}
-		logger.info(String.format("Controller is running showChannelView with channel %s!", channelService.getChannel(id)
-		                                                                                                  .get()
-		                                                                                                  .getName()));
+		logger.info(String.format("Controller is running showChannelView with channel %s!",
+				channelService.getChannel(id).get().getName()));
 
 		final ModelAndView modelAndView = new ModelAndView("channels/channel");
 		modelAndView.addObject("channel", channel.get());
