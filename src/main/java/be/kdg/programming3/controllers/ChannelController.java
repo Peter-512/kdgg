@@ -112,4 +112,11 @@ public class ChannelController {
 				.header("Content-Disposition", "attachment; filename=\"channels.json\"")
 				.body(new InputStreamResource(new ByteArrayInputStream(buf)));
 	}
+
+	@PatchMapping ("/upvote/{id}/{upVotes}")
+	public ModelAndView updateVotesOnPost(@PathVariable Long id, @PathVariable int upVotes, HttpServletRequest request) {
+		logger.info(String.format("Post #%d getting upvoted", id));
+		channelService.setPostUpvoteCount(upVotes, id);
+		return new ModelAndView("redirect:" + request.getHeader("Referer"));
+	}
 }
