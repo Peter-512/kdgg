@@ -49,7 +49,7 @@ public class ChannelRepositoryList implements ChannelRepository {
 
 	@Override
 	public long countByChannelID(Long channelID) {
-		return 0;
+		return findById(channelID).orElseThrow().getPosts().size();
 	}
 
 	@Override

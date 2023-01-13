@@ -55,12 +55,6 @@ public class ChannelServiceImpl implements ChannelService {
 
 	@Override
 	public long getPostsCountOfChannel(long channelID) {
-		return channelRepository.findAll()
-		                        .stream()
-		                        .filter(channel -> channel.getChannelID().equals(channelID))
-		                        .findFirst()
-		                        .get()
-		                        .getPosts()
-		                        .size();
+		return channelRepository.countByChannelID(channelID);
 	}
 }

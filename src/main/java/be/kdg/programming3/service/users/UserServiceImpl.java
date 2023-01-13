@@ -52,12 +52,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public long getPostsCountOfUser(long userID) {
 		logger.info("Getting posts count of user with id: " + userID);
-		return userRepository.findAll()
-		                     .stream()
-		                     .filter(user -> user.getUserID().equals(userID))
-		                     .findFirst()
-		                     .get()
-		                     .getPosts()
-		                     .size();
+		return userRepository.countByUserID(userID);
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Profile ("list")
@@ -39,5 +40,17 @@ public class UserRepositoryList implements UserRepository {
 	@Override
 	public boolean deleteUser(User user) {
 		return users.removeIf(u -> u == user);
+	}
+
+	@Override
+	public Optional<User> findById(Long id) {
+		return users.stream()
+		            .filter(user -> user.getUserID().equals(id))
+		            .findFirst();
+	}
+
+	@Override
+	public long countByUserID(Long userID) {
+		return findById(userID).orElseThrow().getPosts().size();
 	}
 }

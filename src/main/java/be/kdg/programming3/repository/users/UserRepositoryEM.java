@@ -9,9 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-@Profile("em")
+@Profile ("em")
 public class UserRepositoryEM implements UserRepository {
 	@PersistenceUnit
 	private final EntityManagerFactory entityManagerFactory;
@@ -49,5 +50,15 @@ public class UserRepositoryEM implements UserRepository {
 		em.remove(user);
 		em.getTransaction().commit();
 		return true;
+	}
+
+	@Override
+	public Optional<User> findById(Long id) {
+		return Optional.of(em.find(User.class, id));
+	}
+
+	@Override
+	public long countByUserID(Long userID) {
+		return findById(userID).orElseThrow().getPosts().size();
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @Profile ("dev")
@@ -53,6 +54,18 @@ public class UserRepositoryH2DB implements UserRepository {
 	@Override
 	public boolean deleteUser(User user) {
 		return jdbcTemplate.update("DELETE FROM users WHERE user_id = ?", user.getUserID()) != 0;
+	}
+
+	@Override
+	public Optional<User> findById(Long id) {
+		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id = ?",
+				(rs, rowNum) -> new User(rs.getLong("user_id"), rs.getString("user_name"), rs.getDate("birthdate")
+				                                                                             .toLocalDate(), Role.valueOf(rs.getString("role"))), id));
+	}
+
+	@Override
+	public long countByUserID(Long userID) {
+		return findById(userID).orElseThrow().getPosts().size();
 	}
 
 }
