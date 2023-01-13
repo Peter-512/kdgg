@@ -24,11 +24,10 @@ public class User {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "user_id", nullable = false)
 	private Long userID;
-
 	@ManyToMany
 	@JoinTable (name = "user_channels", joinColumns = @JoinColumn (name = "channel_id"), inverseJoinColumns = @JoinColumn (name = "user_id"))
 	private List<Channel> channels;
-	@OneToMany (cascade = CascadeType.ALL, mappedBy = "channel")
+	@OneToMany (cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Post> posts;
 	@Expose
 	@Column (name = "user_name")
