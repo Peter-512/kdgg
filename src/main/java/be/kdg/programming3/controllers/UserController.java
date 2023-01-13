@@ -54,6 +54,7 @@ public class UserController {
 		final ModelAndView modelAndView = new ModelAndView("users/users");
 		modelAndView.addObject("users", userService.getUsers());
 		modelAndView.addObject("dateFormatter", dateTimeFormatter);
+		modelAndView.addObject("userService", userService);
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
 	}

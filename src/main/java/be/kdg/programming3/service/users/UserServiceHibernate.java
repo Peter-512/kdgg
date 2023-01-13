@@ -2,6 +2,7 @@ package be.kdg.programming3.service.users;
 
 import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
+import be.kdg.programming3.repository.PostRepository;
 import be.kdg.programming3.repository.users.UserRepositoryHibernate;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,12 @@ import java.util.Optional;
 @Profile ("prod")
 public class UserServiceHibernate implements UserService {
 	private final UserRepositoryHibernate userRepository;
+	private final PostRepository postRepository;
 
 	@Autowired
-	public UserServiceHibernate(UserRepositoryHibernate userRepository) {
+	public UserServiceHibernate(UserRepositoryHibernate userRepository, PostRepository postRepository) {
 		this.userRepository = userRepository;
+		this.postRepository = postRepository;
 	}
 
 	@Override
@@ -40,5 +43,10 @@ public class UserServiceHibernate implements UserService {
 	@Override
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
+	}
+
+	@Override
+	public long getPostsCountOfUser(long userID) {
+		return postRepository.countByUser_UserID(userID);
 	}
 }

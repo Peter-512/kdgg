@@ -3,6 +3,8 @@ package be.kdg.programming3.service.users;
 import be.kdg.programming3.domain.Role;
 import be.kdg.programming3.domain.User;
 import be.kdg.programming3.repository.users.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,12 @@ import java.util.Optional;
 @Profile ({"list", "dev", "em"})
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
+	private final Logger logger;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
+		logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	}
 
 	@Override
@@ -43,5 +47,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(Long id) {
 		getUser(id).ifPresent(userRepository::deleteUser);
+	}
+
+	@Override
+	public long getPostsCountOfUser(long userID) {
+		logger.info("Getting posts count of user with id: " + userID);
+		return userRepository.findAll()
+		                     .stream()
+		                     .filter(user -> user.getUserID().equals(userID))
+		                     .findFirst()
+		                     .get()
+		                     .getPosts()
+		                     .size();
 	}
 }

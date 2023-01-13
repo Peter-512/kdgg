@@ -19,6 +19,7 @@
 		<th class="text-nowrap" th:text="#{messages.Channel_name}">Channel name</th>
 		<th th:text="#{messages.Channel_description}">Channel description</th>
 		<th class="text-nowrap" th:text="#{messages.Upvote_ratio}">Upvote ratio</th>
+		<th th:text="#{messages.Posts}">Posts</th>
 		<th></th>
 	</tr>
 	</thead>
@@ -31,6 +32,7 @@
 		</td>
 		<td th:text="${channel.getDescription()}"></td>
 		<td th:text="${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}"></td>
+		<td th:text="${channelService.getPostsCountOfChannel(channel.getChannelID())}"></td>
 		<td class="text-center">
 			<form th:action="@{/channels/delete/{id}(id=${channel.getChannelID()})}"
 				  th:method="delete"

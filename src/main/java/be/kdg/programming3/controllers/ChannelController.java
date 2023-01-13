@@ -51,6 +51,7 @@ public class ChannelController {
 		logger.info("Controller is running showChannelsView!");
 		final ModelAndView modelAndView = new ModelAndView("channels/channels");
 		modelAndView.addObject("channels", channelService.getChannels());
+		modelAndView.addObject("channelService", channelService);
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
 	}

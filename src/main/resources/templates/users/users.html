@@ -19,6 +19,7 @@
 		<th th:text="#{messages.Username}">Username</th>
 		<th th:text="#{messages.Role}">Role</th>
 		<th th:text="#{messages.Birthdate}">Birthdate</th>
+		<th th:text="#{messages.Posts}">Posts</th>
 		<th></th>
 	</tr>
 	</thead>
@@ -33,6 +34,7 @@
 		</td>
 		<td th:text="${user.getRole()}"></td>
 		<td th:text="${user.getBirthdate().format(dateFormatter)}"></td>
+		<td th:text="${userService.getPostsCountOfUser(user.getUserID())}"></td>
 		<td class="text-center">
 			<form th:action="@{/users/delete/{id}(id=${user.getUserID()})}"
 				  th:method="delete"
