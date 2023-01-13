@@ -9,11 +9,11 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class ChannelViewModel {
-	@NotBlank (message = "Channel name cannot be empty")
-	@Size (min = 3, max = 25, message = "Channel name should be between 3 and 25 characters")
+	@NotBlank (message = "{viewmodel.channel_not_empty}")
+	@Size (min = 3, max = 25, message = "{viewmodel.channel_size}")
 	private String name;
 
-	@NotBlank (message = "Channel description cannot be empty")
-	@Size (min = 3, max = 150, message = "Channel description should be between 3 and 150 characters")
+	@NotBlank (message = "{viewmodel.description_not_empty}")
+	@Size (min = 3, max = 150, message = "{viewmodel.description_size}")
 	private String description;
 }

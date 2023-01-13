@@ -13,12 +13,12 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class UserViewModel {
-	@NotBlank (message = "Username cannot be empty")
-	@Size (min = 3, max = 25, message = "Username should be between 3 and 25 characters")
+	@NotBlank (message = "{viewmodel.user_not_empty}")
+	@Size (min = 3, max = 25, message = "{viewmodel.user_size}")
 	private String name;
 
-	@NotNull (message = "Birthday cannot be empty")
-	@Past (message = "Birthday cannot be in the future")
+	@NotNull (message = "{viewmodel.birthdate_not_empty}")
+	@Past (message = "{viewmodel.birthdate_past}")
 	private LocalDate birthdate;
 
 	@NotNull (message = "Role cannot be empty")
