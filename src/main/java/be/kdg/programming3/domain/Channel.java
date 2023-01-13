@@ -59,8 +59,9 @@ public class Channel {
 	public String toString() {
 		return String.format("""
 				Channel %s
+				id: %d
 				\t- %s
-				""", name, description);
+				""", name, channelID, description);
 	}
 
 	public double calculateUpvoteRatio() {

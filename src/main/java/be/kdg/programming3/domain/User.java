@@ -79,7 +79,8 @@ public class User {
 	@Override
 	public String toString() {
 		return String.format("""
-								
-				%s (%s) - %s""", name, birthdate, role);
+										
+				id: %d
+					%s (%s) - %s""", userID, name, birthdate, role);
 	}
 }

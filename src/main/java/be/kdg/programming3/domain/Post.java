@@ -59,8 +59,9 @@ public class Post {
 	@Override
 	public String toString() {
 		return String.format("""
+				userID: %d
 				%s: %s
 				%d - %s
-				""", user.getName(), content, upVotes, date);
+				""", user.getUserID(), user.getName(), content, upVotes, date);
 	}
 }
