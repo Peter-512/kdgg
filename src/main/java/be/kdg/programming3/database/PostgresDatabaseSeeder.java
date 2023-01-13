@@ -34,6 +34,9 @@ public class PostgresDatabaseSeeder implements DatabaseSeeder {
 		jdbcTemplate.update("""
 				INSERT INTO posts (content, date, up_votes, channel_id, user_id)
 				VALUES ('The first post by Peter in DuckiesGang', NOW(), 4, 1, 1),
+						('The second post by Peter in DuckiesGang', NOW(), 4, 1, 1),
+						('The third post by Peter in DuckiesGang', NOW(), 4, 1, 1),
+						('The fourth post by Peter in DuckiesGang', NOW(), 4, 1, 1),
 					   ('The first post by Seif in ACS', NOW(), 6, 2, 2)""");
 
 		jdbcTemplate.update("INSERT INTO user_channels VALUES (1,1)");

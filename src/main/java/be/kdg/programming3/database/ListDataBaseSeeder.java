@@ -17,6 +17,7 @@ import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
 @Component
@@ -50,23 +51,27 @@ public class ListDataBaseSeeder implements CommandLineRunner {
 	}
 
 	private void seedChannels() {
-		channelRepository.createChannel(new Channel("DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
-		final List<Channel> channels = Stream.generate(() -> new Channel(faker.starTrek().character(), faker.yoda()
-		                                                                                                    .quote()))
+		channelRepository.createChannel(new Channel(1L, "DuckiesGang", "The coolest gang in town, no spaghett allowed!"));
+		AtomicLong id = new AtomicLong(2);
+		final List<Channel> channels = Stream.generate(() ->
+				                                     new Channel(id.getAndIncrement(),
+						                                     faker.starTrek().character(),
+						                                     faker.yoda().quote()))
 		                                     .limit(INITIAL_CHANNELS)
 		                                     .toList();
 		channels.forEach(channelRepository::createChannel);
 	}
 
 	private void seedUsers() {
-		final User peter = new User("peter.buschenreiter", LocalDate.of(1992, 11, 19), Role.Admin);
+		final User peter = new User(1L, "peter.buschenreiter", LocalDate.of(1992, 11, 19), Role.Admin);
 		userRepository.createUser(peter);
 		channelRepository.findAll().stream().filter(channel -> randomizer(PERCENT)).forEach(peter::joinChannel);
 
+		AtomicLong id = new AtomicLong(2);
 		final List<User> users = Stream.generate(() -> {
-			final User user = new User(faker.name().username(), LocalDate.ofInstant(faker.date()
-			                                                                             .birthday()
-			                                                                             .toInstant(), ZoneId.systemDefault()), Role.randomRole());
+			final User user = new User(id.getAndIncrement(), faker.name().username(), LocalDate.ofInstant(faker.date()
+			                                                                                                   .birthday()
+			                                                                                                   .toInstant(), ZoneId.systemDefault()), Role.randomRole());
 			channelRepository.findAll().stream().filter(channel -> randomizer(PERCENT)).forEach(user::joinChannel);
 			return user;
 		}).limit(INITIAL_USERS).toList();
@@ -76,7 +81,9 @@ public class ListDataBaseSeeder implements CommandLineRunner {
 	private void seedPosts() {
 		channelRepository.findAll().forEach(channel -> {
 			final User[] userArr = channel.getUsers().toArray(new User[0]);
+			AtomicLong id = new AtomicLong(1);
 			List<Post> posts = Stream.generate(() -> new Post(
+					                         id.getAndIncrement(),
 					                         faker.options().option(userArr),
 					                         channel,
 					                         faker.elderScrolls().quote(),

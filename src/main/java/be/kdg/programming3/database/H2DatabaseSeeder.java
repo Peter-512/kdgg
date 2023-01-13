@@ -33,9 +33,20 @@ public class H2DatabaseSeeder implements DatabaseSeeder {
 				       ( 'Seif', '2003-10-12', 'Mod' ),
 				       ( 'Filip', '2001-06-15', 'Mod' ),
 				       ( 'Elina', '2003-04-15', 'User' );""");
+
 		jdbcTemplate.update("""
 				INSERT INTO channels ( channel_name, description )
 				VALUES ( 'DuckiesGang', 'The coolest gang in town, no spaghett allowed!' ),
 				       ( 'ACS', 'Applied Computer Science at KdG' );""");
+
+		jdbcTemplate.update("""
+				INSERT INTO posts (content, date, up_votes, channel_id, user_id)
+				VALUES ('The first post by Peter in DuckiesGang', NOW(), 4, 1, 1),
+						('The second post by Peter in DuckiesGang', NOW(), 4, 1, 1),
+						('The third post by Peter in ACS', NOW(), 4, 2, 1),
+						('The fourth post by Peter in ACS', NOW(), 4, 2, 1),
+					   ('The first post by Seif in ACS', NOW(), 6, 2, 2)""");
+
+		jdbcTemplate.update("INSERT INTO user_channels VALUES (1,1)");
 	}
 }
