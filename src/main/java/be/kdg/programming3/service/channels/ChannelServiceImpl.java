@@ -1,6 +1,8 @@
 package be.kdg.programming3.service.channels;
 
 import be.kdg.programming3.domain.Channel;
+import be.kdg.programming3.domain.Post;
+import be.kdg.programming3.domain.User;
 import be.kdg.programming3.repository.channels.ChannelRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,5 +58,10 @@ public class ChannelServiceImpl implements ChannelService {
 	@Override
 	public long getPostsCountOfChannel(long channelID) {
 		return channelRepository.countByChannelID(channelID);
+	}
+
+	@Override
+	public void addPost(Long channelID, String content, User user) {
+		getChannel(channelID).ifPresent(channel -> channel.createPost(new Post(user, channel, content)));
 	}
 }

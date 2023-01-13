@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title th:text="${channel.getName()}"></title>
 	<link rel="icon" th:href="@{/images/icon.png}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -15,7 +15,84 @@
 	<th:block th:insert="~{fragments::nav(0)}"></th:block>
 	<h1 class="mt-5 text-info" th:text="${channel.getName()}"></h1>
 	<h3 class="text-secondary" th:text="${channel.getDescription()}"></h3>
-	<h5 th:text="${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}"></h5>
+	<h5 th:text="#{messages.Upvote_ratio} + ': ' + ${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}">
+		Upvote ratio:
+	</h5>
+
+	<button class="btn btn-primary"
+			data-bs-target="#postModal"
+			data-bs-toggle="modal"
+			type="button">
+		<i class="bi bi-plus-circle"></i>
+		<span th:text="#{messages.Post_a_new_message}">Post a new message</span>
+	</button>
+
+
+	<div aria-hidden="true"
+		 class="modal fade"
+		 tabindex="-1"
+		 th:aria-labelledby="postModalLabel"
+		 th:id="postModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content bg-dark text-light">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5"
+						id="postModalLabel"
+						th:text="#{messages.Create_post}">
+						Create Post
+					</h1>
+					<button aria-label="Close"
+							class="btn-close btn-close-white"
+							data-bs-dismiss="modal"
+							type="button"
+					></button>
+				</div>
+				<div class="modal-body">
+						<form class="d-flex flex-column gap-2"
+							  th:action="@{/channels/{channelID}/post(channelID=${channel.getChannelID()})}"
+							  th:method="POST"
+							  th:object="${viewModel}">
+							<div class="input-group has-validation">
+								<div class="form-floating"
+									 th:classappend="${#fields.hasErrors('content')?'is-invalid':''}">
+									<input class="form-control border-0 bg-black text-light"
+										   placeholder="Content"
+										   th:field="*{content}">
+									<label class="form-label"
+										   th:for="*{content}"
+										   th:text="#{messages.Content}"
+									>Content</label>
+								</div>
+							</div>
+							<div class="input-group has-validation">
+								<div class="form-floating"
+									 th:classappend="${#fields.hasErrors('user')?'is-invalid':''}">
+									<select th:class="${#fields.hasErrors('user')?
+											'form-control form-control-lg is-invalid bg-black text-light form-select':
+											'form-control form-control-lg border-0 bg-black text-light form-select'}"
+											th:field="*{user}">
+										<option th:each="u: ${users}"
+												th:text="${u.getName()}"
+												th:value="${u.getUserID()}">
+										</option>
+									</select>
+									<label class="form-label"
+										   th:for="*{user}"
+										   th:text="#{messages.Username}">
+										User
+									</label>
+								</div>
+							</div>
+							<button class="btn mt-0 btn-warning" th:text="#{messages.Submit}" type="submit">Submit
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </header>
 <div class="d-flex flex-row my-5">
 	<main class="col-12 col-md-9" th:switch="${#lists.size(channel.getPosts())}">
@@ -33,19 +110,16 @@
 	<aside class="d-none d-md-block mx-3 col-3" th:if="${#lists.size(channel.getUsers())>0}">
 		<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white rounded">
 			<span class="d-flex align-items-center flex-shrink-0 p-3 border-bottom fs-5 fw-semibold text-dark"
-				  th:utext="#{navbar.Users}"
-			>
+				  th:utext="#{navbar.Users}">
 				<i class="bi-people me-2"></i>
 				Users
 			</span>
 			<ul class="list-group list-group-flush border-bottom rounded-bottom">
 				<li class="py-3 list-group-item list-group-item-dark"
-					th:each="user: ${channel.getUsers()}"
-				>
+					th:each="user: ${channel.getUsers()}">
 					<a class="d-flex align-items-center justify-content-between text-decoration-none"
 					   th:href="@{/users/{id}(id=${user.getUserID()})}"
-					   th:text="${user.getName()}"
-					>
+					   th:text="${user.getName()}">
 					</a>
 				</li>
 			</ul>

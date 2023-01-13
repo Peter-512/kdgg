@@ -4,6 +4,7 @@ import be.kdg.programming3.domain.Channel;
 import be.kdg.programming3.domain.session.PageVisit;
 import be.kdg.programming3.exceptions.ChannelNotFoundException;
 import be.kdg.programming3.presentation.viewmodel.ChannelViewModel;
+import be.kdg.programming3.presentation.viewmodel.PostViewModel;
 import be.kdg.programming3.service.channels.ChannelService;
 import be.kdg.programming3.util.JsonWriter;
 import org.slf4j.Logger;
@@ -70,6 +71,8 @@ public class ChannelController {
 		final ModelAndView modelAndView = new ModelAndView("channels/channel");
 		modelAndView.addObject("channel", channel.get());
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. MMMM yyyy"));
+		modelAndView.addObject("viewModel", new PostViewModel());
+		modelAndView.addObject("users", channel.get().getUsers());
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
 	}
@@ -81,6 +84,17 @@ public class ChannelController {
 		modelAndView.addObject("channel", new ChannelViewModel());
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
+	}
+
+	@PostMapping ("/{channelID}/post")
+	public ModelAndView createPost(@Valid @ModelAttribute ("viewModel") PostViewModel postViewModel, BindingResult bindingResult, @PathVariable Long channelID) {
+		logger.info("Controller is running createPost!");
+		if (bindingResult.hasErrors()) {
+			logger.error("Binding errors occurred!");
+			return new ModelAndView(String.format("channels/%d/post", channelID));
+		}
+		channelService.addPost(channelID, postViewModel.getContent(), postViewModel.getUser());
+		return new ModelAndView(String.format("redirect:/channels/%d", channelID));
 	}
 
 	@PostMapping

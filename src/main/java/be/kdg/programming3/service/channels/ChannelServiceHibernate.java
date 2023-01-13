@@ -1,6 +1,8 @@
 package be.kdg.programming3.service.channels;
 
 import be.kdg.programming3.domain.Channel;
+import be.kdg.programming3.domain.Post;
+import be.kdg.programming3.domain.User;
 import be.kdg.programming3.repository.PostRepository;
 import be.kdg.programming3.repository.channels.ChannelRepositoryHibernate;
 import com.google.common.collect.Lists;
@@ -50,5 +52,10 @@ public class ChannelServiceHibernate implements ChannelService {
 	@Override
 	public long getPostsCountOfChannel(long id) {
 		return postRepository.countByChannel_ChannelID(id);
+	}
+
+	@Override
+	public void addPost(Long channelID, String content, User user) {
+		postRepository.save(new Post(user, getChannel(channelID).orElseThrow(), content));
 	}
 }
