@@ -71,7 +71,7 @@
 											'form-control form-control-lg is-invalid bg-black text-light form-select':
 											'form-control form-control-lg border-0 bg-black text-light form-select'}"
 											th:field="*{user}">
-										<option th:each="u: ${users}"
+										<option th:each="u: ${channel.getUsers()}"
 												th:text="${u.getName()}"
 												th:value="${u.getUserID()}">
 										</option>

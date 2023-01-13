@@ -72,7 +72,6 @@ public class ChannelController {
 		modelAndView.addObject("channel", channel.get());
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. MMMM yyyy"));
 		modelAndView.addObject("viewModel", new PostViewModel());
-		modelAndView.addObject("users", channel.get().getUsers());
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
 	}
