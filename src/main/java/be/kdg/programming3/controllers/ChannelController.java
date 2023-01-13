@@ -89,9 +89,12 @@ public class ChannelController {
 	@PostMapping ("/{channelID}/post")
 	public ModelAndView createPost(@Valid @ModelAttribute ("viewModel") PostViewModel postViewModel, BindingResult bindingResult, @PathVariable Long channelID) {
 		logger.info("Controller is running createPost!");
+
+		logger.info(String.format("PostViewModel: %s, %s", postViewModel.content, postViewModel.user));
+
 		if (bindingResult.hasErrors()) {
-			logger.error("Binding errors occurred!");
-			return new ModelAndView(String.format("channels/%d/post", channelID));
+			logger.error("Failed to create a post!");
+			return new ModelAndView("channels/" + channelID);
 		}
 		channelService.addPost(channelID, postViewModel.getContent(), postViewModel.getUser());
 		return new ModelAndView(String.format("redirect:/channels/%d", channelID));

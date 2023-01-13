@@ -1,6 +1,7 @@
 package be.kdg.programming3.repository.channels;
 
 import be.kdg.programming3.domain.Channel;
+import be.kdg.programming3.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,11 @@ public class ChannelRepositoryList implements ChannelRepository {
 	@Override
 	public long countByChannelID(Long channelID) {
 		return findById(channelID).orElseThrow().getPosts().size();
+	}
+
+	@Override
+	public void createPost(Long channelID, String content, User user) {
+		user.createPost(findById(channelID).orElseThrow(), content);
 	}
 
 	@Override

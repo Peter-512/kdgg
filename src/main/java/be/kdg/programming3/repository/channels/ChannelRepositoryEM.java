@@ -1,6 +1,8 @@
 package be.kdg.programming3.repository.channels;
 
 import be.kdg.programming3.domain.Channel;
+import be.kdg.programming3.domain.Post;
+import be.kdg.programming3.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -60,5 +62,12 @@ public class ChannelRepositoryEM implements ChannelRepository {
 	@Override
 	public long countByChannelID(Long channelID) {
 		return findById(channelID).orElseThrow().getPosts().size();
+	}
+
+	@Override
+	public void createPost(Long channelID, String content, User user) {
+		em.getTransaction().begin();
+		em.persist(new Post(user, findById(channelID).orElseThrow(), content));
+		em.getTransaction().commit();
 	}
 }
