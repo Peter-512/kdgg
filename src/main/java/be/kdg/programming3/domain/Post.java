@@ -34,10 +34,11 @@ public class Post {
 	@Column (nullable = false)
 	private LocalDate date;
 
-	public Post(User user, Channel channel, String content, int upVotes, LocalDate date) {
+	public Post(Long postID, User user, Channel channel, String content, int upVotes, LocalDate date) {
 		this(user, channel, content);
 		this.upVotes = upVotes;
 		this.date = date;
+		this.postID = postID;
 	}
 
 	public Post(User user, Channel channel, String content) {
@@ -46,14 +47,7 @@ public class Post {
 		this.content = content;
 		upVotes = 0;
 		date = LocalDate.now();
-	}
-
-	public void upVote() {
-		upVotes++;
-	}
-
-	public void downVote() {
-		upVotes--;
+		user.createPost(channel, this);
 	}
 
 	@Override
