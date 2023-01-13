@@ -59,4 +59,9 @@ public class ChannelRepositoryH2DB implements ChannelRepository {
 		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM channels WHERE channel_id = ?",
 				(rs, rowNum) -> new Channel(rs.getString("channel_name"), rs.getString("description")), id));
 	}
+
+	@Override
+	public long countByChannelID(Long channelID) {
+		return 0;
+	}
 }

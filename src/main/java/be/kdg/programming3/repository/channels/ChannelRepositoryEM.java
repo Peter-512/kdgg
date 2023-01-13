@@ -56,4 +56,9 @@ public class ChannelRepositoryEM implements ChannelRepository {
 	public Optional<Channel> findById(Long id) {
 		return Optional.of(em.find(Channel.class, id));
 	}
+
+	@Override
+	public long countByChannelID(Long channelID) {
+		return 0;
+	}
 }

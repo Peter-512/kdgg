@@ -15,4 +15,6 @@ public interface UserService {
 	User addUser(String name, LocalDate birthdate, Role role);
 
 	void deleteUser(Long id);
+
+	long getPostsCountOfUser(long userID);
 }

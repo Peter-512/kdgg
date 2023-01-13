@@ -48,6 +48,11 @@ public class ChannelRepositoryList implements ChannelRepository {
 	}
 
 	@Override
+	public long countByChannelID(Long channelID) {
+		return 0;
+	}
+
+	@Override
 	public List<Channel> findAll() {
 		return channels;
 	}

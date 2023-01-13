@@ -42,4 +42,25 @@ public class ChannelServiceImpl implements ChannelService {
 	public void deleteChannel(Long id) {
 		getChannel(id).ifPresent(channelRepository::deleteChannel);
 	}
+
+	@Override
+	public void setPostUpvoteCount(int upVotes, Long postID) {
+		channelRepository.findAll().forEach(channel -> {
+			channel.getPosts().stream()
+			       .filter(post -> post.getPostID().equals(postID))
+			       .findFirst()
+			       .ifPresent(post -> post.setUpVotes(upVotes));
+		});
+	}
+
+	@Override
+	public long getPostsCountOfChannel(long channelID) {
+		return channelRepository.findAll()
+		                        .stream()
+		                        .filter(channel -> channel.getChannelID().equals(channelID))
+		                        .findFirst()
+		                        .get()
+		                        .getPosts()
+		                        .size();
+	}
 }

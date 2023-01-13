@@ -15,4 +15,6 @@ public interface ChannelRepository {
 	boolean deleteChannel(Channel channel);
 
 	Optional<Channel> findById(Long id);
+
+	long countByChannelID(Long channelID);
 }
