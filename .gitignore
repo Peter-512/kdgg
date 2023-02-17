@@ -161,3 +161,4 @@ public
 /db/*
 /.env
 /.settings/org.eclipse.buildship.core.prefs
+/.idea/discord.xml

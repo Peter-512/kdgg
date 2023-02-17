@@ -17,4 +17,4 @@ spring:
 logging:
     level:
         #        web: debug
-        be.kdg.programming3: debug
+        be.kdg.programming5: debug
