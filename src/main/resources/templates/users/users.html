@@ -4,10 +4,11 @@
 	<meta charset="UTF-8">
 	<title th:text="#{messages.Users}">Users</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<script defer th:src="@{/js/deleteEntity.js}"></script>
 </head>
 <body class="my-3 w-75 mx-auto bg-dark text-light">
 
@@ -24,7 +25,7 @@
 	</tr>
 	</thead>
 	<tbody class="table-group-divider">
-	<tr th:each="user: ${users}">
+	<tr th:each="user: ${users}" th:id="'user_' + ${user.getUserID()}">
 		<td>
 			<a class="text-decoration-none"
 			   th:href="@{/users/{id}(id=${user.getUserID()})}"
@@ -36,13 +37,9 @@
 		<td th:text="${user.getBirthdate().format(dateFormatter)}"></td>
 		<td th:text="${userService.getPostsCountOfUser(user.getUserID())}"></td>
 		<td class="text-center">
-			<form th:action="@{/users/delete/{id}(id=${user.getUserID()})}"
-				  th:method="delete"
-			>
-				<button class="btn p-0" type="submit">
-					<i class="bi bi-trash text-danger"></i>
-				</button>
-			</form>
+			<button class="btn p-0 delete" type="submit">
+				<i class="bi bi-trash text-danger"></i>
+			</button>
 		</td>
 	</tr>
 	</tbody>

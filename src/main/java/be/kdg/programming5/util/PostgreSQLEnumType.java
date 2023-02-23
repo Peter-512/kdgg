@@ -1,6 +1,6 @@
 package be.kdg.programming5.util;
 
-import be.kdg.programming5.domain.Role;
+import be.kdg.programming5.model.Role;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 

@@ -1,8 +1,8 @@
 package be.kdg.programming5.service.channels;
 
-import be.kdg.programming5.domain.Channel;
-import be.kdg.programming5.domain.Post;
-import be.kdg.programming5.domain.User;
+import be.kdg.programming5.model.Channel;
+import be.kdg.programming5.model.Post;
+import be.kdg.programming5.model.User;
 import be.kdg.programming5.repository.ChannelRepository;
 import be.kdg.programming5.repository.PostRepository;
 import com.google.common.collect.Lists;
@@ -45,6 +45,7 @@ public class ChannelServiceHibernate implements ChannelService {
 		channelRepository.deleteById(id);
 	}
 
+	@Override
 	public void setPostUpvoteCount(int upVotes, Long postID) {
 		postRepository.updateUpVotesByPostID(upVotes, postID);
 	}
@@ -57,5 +58,12 @@ public class ChannelServiceHibernate implements ChannelService {
 	@Override
 	public void addPost(Long channelID, String content, User user) {
 		postRepository.save(new Post(user, getChannel(channelID).orElseThrow(), content));
+	}
+
+	@Override
+	public Channel updateChannel(Long id, String description) {
+		Channel channel = getChannel(id).orElseThrow();
+		channel.setDescription(description);
+		return channelRepository.save(channel);
 	}
 }

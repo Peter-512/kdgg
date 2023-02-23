@@ -1,4 +1,4 @@
-package be.kdg.programming5.domain;
+package be.kdg.programming5.model;
 
 import be.kdg.programming5.util.PostgreSQLEnumType;
 import com.google.gson.annotations.Expose;

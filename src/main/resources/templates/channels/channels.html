@@ -4,10 +4,11 @@
 	<meta charset="UTF-8">
 	<title th:text="#{messages.Channels}">Channels</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<script defer th:src="@{/js/deleteEntity.js}"></script>
 </head>
 <body class="my-3 w-75 mx-auto bg-dark text-light">
 
@@ -24,7 +25,7 @@
 	</tr>
 	</thead>
 	<tbody class="table-group-divider">
-	<tr th:each="channel: ${channels}">
+	<tr class="" th:each="channel: ${channels}" th:id="'channel_' + ${channel.getChannelID()}">
 		<td>
 			<a class="text-decoration-none" th:href="@{/channels/{id}(id=${channel.getChannelID()})}"
 			   th:text="${channel.getName()}"
@@ -34,13 +35,9 @@
 		<td th:text="${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}"></td>
 		<td th:text="${channelService.getPostsCountOfChannel(channel.getChannelID())}"></td>
 		<td class="text-center">
-			<form th:action="@{/channels/delete/{id}(id=${channel.getChannelID()})}"
-				  th:method="delete"
-			>
-				<button class="btn p-0" type="submit">
-					<i class="bi bi-trash text-danger"></i>
-				</button>
-			</form>
+			<button class="btn p-0 delete" type="submit">
+				<i class="bi bi-trash text-danger"></i>
+			</button>
 		</td>
 	</tr>
 	</tbody>

@@ -1,4 +1,4 @@
-package be.kdg.programming5.domain.session;
+package be.kdg.programming5.model.session;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;

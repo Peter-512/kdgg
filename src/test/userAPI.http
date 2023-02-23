@@ -1,0 +1,42 @@
+### Get all users; 200
+GET http://localhost:8081/api/users
+
+### Get user by id; 200
+GET http://localhost:8081/api/users/1
+
+### Get user by id; 404
+GET http://localhost:8081/api/users/999
+
+### Get a users channels; 200
+GET http://localhost:8081/api/users/1/channels
+
+### Get a users channels; 204
+GET http://localhost:8081/api/users/2/channels
+
+### Get a users channels; 404
+GET http://localhost:8081/api/users/999/channels
+
+### Delete user by id; 204
+DELETE http://localhost:8081/api/users/1
+
+### Update user by id; 200
+PUT http://localhost:8081/api/users/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "User 1",
+  "birthdate": "2018-01-01",
+  "role": "Mod"
+}
+
+### Update user by id; 404
+PUT http://localhost:8081/api/users/999
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "does not exist",
+  "birthdate": "2018-01-01",
+  "role": "Mod"
+}

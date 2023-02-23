@@ -1,10 +1,10 @@
 package be.kdg.programming5.controllers.mvc;
 
 import be.kdg.programming5.controllers.mvc.viewmodels.UserViewModel;
-import be.kdg.programming5.domain.Role;
-import be.kdg.programming5.domain.User;
-import be.kdg.programming5.domain.session.PageVisit;
 import be.kdg.programming5.exceptions.UserNotFoundException;
+import be.kdg.programming5.model.Role;
+import be.kdg.programming5.model.User;
+import be.kdg.programming5.model.session.PageVisit;
 import be.kdg.programming5.service.users.UserService;
 import be.kdg.programming5.util.JsonWriter;
 import org.slf4j.Logger;

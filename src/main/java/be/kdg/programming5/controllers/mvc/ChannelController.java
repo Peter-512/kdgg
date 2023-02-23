@@ -2,9 +2,9 @@ package be.kdg.programming5.controllers.mvc;
 
 import be.kdg.programming5.controllers.mvc.viewmodels.ChannelViewModel;
 import be.kdg.programming5.controllers.mvc.viewmodels.PostViewModel;
-import be.kdg.programming5.domain.Channel;
-import be.kdg.programming5.domain.session.PageVisit;
 import be.kdg.programming5.exceptions.ChannelNotFoundException;
+import be.kdg.programming5.model.Channel;
+import be.kdg.programming5.model.session.PageVisit;
 import be.kdg.programming5.service.channels.ChannelService;
 import be.kdg.programming5.util.JsonWriter;
 import org.slf4j.Logger;

@@ -1,0 +1,38 @@
+### Get all channels; 200
+GET http://localhost:8081/api/channels
+
+### Get channel by id; 200
+GET http://localhost:8081/api/channels/1
+
+### Get channel by id; 404
+GET http://localhost:8081/api/channels/100000
+
+### Get users from channel; 200
+GET http://localhost:8081/api/channels/1/users
+
+### Get users from channel; 204
+GET http://localhost:8081/api/channels/3/users
+
+### Get users from channel; 404
+GET http://localhost:8081/api/channels/9/users
+
+### Delete channel by id; 200
+DELETE http://localhost:8081/api/channels/1
+
+### Patch description of channel; 200
+PATCH http://localhost:8081/api/channels/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "description": "{{$random.alphabetic(20)}}"
+}
+
+### Patch description of channel; 404
+PATCH http://localhost:8081/api/channels/300
+Content-Type: application/json
+Accept: application/json
+
+{
+  "description": "This channel does not exist!"
+}

@@ -1,7 +1,7 @@
 package be.kdg.programming5.service.users;
 
-import be.kdg.programming5.domain.Role;
-import be.kdg.programming5.domain.User;
+import be.kdg.programming5.model.Role;
+import be.kdg.programming5.model.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,4 +17,6 @@ public interface UserService {
 	void deleteUser(Long id);
 
 	long getPostsCountOfUser(long userID);
+
+	User updateUser(Long id, String name, LocalDate birthdate, Role role);
 }

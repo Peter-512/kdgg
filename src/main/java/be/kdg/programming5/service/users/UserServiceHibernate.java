@@ -1,7 +1,7 @@
 package be.kdg.programming5.service.users;
 
-import be.kdg.programming5.domain.Role;
-import be.kdg.programming5.domain.User;
+import be.kdg.programming5.model.Role;
+import be.kdg.programming5.model.User;
 import be.kdg.programming5.repository.PostRepository;
 import be.kdg.programming5.repository.UserRepository;
 import com.google.common.collect.Lists;
@@ -48,5 +48,15 @@ public class UserServiceHibernate implements UserService {
 	@Override
 	public long getPostsCountOfUser(long userID) {
 		return postRepository.countByUser_UserID(userID);
+	}
+
+	@Override
+	public User updateUser(Long id, String name, LocalDate birthdate, Role role) {
+		return userRepository.findById(id).map(user -> {
+			user.setName(name);
+			user.setBirthdate(birthdate);
+			user.setRole(role);
+			return userRepository.save(user);
+		}).orElse(null);
 	}
 }

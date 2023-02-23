@@ -1,7 +1,7 @@
 package be.kdg.programming5.service.channels;
 
-import be.kdg.programming5.domain.Channel;
-import be.kdg.programming5.domain.User;
+import be.kdg.programming5.model.Channel;
+import be.kdg.programming5.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +20,6 @@ public interface ChannelService {
 	long getPostsCountOfChannel(long channelID);
 
 	void addPost(Long channelID, String content, User user);
+
+	Channel updateChannel(Long id, String description);
 }

@@ -1,6 +1,6 @@
 package be.kdg.programming5.controllers.mvc.viewmodels;
 
-import be.kdg.programming5.domain.Role;
+import be.kdg.programming5.model.Role;
 import lombok.Getter;
 import lombok.Setter;
 

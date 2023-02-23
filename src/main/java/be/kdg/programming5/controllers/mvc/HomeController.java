@@ -1,7 +1,7 @@
 package be.kdg.programming5.controllers.mvc;
 
 
-import be.kdg.programming5.domain.session.PageVisit;
+import be.kdg.programming5.model.session.PageVisit;
 import be.kdg.programming5.service.channels.ChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

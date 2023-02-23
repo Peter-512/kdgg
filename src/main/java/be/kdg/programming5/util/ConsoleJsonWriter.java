@@ -1,8 +1,8 @@
 package be.kdg.programming5.util;
 
-import be.kdg.programming5.domain.Channel;
-import be.kdg.programming5.domain.Post;
-import be.kdg.programming5.domain.User;
+import be.kdg.programming5.model.Channel;
+import be.kdg.programming5.model.Post;
+import be.kdg.programming5.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
