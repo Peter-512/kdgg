@@ -9,6 +9,7 @@
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<script defer th:src="@{/js/deleteEntity.js}"></script>
+	<script defer th:src="@{/js/showUsersOfChannel.js}"></script>
 </head>
 <body class="my-3 w-75 mx-auto bg-dark text-light">
 
@@ -42,6 +43,8 @@
 	</tr>
 	</tbody>
 </table>
+
+<article class="visually-hidden card my-3"></article>
 
 <a class="btn btn-outline-primary" th:href="@{channels/download}">Download</a>
 
