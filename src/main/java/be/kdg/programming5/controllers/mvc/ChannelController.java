@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 @RestController
 @RequestMapping ("/channels")
@@ -39,14 +38,6 @@ public class ChannelController {
 		this.sessionHistoryController = sessionHistoryController;
 	}
 
-	@ExceptionHandler (ChannelNotFoundException.class)
-	public ModelAndView handleChannelNotFoundException(Exception e, ModelAndView modelAndView) {
-		logger.error(e.getMessage());
-		modelAndView.addObject("em", e.getMessage());
-		return modelAndView;
-	}
-
-
 	@GetMapping
 	public ModelAndView showChannelsView(HttpServletRequest request) {
 		logger.info("Controller is running showChannelsView!");
@@ -59,17 +50,13 @@ public class ChannelController {
 
 	@GetMapping ("/{id}")
 	public ModelAndView showChannelView(@PathVariable Long id, HttpServletRequest request) {
-		final Optional<Channel> channel = channelService.getChannel(id);
-		if (channel.isEmpty()) {
-			final String errorMessage = String.format("No channel with id %s found.", id);
-			logger.error(errorMessage);
-			throw new ChannelNotFoundException(errorMessage);
-		}
+		final Channel channel = channelService.getChannel(id).orElseThrow(() -> new ChannelNotFoundException(id));
+
 		logger.info(String.format("Controller is running showChannelView with channel %s!",
-				channelService.getChannel(id).get().getName()));
+				channel.getName()));
 
 		final ModelAndView modelAndView = new ModelAndView("channels/channel");
-		modelAndView.addObject("channel", channel.get());
+		modelAndView.addObject("channel", channel);
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. MMMM yyyy"));
 		modelAndView.addObject("viewModel", new PostViewModel());
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));

@@ -4,13 +4,13 @@
 	<meta charset="UTF-8">
 	<title th:text="${message}">Not Found</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body class="bg-dark text-light">
-
+<!--TODO fix this error page -> doesn't add the text of status or message -->
 <div class="vh-100 d-flex align-items-center flex-column justify-content-center">
 	<h1 style="font-size: 150px" th:text="${status}">Error Code</h1>
 	<h3 th:text="${message}" th:unless="${message == 'No message available'}">Error message</h3>

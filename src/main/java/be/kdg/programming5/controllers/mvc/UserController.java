@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 @RestController
 @RequestMapping ("/users")
@@ -41,12 +40,6 @@ public class UserController {
 		this.sessionHistoryController = sessionHistoryController;
 	}
 
-	@ExceptionHandler (UserNotFoundException.class)
-	public ModelAndView handleUserNotFoundException(Exception e, ModelAndView modelAndView) {
-		logger.error(e.getMessage());
-		modelAndView.addObject("em", e.getMessage());
-		return modelAndView;
-	}
 
 	@GetMapping
 	public ModelAndView showUsersView(HttpServletRequest request) {
@@ -61,17 +54,14 @@ public class UserController {
 
 	@GetMapping ("/{id}")
 	public ModelAndView showUserView(@PathVariable Long id, HttpServletRequest request) {
-		final Optional<User> user = userService.getUser(id);
-		if (user.isEmpty()) {
-			final String errorMessage = String.format("User %s not found.", id);
-			logger.error(errorMessage);
-			throw new UserNotFoundException(errorMessage);
-		}
+		final User user = userService.getUser(id)
+		                             .orElseThrow(() -> new UserNotFoundException(id));
+
 		logger.info(String.format("Controller is running showUserView with user %s!",
-				userService.getUser(id).get().getName()));
+				user.getName()));
 
 		final ModelAndView modelAndView = new ModelAndView("users/user");
-		modelAndView.addObject("user", user.get());
+		modelAndView.addObject("user", user);
 		modelAndView.addObject("dateFormatter", dateTimeFormatter);
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
