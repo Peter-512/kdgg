@@ -1,32 +1,31 @@
 package be.kdg.programming5.database;
 
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Profile ("dev")
 public class H2DatabaseSeeder implements DatabaseSeeder {
 	private final JdbcTemplate jdbcTemplate;
+	private final Faker faker = new Faker();
 
 	@Autowired
 	public H2DatabaseSeeder(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
 
+	private Date fakeDate() {
+		return faker.date().past(100, TimeUnit.DAYS);
+	}
+
 	@Override
 	@PostConstruct
 	public void loadData() {
-		jdbcTemplate.update("DROP TABLE IF EXISTS posts");
-		jdbcTemplate.update("DROP TABLE IF EXISTS channels CASCADE");
-		jdbcTemplate.update("DROP TABLE IF EXISTS users CASCADE");
-		jdbcTemplate.update("DROP TABLE IF EXISTS user_channels CASCADE");
-		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS users ( user_id INTEGER AUTO_INCREMENT PRIMARY KEY, user_name CHARACTER VARYING NOT NULL, birthdate DATE NOT NULL, role ENUM('User', 'Mod', 'Admin') NOT NULL)");
-		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS channels (channel_id INTEGER AUTO_INCREMENT PRIMARY KEY, channel_name CHARACTER VARYING NOT NULL,description CHARACTER VARYING NOT NULL)");
-		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS posts (post_id INTEGER AUTO_INCREMENT PRIMARY KEY, content CHARACTER VARYING NOT NULL, channel_id INTEGER NOT NULL, user_id INTEGER NOT NULL, up_votes INTEGER NOT NULL DEFAULT 0, date DATE NOT NULL DEFAULT NOW(), FOREIGN KEY (channel_id) REFERENCES channels(channel_id), FOREIGN KEY (user_id) REFERENCES users(user_id))");
-		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS user_channels (user_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, PRIMARY KEY (user_id, channel_id), FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE, FOREIGN KEY (channel_id) REFERENCES channels(channel_id) ON DELETE CASCADE)");
-
 		jdbcTemplate.update("""
 				INSERT INTO users( user_name, birthdate, role )
 				VALUES ( 'Peter', '1992-11-19', 'Admin' ),
@@ -40,12 +39,13 @@ public class H2DatabaseSeeder implements DatabaseSeeder {
 				       ( 'ACS', 'Applied Computer Science at KdG' );""");
 
 		jdbcTemplate.update("""
-				INSERT INTO posts (content, date, up_votes, channel_id, user_id)
-				VALUES ('The first post by Peter in DuckiesGang', NOW(), 4, 1, 1),
-						('The second post by Peter in DuckiesGang', NOW(), 4, 1, 1),
-						('The third post by Peter in ACS', NOW(), 4, 2, 1),
-						('The fourth post by Peter in ACS', NOW(), 4, 2, 1),
-					   ('The first post by Seif in ACS', NOW(), 6, 2, 2)""");
+						INSERT INTO posts (content, posted_at, up_votes, channel_id, user_id)
+						VALUES ('The first post by Peter in DuckiesGang', ?, 4, 1, 1),
+								('The second post by Peter in DuckiesGang', ?, 4, 1, 1),
+								('The third post by Peter in ACS', ?, 4, 2, 1),
+								('The fourth post by Peter in ACS', ?, 4, 2, 1),
+							   ('The first post by Seif in ACS', ?, 6, 2, 2)""",
+				fakeDate(), fakeDate(), fakeDate(), fakeDate(), fakeDate());
 
 		jdbcTemplate.update("INSERT INTO user_channels VALUES (1,1)");
 	}

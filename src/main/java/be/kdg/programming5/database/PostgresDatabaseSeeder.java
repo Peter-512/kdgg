@@ -1,20 +1,28 @@
 package be.kdg.programming5.database;
 
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Profile ("prod")
 public class PostgresDatabaseSeeder implements DatabaseSeeder {
 	private final JdbcTemplate jdbcTemplate;
+	private final Faker faker = new Faker();
 
 	@Autowired
 	public PostgresDatabaseSeeder(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	private Date fakeDate() {
+		return faker.date().past(100, TimeUnit.DAYS);
 	}
 
 	@Override
@@ -33,12 +41,13 @@ public class PostgresDatabaseSeeder implements DatabaseSeeder {
 					   ('Lonely', 'A channel for lonely people')""");
 
 		jdbcTemplate.update("""
-				INSERT INTO posts (content, date, up_votes, channel_id, user_id)
-				VALUES ('The first post by Peter in DuckiesGang', NOW(), 4, 1, 1),
-						('The second post by Peter in DuckiesGang', NOW(), 4, 1, 1),
-						('The third post by Peter in DuckiesGang', NOW(), 4, 1, 1),
-						('The fourth post by Peter in DuckiesGang', NOW(), 4, 1, 1),
-					   ('The first post by Seif in ACS', NOW(), 6, 2, 2)""");
+						INSERT INTO posts (content, posted_at, up_votes, channel_id, user_id)
+						VALUES ('The first post by Peter in DuckiesGang', ?, 4, 1, 1),
+								('The second post by Peter in DuckiesGang', ?, 4, 1, 1),
+								('The third post by Peter in DuckiesGang', ?, 4, 1, 1),
+								('The fourth post by Peter in DuckiesGang', ?, 4, 1, 1),
+							   ('The first post by Seif in ACS', ?, 6, 2, 2)""",
+				fakeDate(), fakeDate(), fakeDate(), fakeDate(), fakeDate());
 
 		jdbcTemplate.update("INSERT INTO user_channels VALUES (1,1)");
 	}

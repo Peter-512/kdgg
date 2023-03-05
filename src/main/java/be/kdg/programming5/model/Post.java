@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -32,12 +32,12 @@ public class Post {
 	private int upVotes;
 	@Expose
 	@Column (nullable = false)
-	private LocalDate date;
+	private LocalDateTime postedAt;
 
-	public Post(Long postID, User user, Channel channel, String content, int upVotes, LocalDate date) {
+	public Post(Long postID, User user, Channel channel, String content, int upVotes, LocalDateTime postedAt) {
 		this(user, channel, content);
 		this.upVotes = upVotes;
-		this.date = date;
+		this.postedAt = postedAt;
 		this.postID = postID;
 	}
 
@@ -46,7 +46,7 @@ public class Post {
 		this.channel = channel;
 		this.content = content;
 		upVotes = 0;
-		date = LocalDate.now();
+		postedAt = LocalDateTime.now();
 		user.createPost(channel, this);
 	}
 
@@ -56,6 +56,6 @@ public class Post {
 				userID: %d
 				%s: %s
 				%d - %s
-				""", user.getUserID(), user.getName(), content, upVotes, date);
+				""", user.getUserID(), user.getName(), content, upVotes, postedAt);
 	}
 }
