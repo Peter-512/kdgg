@@ -36,3 +36,12 @@ Accept: application/json
 {
   "description": "This channel does not exist!"
 }
+
+### Post new post to channel; 201
+POST http://localhost:8081/api/channels/1/posts
+Content-Type: application/json
+Accept: application/json
+
+{
+  "content": "{{$random.alphabetic(20)}}"
+}

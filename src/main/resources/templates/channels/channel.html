@@ -8,6 +8,7 @@
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<script defer th:src="@{/js/postMessage.js}"></script>
 </head>
 <body class="my-3 mx-3 bg-dark text-light">
 
@@ -19,81 +20,27 @@
 		Upvote ratio:
 	</h5>
 
-	<button class="btn btn-primary"
-			data-bs-target="#postModal"
-			data-bs-toggle="modal"
-			type="button">
-		<i class="bi bi-plus-circle"></i>
-		<span th:text="#{messages.Post_a_new_message}">Post a new message</span>
-	</button>
-
-
-	<div aria-hidden="true"
-		 class="modal fade"
-		 tabindex="-1"
-		 th:aria-labelledby="postModalLabel"
-		 th:id="postModal">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content bg-dark text-light">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5"
-						id="postModalLabel"
-						th:text="#{messages.Create_post}">
-						Create Post
-					</h1>
-					<button aria-label="Close"
-							class="btn-close btn-close-white"
-							data-bs-dismiss="modal"
-							type="button"
-					></button>
-				</div>
-				<div class="modal-body">
-						<form class="d-flex flex-column gap-2"
-							  th:action="@{/channels/{channelID}/post(channelID=${channel.getChannelID()})}"
-							  th:method="POST"
-							  th:object="${viewModel}">
-							<div class="input-group has-validation">
-								<div class="form-floating"
-									 th:classappend="${#fields.hasErrors('content')?'is-invalid':''}">
-									<input class="form-control border-0 bg-black text-light"
-										   placeholder="Content"
-										   th:field="*{content}">
-									<label class="form-label"
-										   th:for="*{content}"
-										   th:text="#{messages.Content}"
-									>Content</label>
-								</div>
-							</div>
-							<div class="input-group has-validation">
-								<div class="form-floating"
-									 th:classappend="${#fields.hasErrors('user')?'is-invalid':''}">
-									<select th:class="${#fields.hasErrors('user')?
-											'form-control form-control-lg is-invalid bg-black text-light form-select':
-											'form-control form-control-lg border-0 bg-black text-light form-select'}"
-											th:field="*{user}">
-										<option th:each="u: ${channel.getUsers()}"
-												th:text="${u.getName()}"
-												th:value="${u.getUserID()}">
-										</option>
-									</select>
-									<label class="form-label"
-										   th:for="*{user}"
-										   th:text="#{messages.Username}">
-										User
-									</label>
-								</div>
-							</div>
-							<button class="btn mt-0 btn-warning" th:text="#{messages.Submit}" type="submit">Submit
-							</button>
-						</form>
-					</div>
-				</div>
+	<form class="m-5" id="add-post-form">
+		<div class="input-group mb-3">
+			<div class="form-floating">
+				<input aria-describedby="send-message"
+					   aria-label="Message"
+					   class="form-control bg-dark text-light border-primary"
+					   id="message-input"
+					   placeholder="Message"
+					   required
+					   type="text">
+				<label for="message-input">Message</label>
 			</div>
+			<button class="btn btn-outline-primary" id="send-message" type="button">
+				<i class="bi-send text-light"></i>
+			</button>
 		</div>
-	</div>
-
+	</form>
 
 </header>
+
+
 <div class="d-flex flex-row my-5">
 	<main class="col-12 col-md-9" th:switch="${#lists.size(channel.getPosts())}">
 		<h1 th:case="0">

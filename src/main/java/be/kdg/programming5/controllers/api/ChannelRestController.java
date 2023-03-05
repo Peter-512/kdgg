@@ -1,10 +1,13 @@
 package be.kdg.programming5.controllers.api;
 
-import be.kdg.programming5.controllers.api.dtos.ChannelDTO;
-import be.kdg.programming5.controllers.api.dtos.UpdatedChannelDTO;
-import be.kdg.programming5.controllers.api.dtos.UserDTO;
+import be.kdg.programming5.controllers.api.dtos.*;
+import be.kdg.programming5.exceptions.ChannelNotFoundException;
 import be.kdg.programming5.model.Channel;
+import be.kdg.programming5.model.Post;
+import be.kdg.programming5.model.User;
 import be.kdg.programming5.service.channels.ChannelService;
+import be.kdg.programming5.service.posts.PostService;
+import be.kdg.programming5.service.users.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +20,14 @@ import java.util.List;
 public class ChannelRestController {
 	private final ChannelService channelService;
 	private final ModelMapper modelMapper;
+	private final UserService userService;
+	private final PostService postService;
 
-	public ChannelRestController(ChannelService channelService, ModelMapper modelMapper) {
+	public ChannelRestController(ChannelService channelService, ModelMapper modelMapper, UserService userService, PostService postService) {
 		this.channelService = channelService;
 		this.modelMapper = modelMapper;
+		this.userService = userService;
+		this.postService = postService;
 	}
 
 	@GetMapping
@@ -77,11 +84,27 @@ public class ChannelRestController {
 	@PatchMapping ("/{id}")
 	public ResponseEntity<ChannelDTO> updateChannel(@PathVariable Long id, @Valid @RequestBody UpdatedChannelDTO channelDTO) {
 		try {
-			final Channel channel = channelService.getChannel(id).orElseThrow();
+			channelService.getChannel(id).orElseThrow();
 			final Channel newChannel = channelService.updateChannel(id, channelDTO.getDescription());
 			return ResponseEntity.ok(modelMapper.map(newChannel, ChannelDTO.class));
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
+	}
+
+	@PostMapping
+	public ResponseEntity<ChannelDTO> createChannel(@Valid @RequestBody NewChannelDTO newChannelDTO) {
+		final Channel newChannel = channelService.addChannel(newChannelDTO.getName(), newChannelDTO.getDescription());
+		return ResponseEntity.ok(modelMapper.map(newChannel, ChannelDTO.class));
+	}
+
+	@PostMapping ("/{channelID}/posts")
+	public ResponseEntity<PostDTO> createPost(@PathVariable Long channelID, @RequestBody @Valid NewPostDTO newPostDTO) {
+		final User user = userService.getUser(1L).orElseThrow(); // TODO: get currently logged in user
+		final Channel channel = channelService.getChannel(channelID)
+		                                      .orElseThrow(() -> new ChannelNotFoundException(channelID));
+
+		final Post post = postService.addPost(user, channel, newPostDTO.getContent());
+		return ResponseEntity.ok(new PostDTO(post.getPostID(), post.getContent(), user.getName(), user.getUserID(), post.getUpVotes(), post.getPostedAt()));
 	}
 }
