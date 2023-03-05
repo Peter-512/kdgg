@@ -59,10 +59,11 @@ public class User {
 		this.userID = userID;
 	}
 
-	public void createPost(Channel channel, String content) {
+	public Post createPost(Channel channel, String content) {
 		Post post = new Post(this, channel, content);
 		posts.add(post);
 		channel.createPost(post);
+		return post;
 	}
 
 	public void createPost(Channel channel, Post post) {
