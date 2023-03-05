@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @RestController
@@ -58,6 +59,8 @@ public class ChannelController {
 		final ModelAndView modelAndView = new ModelAndView("channels/channel");
 		modelAndView.addObject("channel", channel);
 		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. MMMM yyyy"));
+		modelAndView.addObject("timeFormatter", DateTimeFormatter.ofPattern("HH:mm"));
+		modelAndView.addObject("now", LocalDateTime.now());
 		modelAndView.addObject("viewModel", new PostViewModel());
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Fragments</title>
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -111,7 +111,17 @@
 		   th:href="@{/users/{id}(id=${post.getUser().getUserID()})}"
 		   th:text="${post.getUser().getName()}"
 		></a>
-		<span class="text-secondary" th:text="${post.getDate().format(dateFormatter)}"></span>
+		<span class="text-secondary"
+			  th:if="${now.minusDays(1).isBefore(post.getPostedAt())}"
+			  th:text="'today at ' + ${post.getPostedAt().format(timeFormatter)}"></span>
+		<span class="text-secondary"
+			  th:if="${now.minusDays(2).isBefore(post.getPostedAt())}"
+			  th:text="'yesterday at ' + ${post.getPostedAt().format(timeFormatter)}"
+			  th:unless="${now.minusDays(1).isBefore(post.getPostedAt())}"></span>
+		<span class="text-secondary"
+			  th:if="${now.minusDays(2).isAfter(post.getPostedAt())}"
+			  th:text="${post.getPostedAt().format(dateFormatter)} + ' at ' + ${post.getPostedAt().format(timeFormatter)}"
+			  th:unless="${now.minusDays(2).isBefore(post.getPostedAt())}"></span>
 		<p class="m-0" th:text="${post.getContent()}"></p>
 	</article>
 </th:block>

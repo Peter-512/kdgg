@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Controller
@@ -33,7 +34,9 @@ public class HomeController {
 		logger.info("Controller is running showHomeView!");
 		final ModelAndView modelAndView = new ModelAndView("index");
 		modelAndView.addObject("channels", channelService.getChannels());
-		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. M. yyyy"));
+		modelAndView.addObject("dateFormatter", DateTimeFormatter.ofPattern("d. MMMM yyyy"));
+		modelAndView.addObject("timeFormatter", DateTimeFormatter.ofPattern("HH:mm"));
+		modelAndView.addObject("now", LocalDateTime.now());
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
 	}
