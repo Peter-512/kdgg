@@ -4,8 +4,12 @@ spring:
             filter:
                 enabled: true
     profiles:
-        active: prod # options: dev, prod
+        active: dev # options: dev, prod
     messages:
         basename: templates/messages
+    jpa:
+        hibernate:
+            ddl-auto: create
+        show-sql: true
 server:
     port: 8081

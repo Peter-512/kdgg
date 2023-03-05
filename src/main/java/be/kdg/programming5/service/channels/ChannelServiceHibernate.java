@@ -7,14 +7,12 @@ import be.kdg.programming5.repository.ChannelRepository;
 import be.kdg.programming5.repository.PostRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Profile ("prod")
 public class ChannelServiceHibernate implements ChannelService {
 	private final ChannelRepository channelRepository;
 	private final PostRepository postRepository;

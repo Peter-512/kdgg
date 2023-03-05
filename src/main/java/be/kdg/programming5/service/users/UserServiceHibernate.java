@@ -6,7 +6,6 @@ import be.kdg.programming5.repository.PostRepository;
 import be.kdg.programming5.repository.UserRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Profile ("prod")
 public class UserServiceHibernate implements UserService {
 	private final UserRepository userRepository;
 	private final PostRepository postRepository;
