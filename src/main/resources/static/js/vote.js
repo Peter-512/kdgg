@@ -3,8 +3,6 @@
  * @param event {Event}
  */
 export async function vote(event) {
-	console.log("voting");
-
 	const id = event.target.closest("div").id;
 	const postID = +id.substring(id.indexOf("_") + 1);
 
