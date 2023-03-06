@@ -40,3 +40,7 @@ Accept: application/json
   "birthdate": "2018-01-01",
   "role": "Mod"
 }
+
+### Getting all users in XML
+GET http://localhost:8081/api/users
+Accept: application/xml

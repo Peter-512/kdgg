@@ -45,3 +45,21 @@ Accept: application/json
 {
   "content": "{{$random.alphabetic(20)}}"
 }
+
+### Post new post to channel; 404
+POST http://localhost:8081/api/channels/300/posts
+Content-Type: application/json
+Accept: application/json
+
+{
+  "content": "This channel does not exist!"
+}
+
+### Post new post to channel with invalid content; 400
+POST http://localhost:8081/api/channels/1/posts
+Content-Type: application/json
+Accept: application/json
+
+{
+  "content": ""
+}
