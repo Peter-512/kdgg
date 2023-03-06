@@ -20,7 +20,7 @@
 		Upvote ratio:
 	</h5>
 
-	<form class="m-5" id="add-post-form">
+	<form class="m-5" id="add-post-form" novalidate>
 		<div class="input-group mb-3">
 			<div class="form-floating">
 				<input aria-describedby="send-message"
@@ -31,6 +31,7 @@
 					   required
 					   type="text">
 				<label for="message-input">Message</label>
+				<div class="invalid-feedback position-absolute">Sending empty messages is stoopid</div>
 			</div>
 			<button class="btn btn-outline-primary" id="send-message" type="button">
 				<i class="bi-send text-light"></i>

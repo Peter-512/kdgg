@@ -16,6 +16,9 @@ async function postMessage(event) {
 	const isValid = addPostForm.checkValidity();
 	addPostForm.classList.add("was-validated");
 
+	isValid ? messageContent.classList.add("is-valid") : messageContent.classList.add("is-invalid");
+	isValid ? messageContent.classList.remove("is-invalid") : messageContent.classList.remove("is-valid");
+
 	if (!isValid) return;
 
 	const content = messageContent.value;
@@ -51,20 +54,23 @@ async function postMessage(event) {
 	let formattedDate;
 	const timeDiff = Date.now() - date;
 	const oneDay = 1000 * 60 * 60 * 24;
+	const timeString = new Date(date).toLocaleTimeString("en-US", {
+		hour: "numeric",
+		minute: "numeric",
+		hour12: false
+	});
 	if (timeDiff < oneDay) {
-		formattedDate = `today at ${new Date(date).toLocaleTimeString("en-US", {hour: "numeric", minute: "numeric"})}`;
+		formattedDate = `today at ${timeString}`;
 	} else if (timeDiff < oneDay * 2) {
-		formattedDate = `yesterday at ${new Date(date).toLocaleTimeString("en-US", {
-			hour: "numeric",
-			minute: "numeric"
-		})}`;
+		formattedDate = `yesterday at ${timeString}`;
 	} else {
 		formattedDate = new Date(date).toLocaleString("en-US", {
 			year: "numeric",
 			month: "long",
 			day: "numeric",
 			hour: "numeric",
-			minute: "numeric"
+			minute: "numeric",
+			hour12: false
 		});
 	}
 
@@ -109,6 +115,13 @@ submitButton.addEventListener("click", postMessage);
 
 window.addEventListener("keydown", (event) => {
 	messageContent.focus();
-	if (event.key === "Escape") return messageContent.blur();
+
+	if (event.key === "Escape") {
+		messageContent.blur();
+		messageContent.classList.remove("is-invalid");
+		addPostForm.classList.remove("was-validated");
+		return;
+	}
+
 	if (event.key === "Enter") return postMessage(event);
 });
