@@ -18,9 +18,6 @@ async function postMessage(event) {
 	const isValid = addPostForm.checkValidity();
 	addPostForm.classList.add("was-validated");
 
-	isValid ? messageContent.classList.add("is-valid") : messageContent.classList.add("is-invalid");
-	isValid ? messageContent.classList.remove("is-invalid") : messageContent.classList.remove("is-valid");
-
 	if (!isValid) return;
 
 	const content = messageContent.value;
@@ -115,6 +112,12 @@ async function postMessage(event) {
 
 
 submitButton.addEventListener("click", postMessage);
+
+messageContent.addEventListener("keyup", (event) => {
+	const isValid = addPostForm.checkValidity();
+	messageContent.classList.remove(isValid ? "is-invalid" : "is-valid");
+	messageContent.classList.add(isValid ? "is-valid" : "is-invalid");
+});
 
 window.addEventListener("keydown", (event) => {
 	messageContent.focus();
