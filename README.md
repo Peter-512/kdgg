@@ -157,42 +157,6 @@ DELETE http://localhost:8081/api/channels/1
 DELETE http://localhost:8081/api/channels/3
 ```
 
-#### Patch a channel by ID
-
-##### 200 OK
-
-```http request
-PATCH http://localhost:8081/api/channels/1
-Content-Type: application/json
-Accept: application/json
-
-{
-  "description": "This description changed!"
-}
-```
-
-Response
-
-```json
-{
-  "channelID": 1,
-  "name": "DuckiesGang",
-  "description": "This description changed!"
-}
-```
-
-##### 404 Not Found
-
-```http request
-PATCH http://localhost:8081/api/channels/3
-Content-Type: application/json
-Accept: application/json
-
-{
-  "description": "This channel does not exist!"
-}
-```
-
 ### User API
 
 #### Getting all users
@@ -323,6 +287,46 @@ DELETE http://localhost:8081/api/users/1
 DELETE http://localhost:8081/api/users/500
 ```
 
+## Week 2
+
+#### Patch a channel by ID
+
+##### 200 OK
+
+```http request
+PATCH http://localhost:8081/api/channels/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "description": "This description changed!"
+}
+```
+
+Response
+
+```json
+{
+  "channelID": 1,
+  "name": "DuckiesGang",
+  "description": "This description changed!"
+}
+```
+
+##### 404 Not Found
+
+```http request
+PATCH http://localhost:8081/api/channels/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "description": "This channel does not exist!"
+}
+```
+
+§
+
 #### Update a user by ID
 
 ##### 200 OK
@@ -362,4 +366,145 @@ Accept: application/json
   "birthdate": "2000-01-01",
   "role": "Mod"
 }
+```
+
+### Post a message to a channel
+
+##### 201 Created
+
+```http request
+POST http://localhost:8081/api/channels/1/posts
+Content-Type: application/json
+Accept: application/json
+
+{
+  "content": "This is a message!"
+}
+```
+
+Response
+
+```json
+{
+  "postID": 6,
+  "content": "This is a message!",
+  "username": "Peter",
+  "userID": 1,
+  "upVotes": 0,
+  "postedAt": "2023-03-05T13:23:03.467354"
+}
+```
+
+##### 404 Not Found
+
+```http request
+POST http://localhost:8081/api/channels/300/posts
+Content-Type: application/json
+Accept: application/json
+
+{
+  "content": "This channel doesn't exist!"
+}
+```
+
+### Patch update the upvote count of a post
+
+##### 200 OK
+
+```http request
+PATCH http://localhost:8081/api/posts/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "upVotes": 1000
+}
+```
+
+Response
+
+```json
+{
+  "postID": 1,
+  "content": "The first post by Peter in DuckiesGang",
+  "username": null,
+  "userID": 1,
+  "upVotes": 1000,
+  "postedAt": "2022-12-09T18:58:18.639"
+}
+```
+
+##### 404 Not Found
+
+```http request 
+PATCH http://localhost:8081/api/posts/500
+Content-Type: application/json
+Accept: application/json
+
+{
+  "upVotes": 1000
+}
+```
+
+### Getting all users in XML
+
+```http request
+GET http://localhost:8081/api/users
+Accept: application/xml
+```
+
+Response
+
+```xml
+
+<List>
+    <item>
+        <userID>1</userID>
+        <name>Peter</name>
+        <birthdate>1992-11-19</birthdate>
+        <role>Admin</role>
+    </item>
+    <item>
+        <userID>2</userID>
+        <name>Seif</name>
+        <birthdate>2003-10-12</birthdate>
+        <role>Mod</role>
+    </item>
+    <item>
+        <userID>3</userID>
+        <name>Filip</name>
+        <birthdate>2001-06-15</birthdate>
+        <role>Mod</role>
+    </item>
+    <item>
+        <userID>4</userID>
+        <name>Elina</name>
+        <birthdate>2003-04-15</birthdate>
+        <role>User</role>
+    </item>
+</List>
+```
+
+### Getting all channels in JSON
+
+```http request
+GET http://localhost:8081/api/channels
+Accept: application/json
+```
+
+Response
+
+```json
+[
+  {
+    "channelID": 1,
+    "name": "DuckiesGang",
+    "description": "The coolest gang in town, no spaghett allowed!"
+  },
+  {
+    "channelID": 2,
+    "name": "ACS",
+    "description": "Applied Computer Science at KdG"
+  }
+]
 ```
