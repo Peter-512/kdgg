@@ -89,22 +89,15 @@
 <th:block th:fragment="post(post)">
 	<div class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
 		 style="width: 50px"
+		 th:id="'post_' + ${post.getPostID()}"
 	>
-		<form th:action="@{/channels/upvote/{id}/{upVotes}(upVotes=${post.getUpVotes() + 1}, id=${post.getPostID()})}"
-			  th:method="PATCH"
-		>
-			<button class="btn p-0" type="submit">
-				<i class="bi bi-arrow-up text-success"></i>
-			</button>
-		</form>
-		<span class="text-warning" th:id="${post.getPostID()}" th:text="${post.getUpVotes()}"></span>
-		<form th:action="@{/channels/upvote/{id}/{upVotes}(upVotes=${post.getUpVotes() - 1}, id=${post.getPostID()})}"
-			  th:method="PATCH"
-		>
-			<button class="btn p-0">
-				<i class="bi bi-arrow-down text-danger"></i>
-			</button>
-		</form>
+		<button class="btn p-0 upvote" type="submit">
+			<i class="bi bi-arrow-up text-success"></i>
+		</button>
+		<span class="text-warning" th:text="${post.getUpVotes()}"></span>
+		<button class="btn p-0 downvote">
+			<i class="bi bi-arrow-down text-danger"></i>
+		</button>
 	</div>
 	<article style="width: calc(100% - 50px)">
 		<a class="text-decoration-none"

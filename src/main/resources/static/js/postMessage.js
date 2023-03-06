@@ -1,3 +1,5 @@
+import {vote} from "./vote.js";
+
 /**
  *
  * @type {HTMLFormElement}
@@ -77,33 +79,34 @@ async function postMessage(event) {
 	const post = document.createElement("article");
 	post.classList.add("d-flex", "flex-row", "my-3");
 	post.innerHTML = `
-		<div class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
+		<div id="post_${postID}" class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
 		 style="width: 50px">
-		<button class="btn p-0" type="submit">
-			<i class="bi bi-arrow-up text-success"></i>
-		</button>
-		<span class="text-warning" id="${postID}">
-			${upVotes}
-		</span>
-		<button class="btn p-0">
-			<i class="bi bi-arrow-down text-danger"></i>
-		</button>
-	</div>
-	<article style="width: calc(100% - 50px)">
-		<a class="text-decoration-none"
-		   href="/users/${userID}">
-		   ${username}
-		</a>
-		<span class="text-secondary">
-			${formattedDate}
-		</span>
-		<p class="m-0">
-			${message}
-		</p>
-	</article>
+			<button class="btn p-0 upvote" type="submit">
+				<i class="bi bi-arrow-up text-success"></i>
+			</button>
+			<span class="text-warning">
+				${upVotes}
+			</span>
+			<button class="btn p-0 downvote">
+				<i class="bi bi-arrow-down text-danger"></i>
+			</button>
+		</div>
+		<article style="width: calc(100% - 50px)">
+			<a class="text-decoration-none" href="/users/${userID}">
+		   		${username}
+			</a>
+			<span class="text-secondary">
+				${formattedDate}
+			</span>
+			<p class="m-0">
+				${message}
+			</p>
+		</article>
 	`;
 	const postList = document.querySelector("main");
 	postList.append(post);
+
+	document.querySelectorAll(`.upvote, .downvote`).forEach(button => button.addEventListener("click", vote));
 
 	addPostForm.reset();
 	addPostForm.classList.remove("was-validated");
@@ -125,3 +128,5 @@ window.addEventListener("keydown", (event) => {
 
 	if (event.key === "Enter") return postMessage(event);
 });
+
+document.querySelectorAll(`.upvote, .downvote`).forEach(button => button.addEventListener("click", vote));
