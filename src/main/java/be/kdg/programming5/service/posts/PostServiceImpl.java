@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void setPostUpvoteCount(int upVotes, Long postID) {
+	public void setPostUpvoteCount(Long postID, int upVotes) {
 		postRepository.updateUpVotesByPostID(upVotes, postID);
 	}
 

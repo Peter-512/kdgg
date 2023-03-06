@@ -16,7 +16,7 @@ public interface PostService {
 
 	void deletePost(Long id);
 
-	void setPostUpvoteCount(int upVotes, Long postID);
+	void setPostUpvoteCount(Long postID, int upVotes);
 
 	Post updatePost(Long id, String content);
 }
