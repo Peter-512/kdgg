@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>Fragments</title>
@@ -10,7 +12,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark" th:fragment="nav(index)">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark" th:fragment="nav(page)">
 	<div class="container-fluid">
 		<a class="navbar-brand" th:href="@{/}">
 			<img alt="Logo" th:height="50" th:src="@{/images/icon.png}">
@@ -29,7 +31,8 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a th:class="${index==1}?'nav-link active':'nav-link'"
+					<a class="nav-link"
+					   th:classappend="${page == 'home'}?'active':''"
 					   th:href="@{/}"
 					>
 						<i class="bi-house-fill"></i>
@@ -37,7 +40,8 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a th:class="${index==2}?'nav-link active':'nav-link'"
+					<a class="nav-link"
+					   th:classappend="${page == 'channels'}?'active':''"
 					   th:href="@{/channels}"
 					>
 						<i class="bi-chat-dots-fill"></i>
@@ -45,7 +49,8 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a th:class="${index==3}?'nav-link active':'nav-link'"
+					<a class="nav-link"
+					   th:classappend="${page == 'users'}?'active':''"
 					   th:href="@{/users}"
 					>
 						<i class="bi-people-fill"></i>
@@ -54,17 +59,19 @@
 				</li>
 				<li class="nav-item dropdown">
 					<a aria-expanded="false"
+					   class="nav-link dropdown-toggle"
 					   data-bs-toggle="dropdown"
 					   href="#"
 					   role="button"
-					   th:class="${index==4||index==5}?'nav-link active dropdown-toggle':'nav-link dropdown-toggle'"
+					   th:classappend="${page == 'adding user' || page == 'adding channel'}?'active':''"
 					>
 						<i class="bi-plus-circle-fill"></i>
 						<th:block th:text="#{navbar.Adding}">Adding</th:block>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark">
 						<li>
-							<a th:class="${index==4}?'dropdown-item active':'dropdown-item'"
+							<a class="dropdown-item"
+							   th:classappend="${page == 'adding channel'}?'active':''"
 							   th:href="@{/channels/add}"
 							>
 								<i class="me-2 bi-people"></i>
@@ -72,7 +79,8 @@
 							</a>
 						</li>
 						<li>
-							<a th:class="${index==5}?'dropdown-item active':'dropdown-item'"
+							<a class="dropdown-item"
+							   th:classappend="${page == 'adding user'}?'active':''"
 							   th:href="@{/users/add}"
 							>
 								<i class="me-2 bi-chat-dots"></i>
@@ -80,6 +88,21 @@
 							</a>
 						</li>
 					</ul>
+				</li>
+			</ul>
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
+					<span class="navbar-text">Welcome, <span sec:authentication="name"></span>!</span>
+				</li>
+				<li sec:authorize="isAuthenticated()">
+					<form class="d-flex" th:action="@{/logout}" th:method="POST">
+						<button class="btn btn-secondary" type="submit">Sign out</button>
+					</form>
+				</li>
+				<li class="nav-item" sec:authorize="!isAuthenticated()">
+					<a class="nav-link" th:classappend="${page == 'login'} ? 'active' : ''" th:href="@{/login}">
+						Sign in
+					</a>
 				</li>
 			</ul>
 		</div>

@@ -11,44 +11,46 @@
 	<script defer th:src="@{/js/deleteEntity.js}"></script>
 	<script defer th:src="@{/js/showUsersOfChannel.js}"></script>
 </head>
-<body class="my-3 w-75 mx-auto bg-dark text-light">
+<body class="mx-auto bg-dark text-light">
 
-<th:block th:insert="~{fragments::nav(2)}"></th:block>
+<th:block th:insert="~{fragments::nav('channels')}"></th:block>
+<div class="mx-auto w-75 my-3">
 
-<table class="table table-dark table-striped table-hover my-5">
-	<thead>
-	<tr class="table-header">
-		<th class="text-nowrap" th:text="#{messages.Channel_name}">Channel name</th>
-		<th th:text="#{messages.Channel_description}">Channel description</th>
-		<th class="text-nowrap" th:text="#{messages.Upvote_ratio}">Upvote ratio</th>
-		<th th:text="#{messages.Posts}">Posts</th>
-		<th></th>
-	</tr>
-	</thead>
-	<tbody class="table-group-divider">
-	<tr class="" th:each="channel: ${channels}" th:id="'channel_' + ${channel.getChannelID()}">
-		<td>
-			<a class="text-decoration-none" th:href="@{/channels/{id}(id=${channel.getChannelID()})}"
-			   th:text="${channel.getName()}"
-			></a>
-		</td>
-		<td th:text="${channel.getDescription()}"></td>
-		<td th:text="${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}"></td>
-		<td th:text="${channelService.getPostsCountOfChannel(channel.getChannelID())}"></td>
-		<td class="text-center">
-			<button class="btn p-0 delete" type="submit">
-				<i class="bi bi-trash text-danger"></i>
-			</button>
-		</td>
-	</tr>
-	</tbody>
-</table>
+	<table class="table table-dark table-striped table-hover my-5">
+		<thead>
+		<tr class="table-header">
+			<th class="text-nowrap" th:text="#{messages.Channel_name}">Channel name</th>
+			<th th:text="#{messages.Channel_description}">Channel description</th>
+			<th class="text-nowrap" th:text="#{messages.Upvote_ratio}">Upvote ratio</th>
+			<th th:text="#{messages.Posts}">Posts</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody class="table-group-divider">
+		<tr class="" th:each="channel: ${channels}" th:id="'channel_' + ${channel.getChannelID()}">
+			<td>
+				<a class="text-decoration-none" th:href="@{/channels/{id}(id=${channel.getChannelID()})}"
+				   th:text="${channel.getName()}"
+				></a>
+			</td>
+			<td th:text="${channel.getDescription()}"></td>
+			<td th:text="${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}"></td>
+			<td th:text="${channelService.getPostsCountOfChannel(channel.getChannelID())}"></td>
+			<td class="text-center">
+				<button class="btn p-0 delete" type="submit">
+					<i class="bi bi-trash text-danger"></i>
+				</button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
 
-<article class="visually-hidden card my-3"></article>
+	<article class="visually-hidden card my-3"></article>
 
-<a class="btn btn-outline-primary" th:href="@{channels/download}">Download</a>
+	<a class="btn btn-outline-primary" th:href="@{channels/download}">Download</a>
 
-<th:block th:insert="~{fragments::footer}"></th:block>
+	<th:block th:insert="~{fragments::footer}"></th:block>
+</div>
 
 </body>
 </html>

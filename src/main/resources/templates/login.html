@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<link rel="icon" th:href="@{/images/icon.png}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="bg-dark text-light">
+
+<th:block th:insert="~{fragments::nav('login')}"></th:block>
+<div class="my-3 m-75 mx-auto">
+	<main class="container">
+		<h1>Login</h1>
+
+		<div class="alert alert-danger" th:if="${error}">
+			Invalid username or password.
+		</div>
+
+		<form method="POST" th:action="@{/login}">
+			<div class="pb-3">
+				<label class="form-label" for="username">Username</label>
+				<input class="form-control" id="username" name="username" type="text">
+			</div>
+			<div class="pb-3">
+				<label class="form-label" for="password">Password</label>
+				<input class="form-control" id="password" name="password" type="password">
+			</div>
+			<button class="btn btn-primary" type="submit">Log in</button>
+		</form>
+	</main>
+
+</div>
+</body>
+</html>

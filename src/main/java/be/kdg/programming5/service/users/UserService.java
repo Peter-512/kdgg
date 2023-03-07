@@ -12,7 +12,7 @@ public interface UserService {
 
 	Optional<User> getUser(Long id);
 
-	User addUser(String name, LocalDate birthdate, Role role);
+	User addUser(String name, LocalDate birthdate, Role role, String password);
 
 	void deleteUser(Long id);
 

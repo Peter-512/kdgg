@@ -32,6 +32,10 @@ public class User {
 	@Expose
 	@Column (name = "user_name")
 	private String name;
+
+	@Column (name = "password")
+	private String password;
+
 	@Expose
 	@Column
 	private LocalDate birthdate;
@@ -41,9 +45,10 @@ public class User {
 	@Type (type = "role")
 	private Role role;
 
-	public User(String name, LocalDate birthdate, Role role) {
+	public User(String name, LocalDate birthdate, Role role, String password) {
 		this(name, birthdate);
 		this.role = role;
+		this.password = password;
 	}
 
 	public User(String name, LocalDate birthdate) {
@@ -55,8 +60,9 @@ public class User {
 	}
 
 	public User(Long userID, String name, LocalDate birthdate, Role role) {
-		this(name, birthdate, role);
+		this(name, birthdate);
 		this.userID = userID;
+		this.role = role;
 	}
 
 	public Post createPost(Channel channel, String content) {

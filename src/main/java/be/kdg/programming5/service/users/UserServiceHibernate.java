@@ -6,6 +6,7 @@ import be.kdg.programming5.repository.PostRepository;
 import be.kdg.programming5.repository.UserRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,11 +17,13 @@ import java.util.Optional;
 public class UserServiceHibernate implements UserService {
 	private final UserRepository userRepository;
 	private final PostRepository postRepository;
+	private final BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
-	public UserServiceHibernate(UserRepository userRepository, PostRepository postRepository) {
+	public UserServiceHibernate(UserRepository userRepository, PostRepository postRepository, BCryptPasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.postRepository = postRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -34,8 +37,8 @@ public class UserServiceHibernate implements UserService {
 	}
 
 	@Override
-	public User addUser(String name, LocalDate birthdate, Role role) {
-		return userRepository.save(new User(name, birthdate, role));
+	public User addUser(String name, LocalDate birthdate, Role role, String password) {
+		return userRepository.save(new User(name, birthdate, role, passwordEncoder.encode(password)));
 	}
 
 	@Override

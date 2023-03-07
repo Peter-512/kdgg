@@ -4,75 +4,76 @@
 	<meta charset="UTF-8">
 	<title th:text="#{messages.Adding_a_user}">Adding a user</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body class="my-3 w-75 mx-auto bg-dark text-light">
+<body class="bg-dark text-light">
 
-<th:block th:insert="~{fragments::nav(5)}"></th:block>
+<th:block th:insert="~{fragments::nav('adding user')}"></th:block>
+<div class="my-3 w-75 mx-auto">
 
-<h2 class="my-2" th:text="#{messages.Adding_a_user}">Adding a user...</h2>
+	<h2 class="my-2" th:text="#{messages.Adding_a_user}">Adding a user...</h2>
 
-<form class="my-5 d-flex flex-column align-items-start gap-3"
-	  method="post"
-	  th:action="@{/users}"
-	  th:object="${user}">
+	<form class="my-5 d-flex flex-column align-items-start gap-3"
+		  method="post"
+		  th:action="@{/users}"
+		  th:object="${user}">
 
-	<div class="input-group has-validation">
-		<div th:class="${#fields.hasErrors('name')?'form-floating is-invalid':'form-floating'}">
-			<input placeholder="blank"
-				   th:class="${#fields.hasErrors('name')?
+		<div class="input-group has-validation">
+			<div th:class="${#fields.hasErrors('name')?'form-floating is-invalid':'form-floating'}">
+				<input placeholder="blank"
+					   th:class="${#fields.hasErrors('name')?
 				   'form-control form-control-lg is-invalid bg-black text-light':
 				   'form-control form-control-lg border-0 bg-black text-light'}"
-				   th:field="*{name}"
-				   type="text" />
-			<label class="form-label" th:for="name" th:text="#{messages.Username}">Username</label>
+					   th:field="*{name}"
+					   type="text"/>
+				<label class="form-label" th:for="name" th:text="#{messages.Username}">Username</label>
+			</div>
+			<div class="invalid-feedback"
+				 th:if="${#fields.hasErrors('name')}"
+				 th:text="${#fields.errors('name').get(0).toString()}"></div>
 		</div>
-		<div class="invalid-feedback"
-			 th:if="${#fields.hasErrors('name')}"
-			 th:text="${#fields.errors('name').get(0).toString()}"></div>
-	</div>
 
 
-	<div class="input-group has-validation">
-		<div th:class="${#fields.hasErrors('birthdate')?'is-invalid w-100':'w-100'}">
-			<label class="form-label" th:for="birthdate" th:text="#{messages.Birthdate}">Birthdate</label>
-			<input style="color-scheme: dark"
-				   th:class="${#fields.hasErrors('birthdate')?
+		<div class="input-group has-validation">
+			<div th:class="${#fields.hasErrors('birthdate')?'is-invalid w-100':'w-100'}">
+				<label class="form-label" th:for="birthdate" th:text="#{messages.Birthdate}">Birthdate</label>
+				<input style="color-scheme: dark"
+					   th:class="${#fields.hasErrors('birthdate')?
 				   'form-control form-control-lg is-invalid bg-black text-light':
 				   'form-control form-control-lg border-0 bg-black text-light'}"
-				   th:field="*{birthdate}"
-				   type="date">
+					   th:field="*{birthdate}"
+					   type="date">
+			</div>
+			<div class="invalid-feedback"
+				 th:if="${#fields.hasErrors('birthdate')}"
+				 th:text="${#fields.errors('birthdate').get(0).toString()}"></div>
 		</div>
-		<div class="invalid-feedback"
-			 th:if="${#fields.hasErrors('birthdate')}"
-			 th:text="${#fields.errors('birthdate').get(0).toString()}"></div>
-	</div>
 
-	<div class="input-group has-validation">
-		<div th:class="${#fields.hasErrors('role')?'form-floating is-invalid':'form-floating'}">
-			<select th:class="${#fields.hasErrors('role')?
+		<div class="input-group has-validation">
+			<div th:class="${#fields.hasErrors('role')?'form-floating is-invalid':'form-floating'}">
+				<select th:class="${#fields.hasErrors('role')?
 			'form-control form-control-lg is-invalid bg-black text-light form-select':
 			'form-control form-control-lg border-0 bg-black text-light form-select'}"
-					th:field="*{role}">
-				<option th:each="role: ${roles}"
-						th:text="${role}"
-						th:value="${role}"></option>
-			</select>
-			<label class="form-label" th:for="role" th:text="#{messages.Role}">Role</label>
+						th:field="*{role}">
+					<option th:each="role: ${roles}"
+							th:text="${role}"
+							th:value="${role}"></option>
+				</select>
+				<label class="form-label" th:for="role" th:text="#{messages.Role}">Role</label>
+			</div>
+			<div class="invalid-feedback"
+				 th:if="${#fields.hasErrors('role')}"
+				 th:text="${#fields.errors('role').get(0).toString()}">
+			</div>
 		</div>
-		<div class="invalid-feedback"
-			 th:if="${#fields.hasErrors('role')}"
-			 th:text="${#fields.errors('role').get(0).toString()}">
-		</div>
-	</div>
 
-	<input class="btn btn-primary" type="submit" value="Submit" />
-</form>
+		<input class="btn btn-primary" type="submit" value="Submit"/>
+	</form>
 
-<th:block th:insert="~{fragments::footer}"></th:block>
-
+	<th:block th:insert="~{fragments::footer}"></th:block>
+</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package be.kdg.programming5.controllers.mvc;
 
 
+import be.kdg.programming5.controllers.mvc.viewmodels.UserLoginViewModel;
 import be.kdg.programming5.model.session.PageVisit;
 import be.kdg.programming5.service.channels.ChannelService;
 import org.slf4j.Logger;
@@ -8,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Controller
-@RequestMapping
 public class HomeController {
 	private final Logger logger;
 	private final ChannelService channelService;
@@ -27,6 +27,15 @@ public class HomeController {
 		this.channelService = channelService;
 		logger = LoggerFactory.getLogger(this.getClass());
 		this.sessionHistoryController = sessionHistoryController;
+	}
+
+	@GetMapping ("/login")
+	public ModelAndView login(ModelAndView modelAndView, @RequestParam (required = false) String error) {
+		logger.info("Controller is running login!");
+		modelAndView.addObject("user", new UserLoginViewModel());
+		modelAndView.addObject("error", error);
+		modelAndView.setViewName("login");
+		return modelAndView;
 	}
 
 	@GetMapping

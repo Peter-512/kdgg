@@ -1,6 +1,7 @@
 package be.kdg.programming5.controllers.api;
 
 import be.kdg.programming5.controllers.api.dtos.ChannelDTO;
+import be.kdg.programming5.controllers.api.dtos.NewUserDTO;
 import be.kdg.programming5.controllers.api.dtos.UpdatedUserDTO;
 import be.kdg.programming5.controllers.api.dtos.UserDTO;
 import be.kdg.programming5.model.User;
@@ -83,5 +84,11 @@ public class UserRestController {
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
+	}
+
+	@PostMapping
+	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody NewUserDTO newUserDTO) {
+		final User user = userService.addUser(newUserDTO.getName(), newUserDTO.getBirthdate(), newUserDTO.getRole(), newUserDTO.getPassword());
+		return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));
 	}
 }

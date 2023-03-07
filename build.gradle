@@ -35,8 +35,10 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     implementation('org.postgresql:postgresql:42.5.1')
     implementation('com.google.guava:guava:30.0-android')
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }

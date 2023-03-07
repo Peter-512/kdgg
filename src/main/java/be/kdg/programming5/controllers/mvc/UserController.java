@@ -86,7 +86,7 @@ public class UserController {
 			modelAndView.addObject("roles", Role.values());
 			return modelAndView;
 		}
-		userService.addUser(user.getName(), user.getBirthdate(), user.getRole());
+		userService.addUser(user.getName(), user.getBirthdate(), user.getRole(), user.getPassword());
 		return new ModelAndView("redirect:users");
 	}
 
