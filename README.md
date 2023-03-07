@@ -508,3 +508,17 @@ Response
   }
 ]
 ```
+
+## Week 3
+
+Users being seeded:
+
+- Peter
+- Seif
+- Filip
+- Elina
+
+Passwords for all users are: `password`
+
+Hidden information on the homepage (http://localhost:8081/):
+You can only see posts of users when you're logged in.
