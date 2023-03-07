@@ -37,6 +37,11 @@ public class UserServiceHibernate implements UserService {
 	}
 
 	@Override
+	public Optional<User> getUser(String name) {
+		return Optional.of(userRepository.findUserByName(name));
+	}
+
+	@Override
 	public User addUser(String name, LocalDate birthdate, Role role, String password) {
 		return userRepository.save(new User(name, birthdate, role, passwordEncoder.encode(password)));
 	}

@@ -12,6 +12,8 @@ public interface UserService {
 
 	Optional<User> getUser(Long id);
 
+	Optional<User> getUser(String name);
+
 	User addUser(String name, LocalDate birthdate, Role role, String password);
 
 	void deleteUser(Long id);

@@ -10,6 +10,9 @@ import be.kdg.programming5.service.posts.PostService;
 import be.kdg.programming5.service.users.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -100,7 +103,10 @@ public class ChannelRestController {
 
 	@PostMapping ("/{channelID}/posts")
 	public ResponseEntity<PostDTO> createPost(@PathVariable Long channelID, @RequestBody @Valid NewPostDTO newPostDTO) {
-		final User user = userService.getUser(1L).orElseThrow(); // TODO: get currently logged in user
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		final String username = authentication.getName();
+		final User user = userService.getUser(username)
+		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 		final Channel channel = channelService.getChannel(channelID)
 		                                      .orElseThrow(() -> new ChannelNotFoundException(channelID));
 
