@@ -4,7 +4,13 @@
  */
 const allRows = document.querySelectorAll("tbody tr td button.delete");
 
-async function handleDelete() {
+/**
+ *
+ * @param e {Event}
+ * @returns {Promise<void>}
+ */
+async function handleDelete(e) {
+	e.stopPropagation();
 	const row = this.closest("tr");
 	const rowID = row.id;
 	const id = +rowID.substring(rowID.indexOf("_") + 1);
