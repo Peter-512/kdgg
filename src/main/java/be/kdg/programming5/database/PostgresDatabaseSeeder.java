@@ -46,8 +46,9 @@ public class PostgresDatabaseSeeder implements DatabaseSeeder {
 								('The second post by Peter in DuckiesGang', ?, 4, 1, 1),
 								('The third post by Peter in DuckiesGang', ?, 4, 1, 1),
 								('The fourth post by Peter in DuckiesGang', ?, 4, 1, 1),
-							   ('The first post by Seif in ACS', ?, 6, 2, 2)""",
-				fakeDate(), fakeDate(), fakeDate(), fakeDate(), fakeDate());
+							   ('The first post by Seif in ACS', ?, 6, 2, 2),
+							   ('skljfldjsf', ?, 69, 1, 4)""",
+				fakeDate(), fakeDate(), fakeDate(), fakeDate(), fakeDate(), fakeDate());
 
 		jdbcTemplate.update("INSERT INTO user_channels VALUES (1,1)");
 	}
