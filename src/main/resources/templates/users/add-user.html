@@ -70,6 +70,21 @@
 			</div>
 		</div>
 
+		<div class="input-group has-validation">
+			<div th:class="${#fields.hasErrors('password')?'form-floating is-invalid':'form-floating'}">
+				<input placeholder="blank"
+					   th:class="${#fields.hasErrors('password')?
+				   'form-control form-control-lg is-invalid bg-black text-light':
+				   'form-control form-control-lg border-0 bg-black text-light'}"
+					   th:field="*{password}"
+					   type="text"/>
+				<label class="form-label" th:for="password">Password</label>
+			</div>
+			<div class="invalid-feedback"
+				 th:if="${#fields.hasErrors('password')}"
+				 th:text="${#fields.errors('password').get(0).toString()}"></div>
+		</div>
+
 		<input class="btn btn-primary" type="submit" value="Submit"/>
 	</form>
 

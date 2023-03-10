@@ -78,8 +78,8 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ModelAndView processAddChannel(@Valid @ModelAttribute ("user") UserViewModel user, BindingResult errors) {
-		logger.info("Controller is running processAddChannel!");
+	public ModelAndView processAddUser(@Valid @ModelAttribute ("user") UserViewModel user, BindingResult errors) {
+		logger.info("Controller is running processAddUser!");
 		if (errors.hasErrors()) {
 			errors.getAllErrors().forEach(error -> logger.error(error.toString()));
 			final ModelAndView modelAndView = new ModelAndView("users/add-user");
