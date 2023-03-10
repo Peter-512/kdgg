@@ -17,48 +17,66 @@ GET http://localhost:8081/api/channels/3/users
 GET http://localhost:8081/api/channels/9/users
 
 ### Delete channel by id; 200
+// @no-cookie-jar
 DELETE http://localhost:8081/api/channels/1
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 ### Patch description of channel; 200
+// @no-cookie-jar
 PATCH http://localhost:8081/api/channels/1
 Content-Type: application/json
 Accept: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 {
   "description": "{{$random.alphabetic(20)}}"
 }
 
 ### Patch description of channel; 404
+// @no-cookie-jar
 PATCH http://localhost:8081/api/channels/300
 Content-Type: application/json
 Accept: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 {
   "description": "This channel does not exist!"
 }
 
 ### Post new post to channel; 201
+// @no-cookie-jar
 POST http://localhost:8081/api/channels/1/posts
 Content-Type: application/json
 Accept: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 {
   "content": "{{$random.alphabetic(20)}}"
 }
 
 ### Post new post to channel; 404
+// @no-cookie-jar
 POST http://localhost:8081/api/channels/300/posts
 Content-Type: application/json
 Accept: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 {
   "content": "This channel does not exist!"
 }
 
 ### Post new post to channel with invalid content; 400
+// @no-cookie-jar
 POST http://localhost:8081/api/channels/1/posts
 Content-Type: application/json
 Accept: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 {
   "content": ""

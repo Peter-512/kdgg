@@ -1,8 +1,10 @@
 ### Patch update the upvote count of a post
-
+// @no-cookie-jar
 PATCH http://localhost:8081/api/posts/1
 Content-Type: application/json
 Accept: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 {
   "upVotes": {{$random.integer(0, 100)}}

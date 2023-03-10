@@ -17,12 +17,18 @@ GET http://localhost:8081/api/users/2/channels
 GET http://localhost:8081/api/users/999/channels
 
 ### Delete user by id; 204
+// @no-cookie-jar
 DELETE http://localhost:8081/api/users/1
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 ### Update user by id; 200
+// @no-cookie-jar
 PUT http://localhost:8081/api/users/1
 Content-Type: application/json
 Accept: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 {
   "name": "User 1",
@@ -31,9 +37,12 @@ Accept: application/json
 }
 
 ### Update user by id; 404
+// @no-cookie-jar
 PUT http://localhost:8081/api/users/999
 Content-Type: application/json
 Accept: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
 
 {
   "name": "does not exist",

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +25,9 @@ public class WebSecurityConfig {
 		http.
 				httpBasic().authenticationEntryPoint(httpStatusEntryPoint())
 				.and()
-				.csrf().disable()
+				.csrf()
+				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				.and()
 				.authorizeHttpRequests(auths -> auths
 						.antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/webjars/**", "/fonts/**", "/images/**", "/api/**")
 						.permitAll()
