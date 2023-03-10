@@ -1,3 +1,5 @@
+import csrfHeader from "./csrfHeader.js";
+
 /**
  *
  * @param event {Event}
@@ -12,11 +14,14 @@ export async function vote(event) {
 
 	const url = `/api/posts/${postID}`;
 
+	const {name, value} = csrfHeader();
+
 	const response = await fetch(url, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
-			"Accept": "application/json"
+			"Accept": "application/json",
+			[name]: value
 		},
 		body: JSON.stringify({upVotes: newUpVotes})
 	});

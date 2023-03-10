@@ -1,4 +1,5 @@
 import {vote} from "./vote.js";
+import csrfHeader from "./csrfHeader.js";
 
 /**
  *
@@ -24,11 +25,15 @@ async function postMessage(event) {
 	const channelID = window.location.href.substring(window.location.href.lastIndexOf("/") + 1);
 	const url = `/api/channels/${channelID}/posts`;
 	const data = {content};
+
+	const {name, value} = csrfHeader();
+
 	const res = await fetch(url, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-			"Accept": "application/json"
+			"Accept": "application/json",
+			[name]: value
 		},
 		body: JSON.stringify(data)
 	});
