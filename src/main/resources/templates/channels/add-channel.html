@@ -21,6 +21,7 @@
 		  th:action="@{/channels}"
 		  th:object="${channel}"
 	>
+		<input name="_csrf" th:value="${_csrf.token}" type="hidden"/>
 
 		<div class="input-group has-validation">
 			<div th:class="${#fields.hasErrors('name')?'form-floating is-invalid':'form-floating'}">
