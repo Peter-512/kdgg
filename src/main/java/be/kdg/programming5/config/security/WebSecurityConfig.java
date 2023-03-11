@@ -31,7 +31,7 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests(auths -> auths
 						.antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/webjars/**", "/fonts/**", "/images/**", "/api/**")
 						.permitAll()
-						.antMatchers("/", "/register", "/channels", "/users").permitAll()
+						.antMatchers("/", "/channels", "/users", "/signup").permitAll()
 						.anyRequest().authenticated())
 				.formLogin().loginPage("/login").permitAll()
 				.and()

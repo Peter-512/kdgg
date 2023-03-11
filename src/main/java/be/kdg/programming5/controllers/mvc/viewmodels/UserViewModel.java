@@ -1,5 +1,6 @@
 package be.kdg.programming5.controllers.mvc.viewmodels;
 
+import be.kdg.programming5.config.security.UniqueUsernameConstraint;
 import be.kdg.programming5.model.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class UserViewModel {
 	@NotBlank (message = "{viewmodel.user_not_empty}")
 	@Size (min = 3, max = 25, message = "{viewmodel.user_size}")
+	@UniqueUsernameConstraint
 	private String name;
 
 	@NotNull (message = "{viewmodel.birthdate_not_empty}")

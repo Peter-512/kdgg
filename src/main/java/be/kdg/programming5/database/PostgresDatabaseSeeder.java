@@ -29,11 +29,11 @@ public class PostgresDatabaseSeeder implements DatabaseSeeder {
 	@PostConstruct
 	public void loadData() {
 		jdbcTemplate.update("""
-				INSERT INTO users( user_name, password, birthdate, role )
-				VALUES ( 'Peter', '$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C', '1992-11-19', 'Admin' ),
-				       ( 'Seif', '$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C', '2003-10-12', 'Mod' ),
-				       ( 'Filip', '$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C', '2001-06-15', 'Mod' ),
-				       ( 'Elina', '$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C', '2003-04-15', 'User' );""");
+				INSERT INTO users( user_name, password, birthdate, user_role )
+				VALUES ( 'Peter', '$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C', '1992-11-19', 'ADMIN' ),
+				       ( 'Seif', '$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C', '2003-10-12', 'MOD' ),
+				       ( 'Filip', '$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C', '2001-06-15', 'MOD' ),
+				       ( 'Elina', '$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C', '2003-04-15', 'USER' );""");
 		jdbcTemplate.update("""
 				INSERT INTO channels ( channel_name, description )
 				VALUES ( 'DuckiesGang', 'The coolest gang in town, no spaghett allowed!' ),

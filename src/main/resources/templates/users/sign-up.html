@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="#{messages.Adding_a_user}">Adding a user</title>
+	<title th:text="#{messages.Adding_a_user}">Sign up</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -11,14 +11,14 @@
 </head>
 <body class="bg-dark text-light">
 
-<th:block th:insert="~{fragments::nav('adding user')}"></th:block>
+<th:block th:insert="~{fragments::nav('signup')}"></th:block>
 <div class="my-3 w-75 mx-auto">
 
-	<h2 class="my-2" th:text="#{messages.Adding_a_user}">Adding a user...</h2>
+	<h2 class="my-2" th:text="#{messages.Adding_a_user}">Sign up</h2>
 
 	<form class="my-5 d-flex flex-column align-items-start gap-3"
 		  method="post"
-		  th:action="@{/users}"
+		  th:action="@{/signup}"
 		  th:object="${user}">
 		<input name="_csrf" th:value="${_csrf.token}" type="hidden"/>
 
@@ -78,7 +78,7 @@
 				   'form-control form-control-lg is-invalid bg-black text-light':
 				   'form-control form-control-lg border-0 bg-black text-light'}"
 					   th:field="*{password}"
-					   type="text"/>
+					   type="password"/>
 				<label class="form-label" th:for="password">Password</label>
 			</div>
 			<div class="invalid-feedback"

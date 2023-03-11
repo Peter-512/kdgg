@@ -34,8 +34,7 @@
 				<li class="nav-item">
 					<a class="nav-link"
 					   th:classappend="${page == 'home'}?'active':''"
-					   th:href="@{/}"
-					>
+					   th:href="@{/}">
 						<i class="bi-house-fill"></i>
 						<th:block th:text="#{navbar.Home}">Home</th:block>
 					</a>
@@ -43,8 +42,7 @@
 				<li class="nav-item">
 					<a class="nav-link"
 					   th:classappend="${page == 'channels'}?'active':''"
-					   th:href="@{/channels}"
-					>
+					   th:href="@{/channels}">
 						<i class="bi-chat-dots-fill"></i>
 						<th:block th:text="#{navbar.Channels}">Channels</th:block>
 					</a>
@@ -52,43 +50,17 @@
 				<li class="nav-item">
 					<a class="nav-link"
 					   th:classappend="${page == 'users'}?'active':''"
-					   th:href="@{/users}"
-					>
+					   th:href="@{/users}">
 						<i class="bi-people-fill"></i>
 						<th:block th:text="#{navbar.Users}">Users</th:block>
 					</a>
 				</li>
-				<li class="nav-item dropdown">
-					<a aria-expanded="false"
-					   class="nav-link dropdown-toggle"
-					   data-bs-toggle="dropdown"
-					   href="#"
-					   role="button"
-					   th:classappend="${page == 'adding user' || page == 'adding channel'}?'active':''"
-					>
+				<li class="nav-item" sec:authorize="hasRole(T(be.kdg.programming5.model.Role).ADMIN.getCode())">
+					<a class="nav-link" th:classappend="${page == 'adding channel'}?'active':''"
+					   th:href="@{/channels/add}">
 						<i class="bi-plus-circle-fill"></i>
-						<th:block th:text="#{navbar.Adding}">Adding</th:block>
+						Adding a channel
 					</a>
-					<ul class="dropdown-menu dropdown-menu-dark">
-						<li>
-							<a class="dropdown-item"
-							   th:classappend="${page == 'adding channel'}?'active':''"
-							   th:href="@{/channels/add}"
-							>
-								<i class="me-2 bi-people"></i>
-								<th:block th:text="#{navbar.Channel}">Channel</th:block>
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item"
-							   th:classappend="${page == 'adding user'}?'active':''"
-							   th:href="@{/users/add}"
-							>
-								<i class="me-2 bi-chat-dots"></i>
-								<th:block th:text="#{navbar.User}">User</th:block>
-							</a>
-						</li>
-					</ul>
 				</li>
 			</ul>
 			<ul class="navbar-nav ms-auto">
@@ -99,6 +71,11 @@
 					<form class="d-flex" th:action="@{/logout}" th:method="POST">
 						<button class="btn btn-secondary" type="submit">Sign out</button>
 					</form>
+				</li>
+				<li class="nav-item" sec:authorize="!isAuthenticated()">
+					<a class="nav-link" th:classappend="${page == 'signup'} ? 'active' : ''" th:href="@{/signup}">
+						Sign up
+					</a>
 				</li>
 				<li class="nav-item" sec:authorize="!isAuthenticated()">
 					<a class="nav-link" th:classappend="${page == 'login'} ? 'active' : ''" th:href="@{/login}">
@@ -113,8 +90,7 @@
 <th:block th:fragment="post(post)">
 	<div class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
 		 style="width: 50px"
-		 th:id="'post_' + ${post.getPostID()}"
-	>
+		 th:id="'post_' + ${post.getPostID()}">
 		<button class="btn p-0 upvote" type="submit">
 			<i class="bi bi-arrow-up text-success"></i>
 		</button>

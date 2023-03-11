@@ -40,7 +40,7 @@ public class User {
 	@Column
 	private LocalDate birthdate;
 	@Expose
-	@Column
+	@Column (name = "user_role", nullable = false)
 	@Enumerated (EnumType.STRING)
 	@Type (type = "role")
 	private Role role;
@@ -56,7 +56,7 @@ public class User {
 		posts = new ArrayList<>();
 		this.name = name;
 		this.birthdate = birthdate;
-		role = Role.User;
+		role = Role.USER;
 	}
 
 	public User(Long userID, String name, LocalDate birthdate, Role role) {

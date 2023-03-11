@@ -25,6 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("User '" + username + "' not found");
 		}
 		var authorities = new ArrayList<SimpleGrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(user.getRole().getCode()));
 		return new User(user.getName(), user.getPassword(), authorities);
 	}
 }

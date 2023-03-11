@@ -1,8 +1,6 @@
 package be.kdg.programming5.controllers.mvc;
 
-import be.kdg.programming5.controllers.mvc.viewmodels.UserViewModel;
 import be.kdg.programming5.exceptions.UserNotFoundException;
-import be.kdg.programming5.model.Role;
 import be.kdg.programming5.model.User;
 import be.kdg.programming5.model.session.PageVisit;
 import be.kdg.programming5.service.users.UserService;
@@ -13,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.time.format.DateTimeFormatter;
 
@@ -65,29 +61,6 @@ public class UserController {
 		modelAndView.addObject("dateFormatter", dateTimeFormatter);
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
-	}
-
-	@GetMapping ("/add")
-	public ModelAndView showAddUserView(HttpServletRequest request) {
-		logger.info("Controller is running showAddUserView!");
-		final ModelAndView modelAndView = new ModelAndView("users/add-user");
-		modelAndView.addObject("user", new UserViewModel());
-		modelAndView.addObject("roles", Role.values());
-		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
-		return modelAndView;
-	}
-
-	@PostMapping
-	public ModelAndView processAddUser(@Valid @ModelAttribute ("user") UserViewModel user, BindingResult errors) {
-		logger.info("Controller is running processAddUser!");
-		if (errors.hasErrors()) {
-			errors.getAllErrors().forEach(error -> logger.error(error.toString()));
-			final ModelAndView modelAndView = new ModelAndView("users/add-user");
-			modelAndView.addObject("roles", Role.values());
-			return modelAndView;
-		}
-		userService.addUser(user.getName(), user.getBirthdate(), user.getRole(), user.getPassword());
-		return new ModelAndView("redirect:users");
 	}
 
 	@DeleteMapping ("delete/{id}")
