@@ -522,3 +522,29 @@ Passwords for all users are: `password`
 
 Hidden information on the homepage (http://localhost:8081/):
 You can only see posts of users when you're logged in.
+
+## Week 4
+
+To test endpoints easier, put your JSESSIONID and XSRF-TOKEN in this
+file [http-client.env.json](src/test/http-client.env.json) and make sure the http file is using the dev environment (top
+of the window: `Run with:`).
+
+Users:
+
+- Peter (Admin)
+- Seif (Mod)
+- Filip (Mod)
+- Elina (User)
+
+Passwords for all users are: `password`
+
+##### Overview of the roles and their permissions:
+
+- Users can not delete channels or posts (maybe their own, but that's TBD).
+- Only Admins can create new channels and delete them.
+- Mods can edit channels and posts(TBD).
+
+TODO:
+
+- Add method constraints to the api endpoints (`@AdminOnly`, `@ModOrAdminOnly`)
+- Hide features on the frontend based on the user's role (deleting entities)
