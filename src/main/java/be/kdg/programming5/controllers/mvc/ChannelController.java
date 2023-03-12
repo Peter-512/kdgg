@@ -53,7 +53,7 @@ public class ChannelController {
 	}
 
 	@GetMapping ("/{id}")
-	public ModelAndView showChannelView(@PathVariable Long id, HttpServletRequest request) {
+	public ModelAndView showChannelView(@PathVariable Long id, HttpServletRequest request, @AuthenticationPrincipal User user) {
 		final Channel channel = channelService.getChannel(id).orElseThrow(() -> new ChannelNotFoundException(id));
 
 		logger.info(String.format("Controller is running showChannelView with channel %s!",
@@ -65,6 +65,10 @@ public class ChannelController {
 		modelAndView.addObject("timeFormatter", DateTimeFormatter.ofPattern("HH:mm"));
 		modelAndView.addObject("now", LocalDateTime.now());
 		modelAndView.addObject("viewModel", new PostViewModel());
+		modelAndView.addObject("hasJoined", channel.getUsers()
+		                                           .stream()
+		                                           .map(be.kdg.programming5.model.User::getName)
+		                                           .anyMatch(u -> u.equals(user.getUsername())));
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
 	}

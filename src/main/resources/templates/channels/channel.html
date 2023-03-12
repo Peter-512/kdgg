@@ -9,17 +9,36 @@
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<script defer th:src="@{/js/postMessage.js}" type="module"></script>
+	<script defer th:src="@{/js/joinChannel.js}" type="module"></script>
 </head>
 <body class="bg-dark text-light">
 
 <th:block th:insert="~{fragments::nav('channel')}"></th:block>
+
+
 <div class="my-3 mx-3">
 	<header class="w-75 mx-auto">
-		<h1 class="mt-5 text-info" th:text="${channel.getName()}"></h1>
-		<h3 class="text-secondary" th:text="${channel.getDescription()}"></h3>
-		<h5 th:text="#{messages.Upvote_ratio} + ': ' + ${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}">
-			Upvote ratio:
-		</h5>
+		<div class="d-flex justify-content-between" id="top">
+			<div>
+				<h1 class="mt-5 text-info" th:text="${channel.getName()}"></h1>
+				<h3 class="text-secondary" style="white-space: pre-wrap" th:text="${channel.getDescription()}"></h3>
+				<h5 th:text="#{messages.Upvote_ratio} + ': ' + ${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}">
+					Upvote ratio:
+				</h5>
+			</div>
+			<button class="btn text-light btn-outline-primary align-self-start"
+					id="join-channel"
+					th:classappend="${hasJoined} ? 'visually-hidden' : ''">
+				<!--					th:unless="${hasJoined}">-->
+				Join Channel
+			</button>
+			<button class="btn text-light btn-outline-secondary align-self-start"
+					id="leave-channel"
+					th:classappend="${hasJoined} ? '' : 'visually-hidden'">
+				<!--					th:if="${hasJoined}">-->
+				Leave Channel
+			</button>
+		</div>
 
 		<form class="m-5" id="add-post-form" novalidate>
 			<div class="input-group mb-3">
