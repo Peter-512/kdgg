@@ -79,7 +79,6 @@ public class User {
 
 	public void joinChannel(Channel channel) {
 		channels.add(channel);
-		channel.addUser(this);
 	}
 
 	@Override
@@ -88,5 +87,9 @@ public class User {
 										
 				id: %d
 					%s (%s) - %s""", userID, name, birthdate, role);
+	}
+
+	public void leaveChannel(Channel channel) {
+		channels.remove(channel);
 	}
 }

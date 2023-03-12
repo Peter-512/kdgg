@@ -9,6 +9,8 @@ import be.kdg.programming5.service.channels.ChannelService;
 import be.kdg.programming5.service.posts.PostService;
 import be.kdg.programming5.service.users.UserService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,12 +27,14 @@ public class ChannelRestController {
 	private final ModelMapper modelMapper;
 	private final UserService userService;
 	private final PostService postService;
+	private final Logger logger;
 
 	public ChannelRestController(ChannelService channelService, ModelMapper modelMapper, UserService userService, PostService postService) {
 		this.channelService = channelService;
 		this.modelMapper = modelMapper;
 		this.userService = userService;
 		this.postService = postService;
+		logger = LoggerFactory.getLogger(this.getClass());
 	}
 
 	@GetMapping
@@ -112,5 +116,33 @@ public class ChannelRestController {
 
 		final Post post = postService.addPost(user, channel, newPostDTO.getContent());
 		return ResponseEntity.ok(new PostDTO(post.getPostID(), post.getContent(), user.getName(), user.getUserID(), post.getUpVotes(), post.getPostedAt()));
+	}
+
+	@PatchMapping ("/{channelID}/join")
+	public ResponseEntity<Void> joinChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO) {
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		final String username = authentication.getName();
+		final User user = userService.getUser(username)
+		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+		final Channel channel = channelService.getChannel(channelID)
+		                                      .orElseThrow(() -> new ChannelNotFoundException(channelID));
+
+		logger.info("Joining channel " + channel.getName() + " with user " + user.getName());
+		channelService.joinChannel(user, channel);
+		return ResponseEntity.ok().build();
+	}
+
+	@PatchMapping ("/{channelID}/leave")
+	public ResponseEntity<Void> leaveChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO) {
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		final String username = authentication.getName();
+		final User user = userService.getUser(username)
+		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+		final Channel channel = channelService.getChannel(channelID)
+		                                      .orElseThrow(() -> new ChannelNotFoundException(channelID));
+
+		logger.info("Leaving channel " + channel.getName() + " with user " + user.getName());
+		channelService.leaveChannel(user, channel);
+		return ResponseEntity.ok().build();
 	}
 }

@@ -20,4 +20,8 @@ public interface ChannelService {
 	long getPostsCountOfChannel(long channelID);
 
 	Channel updateChannel(Long id, String description);
+
+	void joinChannel(User user, Channel channel);
+
+	void leaveChannel(User user, Channel channel);
 }
