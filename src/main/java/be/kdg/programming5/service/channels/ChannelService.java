@@ -19,7 +19,5 @@ public interface ChannelService {
 
 	long getPostsCountOfChannel(long channelID);
 
-	void addPost(Long channelID, String content, User user);
-
 	Channel updateChannel(Long id, String description);
 }

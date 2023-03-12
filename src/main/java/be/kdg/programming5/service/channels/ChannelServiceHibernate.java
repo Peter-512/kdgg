@@ -54,11 +54,6 @@ public class ChannelServiceHibernate implements ChannelService {
 	}
 
 	@Override
-	public void addPost(Long channelID, String content, User user) {
-		postRepository.save(new Post(user, getChannel(channelID).orElseThrow(), content));
-	}
-
-	@Override
 	public Channel updateChannel(Long id, String description) {
 		Channel channel = getChannel(id).orElseThrow();
 		channel.setDescription(description);

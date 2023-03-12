@@ -75,20 +75,6 @@ public class ChannelController {
 		return modelAndView;
 	}
 
-	@PostMapping ("/{channelID}/post")
-	public ModelAndView createPost(@Valid @ModelAttribute ("viewModel") PostViewModel postViewModel, BindingResult bindingResult, @PathVariable Long channelID) {
-		logger.info("Controller is running createPost!");
-
-		logger.info(String.format("PostViewModel: %s, %s", postViewModel.content, postViewModel.user));
-
-		if (bindingResult.hasErrors()) {
-			logger.error("Failed to create a post!");
-			return new ModelAndView("channels/" + channelID);
-		}
-		channelService.addPost(channelID, postViewModel.getContent(), postViewModel.getUser());
-		return new ModelAndView(String.format("redirect:/channels/%d", channelID));
-	}
-
 	@PostMapping
 	public ModelAndView processAddChannel(@Valid @ModelAttribute ("channel") ChannelViewModel channel, BindingResult errors) {
 		logger.info("Controller is running processAddChannel!");
