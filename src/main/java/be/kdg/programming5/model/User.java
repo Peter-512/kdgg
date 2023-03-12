@@ -25,7 +25,7 @@ public class User {
 	@Column (name = "user_id", nullable = false)
 	private Long userID;
 	@ManyToMany
-	@JoinTable (name = "user_channels", joinColumns = @JoinColumn (name = "channel_id"), inverseJoinColumns = @JoinColumn (name = "user_id"))
+	@JoinTable (name = "user_channels", uniqueConstraints = {@UniqueConstraint (columnNames = {"channel_id", "user_id"})}, joinColumns = @JoinColumn (name = "channel_id"), inverseJoinColumns = @JoinColumn (name = "user_id"))
 	private List<Channel> channels;
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Post> posts;

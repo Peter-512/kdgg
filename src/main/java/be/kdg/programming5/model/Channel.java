@@ -20,7 +20,7 @@ public class Channel {
 	@Column (name = "channel_id", nullable = false)
 	private Long channelID;
 	@ManyToMany
-	@JoinTable (name = "user_channels", joinColumns = @JoinColumn (name = "user_id"), inverseJoinColumns = @JoinColumn (name = "channel_id"))
+	@JoinTable (name = "user_channels", uniqueConstraints = {@UniqueConstraint (columnNames = {"channel_id", "user_id"})}, joinColumns = @JoinColumn (name = "user_id"), inverseJoinColumns = @JoinColumn (name = "channel_id"))
 	private List<User> users;
 	@Expose
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "channel")
