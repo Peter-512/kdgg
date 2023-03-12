@@ -10,6 +10,7 @@ import be.kdg.programming5.service.users.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,7 @@ public class HomeController {
 	}
 
 	@PostMapping ("/signup")
-	public ModelAndView processSignup(@Valid @ModelAttribute ("user") UserViewModel user, BindingResult errors, HttpServletRequest request) throws ServletException {
+	public ModelAndView processSignup(@Valid @ModelAttribute ("user") UserViewModel user, BindingResult errors, HttpServletRequest request, CsrfToken csrfToken) throws ServletException {
 		logger.info("Controller is running sign up!");
 		if (errors.hasErrors()) {
 			errors.getAllErrors().forEach(error -> logger.error(error.toString()));
