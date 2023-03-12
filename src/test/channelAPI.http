@@ -81,3 +81,27 @@ X-XSRF-TOKEN: {{XSRF-TOKEN}}
 {
   "content": ""
 }
+
+### Join a channel as a user; 200
+// @no-cookie-jar
+PATCH http://localhost:8081/api/channels/3/join
+Accept: application/json
+Content-Type: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
+
+{
+  "userId": 1
+}
+
+### Leave a channel as a user; 200
+// @no-cookie-jar
+PATCH http://localhost:8081/api/channels/3/leave
+Accept: application/json
+Content-Type: application/json
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
+
+{
+  "userId": 1
+}
