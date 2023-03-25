@@ -56,8 +56,7 @@ public class UserController {
 		final User user = userService.getUser(id)
 		                             .orElseThrow(() -> new UserNotFoundException(id));
 
-		logger.info(String.format("Controller is running showUserView with user %s!",
-				user.getName()));
+		logger.info("Controller is running showUserView with user {}!", user.getName());
 
 		final ModelAndView modelAndView = new ModelAndView("users/user");
 		modelAndView.addObject("user", user);

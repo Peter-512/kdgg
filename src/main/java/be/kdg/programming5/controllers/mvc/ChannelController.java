@@ -57,8 +57,7 @@ public class ChannelController {
 	public ModelAndView showChannelView(@PathVariable Long id, HttpServletRequest request, @AuthenticationPrincipal User user) {
 		final Channel channel = channelService.getChannel(id).orElseThrow(() -> new ChannelNotFoundException(id));
 
-		logger.info(String.format("Controller is running showChannelView with channel %s!",
-				channel.getName()));
+		logger.info("Controller is running showChannelView with channel {}!", channel.getName());
 
 		final ModelAndView modelAndView = new ModelAndView("channels/channel");
 		modelAndView.addObject("channel", channel);
@@ -105,6 +104,4 @@ public class ChannelController {
 				.header("Content-Disposition", "attachment; filename=\"channels.json\"")
 				.body(new InputStreamResource(new ByteArrayInputStream(buf)));
 	}
-
-
 }

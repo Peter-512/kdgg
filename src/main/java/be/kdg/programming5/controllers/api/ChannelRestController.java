@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -125,21 +124,20 @@ public class ChannelRestController {
 		final Channel channel = channelService.getChannel(channelID)
 		                                      .orElseThrow(() -> new ChannelNotFoundException(channelID));
 
-		logger.info("Joining channel " + channel.getName() + " with user " + user.getName());
+		logger.info("Joining channel {} with user {}", channel.getName(), user.getName());
 		channelService.joinChannel(user, channel);
 		return ResponseEntity.ok().build();
 	}
 
 	@PatchMapping ("/{channelID}/leave")
-	public ResponseEntity<Void> leaveChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO) {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public ResponseEntity<Void> leaveChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO, Authentication authentication) {
 		final String username = authentication.getName();
 		final User user = userService.getUser(username)
 		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 		final Channel channel = channelService.getChannel(channelID)
 		                                      .orElseThrow(() -> new ChannelNotFoundException(channelID));
 
-		logger.info("Leaving channel " + channel.getName() + " with user " + user.getName());
+		logger.info("Leaving channel {} with user {}", channel.getName(), user.getName());
 		channelService.leaveChannel(user, channel);
 		return ResponseEntity.ok().build();
 	}
