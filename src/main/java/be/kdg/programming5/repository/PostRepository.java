@@ -12,7 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	@Transactional
 	@Modifying
 	@Query ("update Post p set p.upVotes = ?1 where p.postID = ?2")
-	void updateUpVotesByPostID(int upVotes, Long postID);
+	int updateUpVotesByPostID(int upVotes, Long postID);
 
 	long countByChannel_ChannelID(Long channelID);
 
