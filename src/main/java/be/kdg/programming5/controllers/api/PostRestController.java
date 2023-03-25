@@ -27,7 +27,7 @@ public class PostRestController {
 			postService.setPostUpvoteCount(id, updatedPostDTO.getUpVotes());
 			post.setUpVotes(updatedPostDTO.getUpVotes());
 			return ResponseEntity.ok(modelMapper.map(post, PostDTO.class));
-		} catch (Exception e) {
+		} catch (PostNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 

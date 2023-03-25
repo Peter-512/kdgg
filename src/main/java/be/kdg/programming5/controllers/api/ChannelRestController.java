@@ -52,9 +52,9 @@ public class ChannelRestController {
 	@GetMapping ("/{id}")
 	public ResponseEntity<ChannelDTO> getChannel(@PathVariable Long id) {
 		try {
-			final Channel channel = channelService.getChannel(id).orElseThrow();
+			final Channel channel = channelService.getChannel(id).orElseThrow(() -> new ChannelNotFoundException(id));
 			return ResponseEntity.ok(modelMapper.map(channel, ChannelDTO.class));
-		} catch (Exception e) {
+		} catch (ChannelNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
@@ -63,12 +63,12 @@ public class ChannelRestController {
 	public ResponseEntity<List<UserDTO>> getUsersOfChannel(@PathVariable Long id) {
 		final List<UserDTO> users;
 		try {
-			final Channel channel = channelService.getChannel(id).orElseThrow();
+			final Channel channel = channelService.getChannel(id).orElseThrow(() -> new ChannelNotFoundException(id));
 			users = channel.getUsers()
 			               .stream()
 			               .map(user -> modelMapper.map(user, UserDTO.class))
 			               .toList();
-		} catch (Exception e) {
+		} catch (ChannelNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 		if (users.isEmpty()) {
@@ -80,10 +80,10 @@ public class ChannelRestController {
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<Void> deleteChannel(@PathVariable Long id) {
 		try {
-			channelService.getChannel(id).orElseThrow();
+			channelService.getChannel(id).orElseThrow(() -> new ChannelNotFoundException(id));
 			channelService.deleteChannel(id);
 			return ResponseEntity.noContent().build();
-		} catch (Exception e) {
+		} catch (ChannelNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
@@ -94,7 +94,7 @@ public class ChannelRestController {
 			channelService.getChannel(id).orElseThrow();
 			final Channel newChannel = channelService.updateChannel(id, channelDTO.getDescription());
 			return ResponseEntity.ok(modelMapper.map(newChannel, ChannelDTO.class));
-		} catch (Exception e) {
+		} catch (ChannelNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
@@ -106,8 +106,7 @@ public class ChannelRestController {
 	}
 
 	@PostMapping ("/{channelID}/posts")
-	public ResponseEntity<PostDTO> createPost(@PathVariable Long channelID, @RequestBody @Valid NewPostDTO newPostDTO) {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public ResponseEntity<PostDTO> createPost(@PathVariable Long channelID, @RequestBody @Valid NewPostDTO newPostDTO, Authentication authentication) {
 		final String username = authentication.getName();
 		final User user = userService.getUser(username)
 		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
@@ -119,8 +118,7 @@ public class ChannelRestController {
 	}
 
 	@PatchMapping ("/{channelID}/join")
-	public ResponseEntity<Void> joinChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO) {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public ResponseEntity<Void> joinChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO, Authentication authentication) {
 		final String username = authentication.getName();
 		final User user = userService.getUser(username)
 		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));

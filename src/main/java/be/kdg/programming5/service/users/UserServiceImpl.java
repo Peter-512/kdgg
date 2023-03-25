@@ -1,5 +1,6 @@
 package be.kdg.programming5.service.users;
 
+import be.kdg.programming5.exceptions.UserNotFoundException;
 import be.kdg.programming5.model.Role;
 import be.kdg.programming5.model.User;
 import be.kdg.programming5.repository.PostRepository;
@@ -63,6 +64,6 @@ public class UserServiceHibernate implements UserService {
 			user.setBirthdate(birthdate);
 			user.setRole(role);
 			return userRepository.save(user);
-		}).orElse(null);
+		}).orElseThrow(() -> new UserNotFoundException(id));
 	}
 }
