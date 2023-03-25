@@ -50,6 +50,14 @@ public class Post {
 		user.createPost(channel, this);
 	}
 
+	public Post(User user, Channel channel, String content, int upVotes, LocalDateTime postedAt) {
+		this.user = user;
+		this.channel = channel;
+		this.content = content;
+		this.upVotes = upVotes;
+		this.postedAt = postedAt;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("""
