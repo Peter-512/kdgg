@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +27,7 @@ import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@RestController
+@Controller
 @RequestMapping ("/channels")
 public class ChannelController {
 	private final Logger logger;
@@ -94,13 +95,6 @@ public class ChannelController {
 		return new ModelAndView("redirect:channels");
 	}
 
-	@DeleteMapping ("delete/{id}")
-	public ModelAndView deleteChannel(@PathVariable Long id) {
-		logger.info(String.format("Channel %s getting deleted", channelService.getChannel(id)));
-		channelService.deleteChannel(id);
-		return new ModelAndView("redirect:/channels");
-	}
-
 	@GetMapping (value = "/download", produces = "application/json")
 	public ResponseEntity<InputStreamResource> downloadJSONFile() {
 		final byte[] buf = jsonWriter.getJsonBytes(channelService.getChannels());
@@ -112,10 +106,5 @@ public class ChannelController {
 				.body(new InputStreamResource(new ByteArrayInputStream(buf)));
 	}
 
-	@PatchMapping ("/upvote/{id}/{upVotes}")
-	public ModelAndView updateVotesOnPost(@PathVariable Long id, @PathVariable int upVotes, HttpServletRequest request) {
-		logger.info(String.format("Post #%d getting upvoted", id));
-		channelService.setPostUpvoteCount(upVotes, id);
-		return new ModelAndView("redirect:" + request.getHeader("Referer"));
-	}
+
 }

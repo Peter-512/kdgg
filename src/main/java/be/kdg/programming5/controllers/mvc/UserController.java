@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.time.format.DateTimeFormatter;
 
-@RestController
+@Controller
 @RequestMapping ("/users")
 public class UserController {
 	private final Logger logger;
@@ -61,13 +64,6 @@ public class UserController {
 		modelAndView.addObject("dateFormatter", dateTimeFormatter);
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
-	}
-
-	@DeleteMapping ("delete/{id}")
-	public ModelAndView deleteChannel(@PathVariable Long id) {
-		logger.info(String.format("User %s getting deleted", userService.getUser(id)));
-		userService.deleteUser(id);
-		return new ModelAndView("redirect:/users");
 	}
 
 	@GetMapping (value = "/download", produces = "application/json")
