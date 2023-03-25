@@ -5,6 +5,8 @@ import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -27,6 +29,7 @@ public class User {
 	@ManyToMany
 	@JoinTable (name = "user_channels", uniqueConstraints = {@UniqueConstraint (columnNames = {"channel_id", "user_id"})}, joinColumns = @JoinColumn (name = "channel_id"), inverseJoinColumns = @JoinColumn (name = "user_id"))
 	private List<Channel> channels;
+	@OnDelete (action = OnDeleteAction.CASCADE)
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Post> posts;
 	@Expose
