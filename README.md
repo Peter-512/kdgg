@@ -10,6 +10,18 @@ Programming 5
 - Email: peter.buschenreiter@student.kdg.be
 - Student ID: 0152955-83
 
+### How to run
+
+- dev: `./gradlew bootRun --args='--spring.profiles.active=dev'`
+- prod: `./gradlew bootRun --args='--spring.profiles.active=prod --POSTGRES_PASSWORD=<yourpassword>'` (
+  replace `<yourpassword>` with the password you set for the postgres user)
+
+Open [here](http://localhost:8081)
+
+### How to test
+
+`./gradlew test` - automatically loads the test profile as well
+
 ### Domain
 
 The domain describes a typical chat application. It is based on the following entities:
@@ -20,24 +32,6 @@ The domain describes a typical chat application. It is based on the following en
 
 Users can be members of many channels. A channel can have many members. A post is always associated with a channel.
 A post is associated with a user and the channel in which the post was created.
-
-### Necessary setup (Profile & Database)
-
-##### JDBC template based implementation
-
-- change profile in `aplication.yaml` to `dev`
-
-##### Spring data based implementation
-
-- create a postgres db called `kdGG`
-- create a `.env` file in the root of the project with the following content:
-
-```env
-POSTGRES_PASSWORD=password
-```
-
-- replace `password` with your postgres password
-- change profile in `aplication.yaml` to `prod`
 
 ## Week 1
 
@@ -548,3 +542,9 @@ TODO:
 
 - Add method constraints to the api endpoints (`@AdminOnly`, `@ModOrAdminOnly`)
 - Hide features on the frontend based on the user's role (deleting entities)
+
+## Week 5
+
+### New profile
+
+- test 
