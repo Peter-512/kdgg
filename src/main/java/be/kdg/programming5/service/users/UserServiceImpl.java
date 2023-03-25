@@ -3,6 +3,7 @@ package be.kdg.programming5.service.users;
 import be.kdg.programming5.exceptions.UserNotFoundException;
 import be.kdg.programming5.model.Role;
 import be.kdg.programming5.model.User;
+import be.kdg.programming5.model.UserInfo;
 import be.kdg.programming5.repository.PostRepository;
 import be.kdg.programming5.repository.UserRepository;
 import com.google.common.collect.Lists;
@@ -73,5 +74,10 @@ public class UserServiceImpl implements UserService {
 			user.setRole(role);
 			return userRepository.save(user);
 		}).orElseThrow(() -> new UserNotFoundException(id));
+	}
+
+	@Override
+	public List<UserInfo> getUsersWithPosts() {
+		return userRepository.findUsersWithPosts();
 	}
 }

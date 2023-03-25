@@ -30,13 +30,12 @@
 			<td>
 				<a class="text-decoration-none"
 				   th:href="@{/users/{id}(id=${user.getUserID()})}"
-				   th:text="${user.getName()}"
-				>>
+				   th:text="${user.getName()}">
 				</a>
 			</td>
 			<td th:text="${user.getRole().getDescription()}"></td>
 			<td th:text="${user.getBirthdate().format(dateFormatter)}"></td>
-			<td th:text="${userService.getPostsCountOfUser(user.getUserID())}"></td>
+			<td th:text="${user.getPostCount()}"></td>
 			<td class="text-center">
 				<button class="btn p-0 delete" type="submit">
 					<i class="bi bi-trash text-danger"></i>

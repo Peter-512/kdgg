@@ -44,9 +44,8 @@ public class UserController {
 	public ModelAndView showUsersView(HttpServletRequest request) {
 		logger.info("Controller is running showUsersView!");
 		final ModelAndView modelAndView = new ModelAndView("users/users");
-		modelAndView.addObject("users", userService.getUsers());
+		modelAndView.addObject("users", userService.getUsersWithPosts());
 		modelAndView.addObject("dateFormatter", dateTimeFormatter);
-		modelAndView.addObject("userService", userService);
 		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));
 		return modelAndView;
 	}
