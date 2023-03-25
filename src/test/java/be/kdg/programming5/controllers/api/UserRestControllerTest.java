@@ -32,14 +32,9 @@ class UserRestControllerTest {
 	@BeforeEach
 	void setup() {
 		u1 = userRepository.save(new User("user1", LocalDate.of(2000, 1, 1), Role.ADMIN, "password"));
-		final User u2 = userRepository.save(new User("user2", LocalDate.of(2000, 1, 1), Role.ADMIN, "password"));
-		final User u3 = userRepository.save(new User("user3", LocalDate.of(2000, 1, 1), Role.ADMIN, "password"));
-		final User u4 = userRepository.save(new User("user4", LocalDate.of(2000, 1, 1), Role.ADMIN, "password"));
-
-		userRepository.save(u1);
-		userRepository.save(u2);
-		userRepository.save(u3);
-		userRepository.save(u4);
+		userRepository.save(new User("user2", LocalDate.of(2000, 1, 1), Role.ADMIN, "password"));
+		userRepository.save(new User("user3", LocalDate.of(2000, 1, 1), Role.ADMIN, "password"));
+		userRepository.save(new User("user4", LocalDate.of(2000, 1, 1), Role.ADMIN, "password"));
 	}
 
 	@AfterEach
