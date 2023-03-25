@@ -12,7 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -104,9 +104,13 @@ public class ChannelRestController {
 		return ResponseEntity.ok(modelMapper.map(newChannel, ChannelDTO.class));
 	}
 
+	private String getAuthenticatedUsername() {
+		return SecurityContextHolder.getContext().getAuthentication().getName();
+	}
+
 	@PostMapping ("/{channelID}/posts")
-	public ResponseEntity<PostDTO> createPost(@PathVariable Long channelID, @RequestBody @Valid NewPostDTO newPostDTO, Authentication authentication) {
-		final String username = authentication.getName();
+	public ResponseEntity<PostDTO> createPost(@PathVariable Long channelID, @RequestBody @Valid NewPostDTO newPostDTO) {
+		final String username = getAuthenticatedUsername();
 		final User user = userService.getUser(username)
 		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 		final Channel channel = channelService.getChannel(channelID)
@@ -117,8 +121,8 @@ public class ChannelRestController {
 	}
 
 	@PatchMapping ("/{channelID}/join")
-	public ResponseEntity<Void> joinChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO, Authentication authentication) {
-		final String username = authentication.getName();
+	public ResponseEntity<Void> joinChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO) {
+		final String username = getAuthenticatedUsername();
 		final User user = userService.getUser(username)
 		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 		final Channel channel = channelService.getChannel(channelID)
@@ -130,8 +134,8 @@ public class ChannelRestController {
 	}
 
 	@PatchMapping ("/{channelID}/leave")
-	public ResponseEntity<Void> leaveChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO, Authentication authentication) {
-		final String username = authentication.getName();
+	public ResponseEntity<Void> leaveChannel(@PathVariable Long channelID, @RequestBody JoinOrLeaveChannelDTO joinOrLeaveChannelDTO) {
+		final String username = getAuthenticatedUsername();
 		final User user = userService.getUser(username)
 		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 		final Channel channel = channelService.getChannel(channelID)
