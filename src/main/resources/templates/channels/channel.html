@@ -29,13 +29,11 @@
 			<button class="btn text-light btn-outline-primary align-self-start"
 					id="join-channel"
 					th:classappend="${hasJoined} ? 'visually-hidden' : ''">
-				<!--					th:unless="${hasJoined}">-->
 				Join Channel
 			</button>
 			<button class="btn text-light btn-outline-secondary align-self-start"
 					id="leave-channel"
 					th:classappend="${hasJoined} ? '' : 'visually-hidden'">
-				<!--					th:if="${hasJoined}">-->
 				Leave Channel
 			</button>
 		</div>
