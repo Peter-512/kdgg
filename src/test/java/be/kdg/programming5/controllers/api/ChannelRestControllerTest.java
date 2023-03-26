@@ -34,8 +34,6 @@ class ChannelRestControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
-	private ChannelRestController channelRestController;
-	@Autowired
 	private ChannelRepository channelRepository;
 	@Autowired
 	private UserRepository userRepository;
