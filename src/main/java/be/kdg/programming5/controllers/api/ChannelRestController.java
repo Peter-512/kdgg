@@ -1,5 +1,6 @@
 package be.kdg.programming5.controllers.api;
 
+import be.kdg.programming5.config.security.AdminOnly;
 import be.kdg.programming5.controllers.api.dtos.*;
 import be.kdg.programming5.exceptions.ChannelNotFoundException;
 import be.kdg.programming5.model.Channel;
@@ -76,6 +77,7 @@ public class ChannelRestController {
 		return ResponseEntity.ok(users);
 	}
 
+	@AdminOnly
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<Void> deleteChannel(@PathVariable Long id) {
 		try {
