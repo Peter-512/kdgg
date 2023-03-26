@@ -9,3 +9,9 @@ X-XSRF-TOKEN: {{XSRF-TOKEN}}
 {
   "upVotes": {{$random.integer(0, 100)}}
 }
+
+### Delete a post
+// @no-cookie-jar
+DELETE http://localhost:8081/api/posts/1
+Cookie: {{Cookie}}
+X-XSRF-TOKEN: {{XSRF-TOKEN}}

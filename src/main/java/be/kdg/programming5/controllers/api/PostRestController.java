@@ -1,5 +1,6 @@
 package be.kdg.programming5.controllers.api;
 
+import be.kdg.programming5.config.security.ModOrAdminOnly;
 import be.kdg.programming5.controllers.api.dtos.PostDTO;
 import be.kdg.programming5.controllers.api.dtos.UpdatedPostDTO;
 import be.kdg.programming5.exceptions.PostNotFoundException;
@@ -30,6 +31,17 @@ public class PostRestController {
 		} catch (PostNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
+	}
 
+	@ModOrAdminOnly
+	@DeleteMapping ("/{id}")
+	public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+		try {
+			postService.getPost(id).orElseThrow(() -> new PostNotFoundException(id));
+			postService.deletePost(id);
+			return ResponseEntity.noContent().build();
+		} catch (PostNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 }
