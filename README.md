@@ -534,14 +534,9 @@ Passwords for all users are: `password`
 
 ##### Overview of the roles and their permissions:
 
-- Users can not delete channels or posts (maybe their own, but that's TBD).
+- Users can not delete channels or posts.
 - Only Admins can create new channels and delete them.
-- Mods can edit channels and posts(TBD).
-
-TODO:
-
-- Add method constraints to the api endpoints (`@AdminOnly`, `@ModOrAdminOnly`)
-- Hide features on the frontend based on the user's role (deleting entities)
+- Mods and Admins can delete posts.
 
 ## Week 5
 
