@@ -98,7 +98,7 @@ public class ChannelRestController {
 		}
 	}
 
-	@PostMapping
+	@PostMapping (produces = {"application/json", "application/xml"})
 	public ResponseEntity<ChannelDTO> createChannel(@Valid @RequestBody NewChannelDTO newChannelDTO) {
 		final Channel newChannel = channelService.addChannel(newChannelDTO.getName(), newChannelDTO.getDescription());
 		return ResponseEntity.ok(modelMapper.map(newChannel, ChannelDTO.class));
