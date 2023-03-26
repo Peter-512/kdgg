@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title th:text="#{messages.Channels}">Channels</title>
@@ -14,8 +14,36 @@
 <body class="mx-auto bg-dark text-light">
 
 <th:block th:insert="~{fragments::nav('channels')}"></th:block>
-<div class="mx-auto w-75 my-3">
 
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+	<div aria-atomic="true" aria-live="assertive" class="toast bg-dark text-light" id="failToast" role="alert">
+		<div class="toast-header text-danger">
+			<i class="bi bi-bell-fill me-2"></i>
+			<strong class="me-auto">Error</strong>
+			<small>Just now</small>
+			<button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
+		</div>
+		<div class="toast-body">
+			Something went wrong
+		</div>
+	</div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+	<div aria-atomic="true" aria-live="assertive" class="toast bg-dark text-light" id="successToast" role="alert">
+		<div class="toast-header text-success">
+			<i class="bi bi-bell-fill me-2"></i>
+			<strong class="me-auto">Success</strong>
+			<small>Just now</small>
+			<button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
+		</div>
+		<div class="toast-body">
+			Success!
+		</div>
+	</div>
+</div>
+
+<div class="mx-auto w-75 my-3">
 	<table class="table table-dark table-striped table-hover my-5">
 		<thead>
 		<tr class="table-header">
@@ -23,7 +51,7 @@
 			<th th:text="#{messages.Channel_description}">Channel description</th>
 			<th class="text-nowrap" th:text="#{messages.Upvote_ratio}">Upvote ratio</th>
 			<th th:text="#{messages.Posts}">Posts</th>
-			<th></th>
+			<th sec:authorize="hasRole(T(be.kdg.programming5.model.Role).ADMIN.getCode())"></th>
 		</tr>
 		</thead>
 		<tbody class="table-group-divider">
@@ -36,7 +64,7 @@
 			<td th:text="${channel.getDescription()}"></td>
 			<td th:text="${#numbers.formatDecimal(channel.calculateUpvoteRatio(), 1, 2)}"></td>
 			<td th:text="${channelService.getPostsCountOfChannel(channel.getChannelID())}"></td>
-			<td class="text-center">
+			<td class="text-center" sec:authorize="hasRole(T(be.kdg.programming5.model.Role).ADMIN.getCode())">
 				<button class="btn p-0 delete" type="submit">
 					<i class="bi bi-trash text-danger"></i>
 				</button>
