@@ -24,10 +24,8 @@
 				></a>
 			</h2>
 			<h4 class="text-secondary" th:text="${channel.getDescription()}"></h4>
-			<section class="my-3 d-flex flex-row gap-2 align-items-center"
-					 sec:authorize="isAuthenticated()"
-					 th:each="post: ${channel.getPosts()}">
-				<th:block th:insert="~{fragments::post(${post})}"></th:block>
+			<section class="my-3" sec:authorize="isAuthenticated()">
+				<th:block th:each="post: ${channel.getPosts()}" th:insert="~{fragments::post(${post})}"></th:block>
 			</section>
 			<section class="my-3" sec:authorize="!isAuthenticated()">Log in to see posts!</section>
 		</section>

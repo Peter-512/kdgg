@@ -1,5 +1,6 @@
 import {vote} from "./vote.js";
 import csrfHeader from "./csrfHeader.js";
+import {deletePost} from "./deleteHoverButton.js";
 
 /**
  *
@@ -8,6 +9,8 @@ import csrfHeader from "./csrfHeader.js";
 const addPostForm = document.querySelector("#add-post-form");
 const submitButton = document.querySelector("#send-message");
 const messageContent = document.querySelector("#message-input");
+const role = document.querySelector("body").dataset.role;
+const channelID = document.querySelector("body").dataset.channelId;
 
 addPostForm.onsubmit = (event) => event.preventDefault();
 
@@ -22,7 +25,6 @@ async function postMessage(event) {
 	if (!isValid) return;
 
 	const content = messageContent.value;
-	const channelID = window.location.href.substring(window.location.href.lastIndexOf("/") + 1);
 	const url = `/api/channels/${channelID}/posts`;
 	const data = {content};
 
@@ -79,32 +81,52 @@ async function postMessage(event) {
 	}
 
 	const post = document.createElement("article");
-	post.classList.add("d-flex", "flex-row", "my-3");
+	post.classList.add("d-flex", "py-2", "justify-content-between", "post");
 	post.innerHTML = `
-		<div id="post_${postID}" class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
-		 style="width: 50px">
-			<button class="btn p-0 upvote" type="submit">
-				<i class="bi bi-arrow-up text-success"></i>
-			</button>
-			<span class="text-warning">
-				${upVotes}
-			</span>
-			<button class="btn p-0 downvote">
-				<i class="bi bi-arrow-down text-danger"></i>
-			</button>
-		</div>
-		<article style="width: calc(100% - 50px)">
-			<a class="text-decoration-none" href="/users/${userID}">
-		   		${username}
-			</a>
-			<span class="text-secondary">
-				${formattedDate}
-			</span>
-			<p class="m-0">
-				${message}
-			</p>
-		</article>
+			<div class="d-flex">
+				<div class="me-2 d-flex flex-md-row flex-column align-items-center justify-content-md-around"
+ 					style="width: 50px"
+ 					id="post_${postID}">
+					<button class="btn p-0 upvote" type="submit">
+						<i class="bi bi-arrow-up text-success"></i>
+					</button>
+					<span class="text-warning">${upVotes}</span>
+					<button class="btn p-0 downvote">
+						<i class="bi bi-arrow-down text-danger"></i>
+					</button>
+				</div>
+				<div style="width: calc(100% - 50px)">
+					<a class="text-decoration-none" href="/users/${userID}">
+						${username}
+					</a>
+					<span class="text-secondary">
+						${formattedDate}
+					</span>
+					<p class="m-0">
+						${message}
+					</p>
+				</div>
+			</div>
+				${role === "[ROLE_MOD]" || role === "[ROLE_ADMIN]" ? "<button class='btn btn-outline-danger visually-hidden delete'>" +
+		"<i class='bi bi-trash-fill'></i>" +
+		"</button>" : ""}
 	`;
+
+	const deleteButton = post.querySelector(".delete");
+	deleteButton.dataset.postId = `${postID}`;
+	deleteButton.addEventListener("click", async () => {
+		await deletePost(deleteButton);
+	});
+
+	post.addEventListener("mouseover", () => {
+		const deleteButton = post.querySelector(".delete");
+		if (deleteButton) deleteButton.classList.remove("visually-hidden");
+	});
+	post.addEventListener("mouseout", () => {
+		const deleteButton = post.querySelector(".delete");
+		if (deleteButton) deleteButton.classList.add("visually-hidden");
+	});
+
 	const postList = document.querySelector("main");
 	postList.append(post);
 

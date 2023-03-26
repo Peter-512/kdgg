@@ -88,34 +88,43 @@
 </nav>
 
 <th:block th:fragment="post(post)">
-	<div class="d-flex flex-md-row flex-column align-items-center justify-content-md-around"
-		 style="width: 50px"
-		 th:id="'post_' + ${post.getPostID()}">
-		<button class="btn p-0 upvote" type="submit">
-			<i class="bi bi-arrow-up text-success"></i>
+	<article class="d-flex py-2 justify-content-between post">
+		<div class="d-flex">
+			<div class="me-2 d-flex flex-md-row flex-column align-items-center justify-content-md-around"
+				 style="width: 50px"
+				 th:id="'post_' + ${post.getPostID()}">
+				<button class="btn p-0 upvote" type="submit">
+					<i class="bi bi-arrow-up text-success"></i>
+				</button>
+				<span class="text-warning" th:text="${post.getUpVotes()}"></span>
+				<button class="btn p-0 downvote">
+					<i class="bi bi-arrow-down text-danger"></i>
+				</button>
+			</div>
+			<div style="width: calc(100% - 50px)">
+				<a class="text-decoration-none"
+				   th:href="@{/users/{id}(id=${post.getUser().getUserID()})}"
+				   th:text="${post.getUser().getName()}"
+				></a>
+				<span class="text-secondary"
+					  th:if="${now.minusDays(1).isBefore(post.getPostedAt())}"
+					  th:text="'today at ' + ${post.getPostedAt().format(timeFormatter)}"></span>
+				<span class="text-secondary"
+					  th:if="${now.minusDays(2).isBefore(post.getPostedAt())}"
+					  th:text="'yesterday at ' + ${post.getPostedAt().format(timeFormatter)}"
+					  th:unless="${now.minusDays(1).isBefore(post.getPostedAt())}"></span>
+				<span class="text-secondary"
+					  th:if="${now.minusDays(2).isAfter(post.getPostedAt())}"
+					  th:text="${post.getPostedAt().format(dateFormatter)} + ' at ' + ${post.getPostedAt().format(timeFormatter)}"
+					  th:unless="${now.minusDays(2).isBefore(post.getPostedAt())}"></span>
+				<p class="m-0" th:text="${post.getContent()}"></p>
+			</div>
+		</div>
+		<button class="btn btn-outline-danger visually-hidden delete"
+				sec:authorize="hasAnyRole(T(be.kdg.programming5.model.Role).MOD.getCode(), T(be.kdg.programming5.model.Role).ADMIN.getCode())"
+				th:attr="data-post-id=${post.getPostID()}">
+			<i class="bi-trash-fill"></i>
 		</button>
-		<span class="text-warning" th:text="${post.getUpVotes()}"></span>
-		<button class="btn p-0 downvote">
-			<i class="bi bi-arrow-down text-danger"></i>
-		</button>
-	</div>
-	<article style="width: calc(100% - 50px)">
-		<a class="text-decoration-none"
-		   th:href="@{/users/{id}(id=${post.getUser().getUserID()})}"
-		   th:text="${post.getUser().getName()}"
-		></a>
-		<span class="text-secondary"
-			  th:if="${now.minusDays(1).isBefore(post.getPostedAt())}"
-			  th:text="'today at ' + ${post.getPostedAt().format(timeFormatter)}"></span>
-		<span class="text-secondary"
-			  th:if="${now.minusDays(2).isBefore(post.getPostedAt())}"
-			  th:text="'yesterday at ' + ${post.getPostedAt().format(timeFormatter)}"
-			  th:unless="${now.minusDays(1).isBefore(post.getPostedAt())}"></span>
-		<span class="text-secondary"
-			  th:if="${now.minusDays(2).isAfter(post.getPostedAt())}"
-			  th:text="${post.getPostedAt().format(dateFormatter)} + ' at ' + ${post.getPostedAt().format(timeFormatter)}"
-			  th:unless="${now.minusDays(2).isBefore(post.getPostedAt())}"></span>
-		<p class="m-0" th:text="${post.getContent()}"></p>
 	</article>
 </th:block>
 
