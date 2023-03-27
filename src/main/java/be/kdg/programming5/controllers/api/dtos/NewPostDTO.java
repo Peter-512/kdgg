@@ -6,12 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class NewPostDTO {
+	@NotNull
+	private long channelID;
 	@NotBlank
 	private String content;
 }
