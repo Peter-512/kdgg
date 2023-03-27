@@ -15,32 +15,8 @@
 
 <th:block th:insert="~{fragments::nav('channels')}"></th:block>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-	<div aria-atomic="true" aria-live="assertive" class="toast bg-dark text-light" id="failToast" role="alert">
-		<div class="toast-header text-danger">
-			<i class="bi bi-bell-fill me-2"></i>
-			<strong class="me-auto">Error</strong>
-			<small>Just now</small>
-			<button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
-		</div>
-		<div class="toast-body">
-			Something went wrong
-		</div>
-	</div>
-</div>
-
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-	<div aria-atomic="true" aria-live="assertive" class="toast bg-dark text-light" id="successToast" role="alert">
-		<div class="toast-header text-success">
-			<i class="bi bi-bell-fill me-2"></i>
-			<strong class="me-auto">Success</strong>
-			<small>Just now</small>
-			<button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
-		</div>
-		<div class="toast-body">
-			Success!
-		</div>
-	</div>
+<div class="position-absolute bottom-0 end-0 p-3">
+	<div class="toast-container position-static"></div>
 </div>
 
 <div class="mx-auto w-75 my-3">
