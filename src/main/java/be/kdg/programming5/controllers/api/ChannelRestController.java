@@ -4,7 +4,6 @@ import be.kdg.programming5.config.security.AdminOnly;
 import be.kdg.programming5.controllers.api.dtos.*;
 import be.kdg.programming5.exceptions.ChannelNotFoundException;
 import be.kdg.programming5.model.Channel;
-import be.kdg.programming5.model.Post;
 import be.kdg.programming5.model.User;
 import be.kdg.programming5.service.channels.ChannelService;
 import be.kdg.programming5.service.posts.PostService;
@@ -108,18 +107,6 @@ public class ChannelRestController {
 
 	private String getAuthenticatedUsername() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
-	}
-
-	@PostMapping ("/{channelID}/posts")
-	public ResponseEntity<PostDTO> createPost(@PathVariable Long channelID, @RequestBody @Valid NewPostDTO newPostDTO) {
-		final String username = getAuthenticatedUsername();
-		final User user = userService.getUser(username)
-		                             .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
-		final Channel channel = channelService.getChannel(channelID)
-		                                      .orElseThrow(() -> new ChannelNotFoundException(channelID));
-
-		final Post post = postService.addPost(user, channel, newPostDTO.getContent());
-		return ResponseEntity.ok(new PostDTO(post.getPostID(), post.getContent(), user.getName(), user.getUserID(), post.getUpVotes(), post.getPostedAt()));
 	}
 
 	@PatchMapping ("/{channelID}/join")
