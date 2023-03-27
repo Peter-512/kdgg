@@ -113,19 +113,19 @@ async function postMessage(event) {
 	`;
 
 	const deleteButton = post.querySelector(".delete");
-	deleteButton.dataset.postId = `${postID}`;
-	deleteButton.addEventListener("click", async () => {
-		await deletePost(deleteButton);
-	});
+	if (deleteButton) {
+		deleteButton.dataset.postId = `${postID}`;
+		deleteButton.addEventListener("click", async () => {
+			await deletePost(deleteButton);
+		});
 
-	post.addEventListener("mouseover", () => {
-		const deleteButton = post.querySelector(".delete");
-		if (deleteButton) deleteButton.classList.remove("visually-hidden");
-	});
-	post.addEventListener("mouseout", () => {
-		const deleteButton = post.querySelector(".delete");
-		if (deleteButton) deleteButton.classList.add("visually-hidden");
-	});
+		post.addEventListener("mouseover", () => {
+			deleteButton.classList.remove("visually-hidden");
+		});
+		post.addEventListener("mouseout", () => {
+			deleteButton.classList.add("visually-hidden");
+		});
+	}
 
 	const postList = document.querySelector("main");
 	postList.append(post);
