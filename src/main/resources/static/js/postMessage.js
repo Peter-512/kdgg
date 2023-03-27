@@ -10,7 +10,7 @@ const addPostForm = document.querySelector("#add-post-form");
 const submitButton = document.querySelector("#send-message");
 const messageContent = document.querySelector("#message-input");
 const role = document.querySelector("body").dataset.role;
-const channelID = document.querySelector("body").dataset.channelId;
+const channelID = +document.querySelector("body").dataset.channelId;
 
 addPostForm.onsubmit = (event) => event.preventDefault();
 
@@ -25,8 +25,8 @@ async function postMessage(event) {
 	if (!isValid) return;
 
 	const content = messageContent.value;
-	const url = `/api/channels/${channelID}/posts`;
-	const data = {content};
+	const url = `/api/posts`;
+	const data = {content, channelID};
 
 	const {name, value} = csrfHeader();
 
