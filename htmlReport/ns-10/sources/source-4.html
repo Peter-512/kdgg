@@ -1,0 +1,84 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > JsonWriter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">be.kdg.programming5.util</a>
+</div>
+
+<h1>Coverage Summary for Class: JsonWriter (be.kdg.programming5.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">JsonWriter</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package be.kdg.programming5.util;
+&nbsp;
+&nbsp;import be.kdg.programming5.model.Channel;
+&nbsp;import be.kdg.programming5.model.Post;
+&nbsp;import be.kdg.programming5.model.User;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface JsonWriter {
+&nbsp;	void writePosts(List&lt;Post&gt; posts) throws RuntimeException;
+&nbsp;
+&nbsp;	void writeUsers(List&lt;User&gt; users) throws RuntimeException;
+&nbsp;
+&nbsp;	void writeChannels(List&lt;Channel&gt; channels) throws RuntimeException;
+&nbsp;
+&nbsp;	&lt;T&gt; byte[] getJsonBytes(List&lt;T&gt; list);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 16:15</div>
+</div>
+</body>
+</html>

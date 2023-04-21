@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > H2DatabaseSeeder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">be.kdg.programming5.database</a>
+</div>
+
+<h1>Coverage Summary for Class: H2DatabaseSeeder (be.kdg.programming5.database)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">H2DatabaseSeeder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package be.kdg.programming5.database;
+&nbsp;
+&nbsp;import com.github.javafaker.Faker;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.context.annotation.Profile;
+&nbsp;import org.springframework.jdbc.core.JdbcTemplate;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;import javax.annotation.PostConstruct;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.concurrent.TimeUnit;
+&nbsp;
+&nbsp;@Component
+&nbsp;@Profile (&quot;dev&quot;)
+&nbsp;public class H2DatabaseSeeder implements DatabaseSeeder {
+&nbsp;	private final JdbcTemplate jdbcTemplate;
+<b class="nc">&nbsp;	private final Faker faker = new Faker();</b>
+&nbsp;
+&nbsp;	@Autowired
+<b class="nc">&nbsp;	public H2DatabaseSeeder(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}</b>
+&nbsp;
+&nbsp;	private Date fakeDate() {
+<b class="nc">&nbsp;		return faker.date().past(100, TimeUnit.DAYS);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Override
+&nbsp;	@PostConstruct
+&nbsp;	public void loadData() {
+<b class="nc">&nbsp;		jdbcTemplate.update(&quot;&quot;&quot;</b>
+&nbsp;				INSERT INTO users( user_name, password, birthdate, user_role )
+&nbsp;				VALUES ( &#39;Peter&#39;, &#39;$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C&#39;, &#39;1992-11-19&#39;, &#39;ADMIN&#39; ),
+&nbsp;				       ( &#39;Seif&#39;, &#39;$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C&#39;, &#39;2003-10-12&#39;, &#39;MOD&#39; ),
+&nbsp;				       ( &#39;Filip&#39;, &#39;$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C&#39;, &#39;2001-06-15&#39;, &#39;MOD&#39; ),
+&nbsp;				       ( &#39;Elina&#39;, &#39;$2a$10$c9ATkiyNYfjHu/L.Abv8OeaAS/BVJpwb4stk.hDzPIUd0eZ5Mbo1C&#39;, &#39;2003-04-15&#39;, &#39;USER&#39; );&quot;&quot;&quot;);
+&nbsp;
+<b class="nc">&nbsp;		jdbcTemplate.update(&quot;&quot;&quot;</b>
+&nbsp;				INSERT INTO channels ( channel_name, description )
+&nbsp;				VALUES ( &#39;DuckiesGang&#39;, &#39;The coolest gang in town, no spaghett allowed!&#39; ),
+&nbsp;				       ( &#39;ACS&#39;, &#39;Applied Computer Science at KdG&#39; );&quot;&quot;&quot;);
+&nbsp;
+<b class="nc">&nbsp;		jdbcTemplate.update(&quot;&quot;&quot;</b>
+&nbsp;						INSERT INTO posts (content, posted_at, up_votes, channel_id, user_id)
+&nbsp;						VALUES (&#39;The first post by Peter in DuckiesGang&#39;, ?, 4, 1, 1),
+&nbsp;								(&#39;The second post by Peter in DuckiesGang&#39;, ?, 4, 1, 1),
+&nbsp;								(&#39;The third post by Peter in ACS&#39;, ?, 4, 2, 1),
+&nbsp;								(&#39;The fourth post by Peter in ACS&#39;, ?, 4, 2, 1),
+&nbsp;							   (&#39;The first post by Seif in ACS&#39;, ?, 6, 2, 2),
+&nbsp;							   (&#39;skljfldjsf&#39;, ?, 69, 1, 4)&quot;&quot;&quot;,
+<b class="nc">&nbsp;				fakeDate(), fakeDate(), fakeDate(), fakeDate(), fakeDate(), fakeDate());</b>
+&nbsp;
+<b class="nc">&nbsp;		jdbcTemplate.update(&quot;INSERT INTO user_channels VALUES (1,1)&quot;);</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 16:15</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserRestController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">be.kdg.programming5.controllers.api</a>
+</div>
+
+<h1>Coverage Summary for Class: UserRestController (be.kdg.programming5.controllers.api)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserRestController</td>
+<td class="coverageStat">
+  <span class="percent">
+    42.9%
+  </span>
+  <span class="absValue">
+    (3/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    29.7%
+  </span>
+  <span class="absValue">
+    (11/37)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UserRestController$$EnhancerBySpringCGLIB$$2ecea2a</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestController$$EnhancerBySpringCGLIB$$2ecea2a$$FastClassBySpringCGLIB$$2b31eeef</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestController$$EnhancerBySpringCGLIB$$2ecea2a_2</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestController$$EnhancerBySpringCGLIB$$2ecea2a_3</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestController$$EnhancerBySpringCGLIB$$2ecea2a_3$$FastClassBySpringCGLIB$$2671fae3</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestController$$EnhancerBySpringCGLIB$$2ecea2a_4</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestController$$EnhancerBySpringCGLIB$$2ecea2a_5</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestController$$FastClassBySpringCGLIB$$128f61ed</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    42.9%
+  </span>
+  <span class="absValue">
+    (3/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    29.7%
+  </span>
+  <span class="absValue">
+    (11/37)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package be.kdg.programming5.controllers.api;
+&nbsp;
+&nbsp;import be.kdg.programming5.config.security.AdminOnly;
+&nbsp;import be.kdg.programming5.controllers.api.dtos.ChannelDTO;
+&nbsp;import be.kdg.programming5.controllers.api.dtos.NewUserDTO;
+&nbsp;import be.kdg.programming5.controllers.api.dtos.UpdatedUserDTO;
+&nbsp;import be.kdg.programming5.controllers.api.dtos.UserDTO;
+&nbsp;import be.kdg.programming5.exceptions.ChannelNotFoundException;
+&nbsp;import be.kdg.programming5.exceptions.UserNotFoundException;
+&nbsp;import be.kdg.programming5.model.User;
+&nbsp;import be.kdg.programming5.service.users.UserService;
+&nbsp;import org.modelmapper.ModelMapper;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import javax.validation.Valid;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping (&quot;/api/users&quot;)
+&nbsp;public class UserRestController {
+&nbsp;	private final UserService userService;
+&nbsp;	private final ModelMapper modelMapper;
+&nbsp;
+<b class="fc">&nbsp;	public UserRestController(UserService userService, ModelMapper modelMapper) {</b>
+<b class="fc">&nbsp;		this.userService = userService;</b>
+<b class="fc">&nbsp;		this.modelMapper = modelMapper;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@GetMapping
+&nbsp;	public ResponseEntity&lt;List&lt;UserDTO&gt;&gt; getUsers() {
+<b class="nc">&nbsp;		final List&lt;UserDTO&gt; users = userService.getUsers()</b>
+<b class="nc">&nbsp;		                                       .stream()</b>
+<b class="nc">&nbsp;		                                       .map(user -&gt; modelMapper.map(user, UserDTO.class))</b>
+<b class="nc">&nbsp;		                                       .toList();</b>
+<b class="nc">&nbsp;		if (users.isEmpty()) {</b>
+<b class="nc">&nbsp;			return ResponseEntity.noContent().build();</b>
+&nbsp;		}
+<b class="nc">&nbsp;		return ResponseEntity.ok(users);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@GetMapping (&quot;/{id}&quot;)
+&nbsp;	public ResponseEntity&lt;UserDTO&gt; getUser(@PathVariable Long id) {
+&nbsp;		try {
+<b class="nc">&nbsp;			final User user = userService.getUser(id).orElseThrow(() -&gt; new UserNotFoundException(id));</b>
+<b class="nc">&nbsp;			return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));</b>
+<b class="nc">&nbsp;		} catch (UserNotFoundException e) {</b>
+<b class="nc">&nbsp;			return ResponseEntity.notFound().build();</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	@GetMapping (&quot;/{id}/channels&quot;)
+&nbsp;	public ResponseEntity&lt;List&lt;ChannelDTO&gt;&gt; getChannelsOfUser(@PathVariable Long id) {
+&nbsp;		final List&lt;ChannelDTO&gt; channels;
+&nbsp;		try {
+<b class="nc">&nbsp;			final User user = userService.getUser(id).orElseThrow(() -&gt; new UserNotFoundException(id));</b>
+<b class="nc">&nbsp;			channels = user.getChannels()</b>
+<b class="nc">&nbsp;			               .stream()</b>
+<b class="nc">&nbsp;			               .map(channel -&gt; modelMapper.map(channel, ChannelDTO.class))</b>
+<b class="nc">&nbsp;			               .toList();</b>
+<b class="nc">&nbsp;		} catch (UserNotFoundException e) {</b>
+<b class="nc">&nbsp;			return ResponseEntity.notFound().build();</b>
+<b class="nc">&nbsp;		}</b>
+<b class="nc">&nbsp;		if (channels.isEmpty()) {</b>
+<b class="nc">&nbsp;			return ResponseEntity.noContent().build();</b>
+&nbsp;		}
+<b class="nc">&nbsp;		return ResponseEntity.ok(channels);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@AdminOnly
+&nbsp;	@DeleteMapping (&quot;/{id}&quot;)
+&nbsp;	public ResponseEntity&lt;Void&gt; deleteUser(@PathVariable Long id) {
+&nbsp;		try {
+<b class="fc">&nbsp;			userService.getUser(id).orElseThrow(() -&gt; new UserNotFoundException(id));</b>
+<b class="fc">&nbsp;			userService.deleteUser(id);</b>
+<b class="fc">&nbsp;			return ResponseEntity.noContent().build();</b>
+<b class="fc">&nbsp;		} catch (UserNotFoundException e) {</b>
+<b class="fc">&nbsp;			return ResponseEntity.notFound().build();</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	@PutMapping (&quot;/{id}&quot;)
+&nbsp;	public ResponseEntity&lt;UserDTO&gt; updateUser(@PathVariable Long id, @Valid @RequestBody UpdatedUserDTO userDTO) {
+&nbsp;		try {
+<b class="fc">&nbsp;			final User user = userService.getUser(id).orElseThrow(() -&gt; new UserNotFoundException(id));</b>
+<b class="fc">&nbsp;			userService.updateUser(id, userDTO.getName(), userDTO.getBirthdate(), userDTO.getRole());</b>
+<b class="fc">&nbsp;			return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));</b>
+<b class="nc">&nbsp;		} catch (ChannelNotFoundException e) {</b>
+<b class="nc">&nbsp;			return ResponseEntity.notFound().build();</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	@PostMapping
+&nbsp;	public ResponseEntity&lt;UserDTO&gt; createUser(@Valid @RequestBody NewUserDTO newUserDTO) {
+<b class="nc">&nbsp;		final User user = userService.addUser(newUserDTO.getName(), newUserDTO.getBirthdate(), newUserDTO.getRole(), newUserDTO.getPassword());</b>
+<b class="nc">&nbsp;		return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 16:15</div>
+</div>
+</body>
+</html>

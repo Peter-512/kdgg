@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LocalDateAdapter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">be.kdg.programming5.util</a>
+</div>
+
+<h1>Coverage Summary for Class: LocalDateAdapter (be.kdg.programming5.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LocalDateAdapter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (1/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package be.kdg.programming5.util;
+&nbsp;
+&nbsp;import com.google.gson.*;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;import java.lang.reflect.Type;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.format.DateTimeFormatter;
+&nbsp;import java.util.Locale;
+&nbsp;
+&nbsp;@Component
+<b class="fc">&nbsp;public class LocalDateAdapter implements JsonSerializer&lt;LocalDate&gt;, JsonDeserializer&lt;LocalDate&gt; {</b>
+&nbsp;	@Override
+&nbsp;	public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
+<b class="nc">&nbsp;		return new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE)); // &quot;yyyy-mm-dd&quot;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+&nbsp;			throws JsonParseException {
+<b class="nc">&nbsp;		return LocalDate.parse(json.getAsString(),</b>
+<b class="nc">&nbsp;				DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;).withLocale(Locale.ENGLISH));</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 16:15</div>
+</div>
+</body>
+</html>

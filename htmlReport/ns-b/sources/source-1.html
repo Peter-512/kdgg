@@ -1,0 +1,250 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Channel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">be.kdg.programming5.model</a>
+</div>
+
+<h1>Coverage Summary for Class: Channel (be.kdg.programming5.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Channel</td>
+<td class="coverageStat">
+  <span class="percent">
+    35.7%
+  </span>
+  <span class="absValue">
+    (5/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    47.6%
+  </span>
+  <span class="absValue">
+    (10/21)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Channel$HibernateProxy$29iEwMKb</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$HibernateProxy$LcmY4Dyw</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$HibernateProxy$Mi464UVV</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$HibernateProxy$pece4360</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$HibernateProxy$WnigELUy</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$4jaY4pp4</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$4jcH1Rs7</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$7vFe6D6g</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$AES9UgmG</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$bO1YwrZg</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$C4PR20BD</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$cXx2mGjm</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$dRoFm71H</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$EzgnFNhm</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$J6hUouG4</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$jBuwvQq2</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$JNLoUqCD</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$rkHo4LD8</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$rrs6Zoay</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$SebdqWwC</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$SLR25shW</td>
+  </tr>
+  <tr>
+    <td class="name">Channel$MockitoMock$0ZdgBe9o$auxiliary$wlcGuvNd</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    35.7%
+  </span>
+  <span class="absValue">
+    (5/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    47.6%
+  </span>
+  <span class="absValue">
+    (10/21)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package be.kdg.programming5.model;
+&nbsp;
+&nbsp;import com.google.gson.annotations.Expose;
+&nbsp;import lombok.Getter;
+&nbsp;import lombok.NoArgsConstructor;
+&nbsp;import lombok.Setter;
+&nbsp;
+&nbsp;import javax.persistence.*;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Getter
+<b class="nc">&nbsp;@Setter</b>
+<b class="fc">&nbsp;@NoArgsConstructor</b>
+&nbsp;@Entity
+&nbsp;@Table (name = &quot;channels&quot;)
+&nbsp;public class Channel {
+&nbsp;	@Id
+&nbsp;	@GeneratedValue (strategy = GenerationType.IDENTITY)
+&nbsp;	@Column (name = &quot;channel_id&quot;, nullable = false)
+<b class="fc">&nbsp;	private Long channelID;</b>
+&nbsp;	@ManyToMany
+&nbsp;	@JoinTable (name = &quot;user_channels&quot;, uniqueConstraints = {@UniqueConstraint (columnNames = {&quot;channel_id&quot;, &quot;user_id&quot;})}, joinColumns = @JoinColumn (name = &quot;user_id&quot;), inverseJoinColumns = @JoinColumn (name = &quot;channel_id&quot;))
+<b class="fc">&nbsp;	private List&lt;User&gt; users;</b>
+&nbsp;	@Expose
+&nbsp;	@OneToMany (cascade = CascadeType.ALL, mappedBy = &quot;channel&quot;)
+<b class="nc">&nbsp;	private List&lt;Post&gt; posts;</b>
+&nbsp;	@Expose
+&nbsp;	@Column (name = &quot;channel_name&quot;, nullable = false)
+<b class="nc">&nbsp;	private String name;</b>
+&nbsp;	@Column (nullable = false)
+&nbsp;	@Expose
+<b class="nc">&nbsp;	private String description;</b>
+&nbsp;	@Expose
+<b class="nc">&nbsp;	transient private double upVotesRatio;</b>
+&nbsp;
+<b class="fc">&nbsp;	public Channel(String name, String description) {</b>
+<b class="fc">&nbsp;		users = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;		posts = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;		this.name = name;</b>
+<b class="fc">&nbsp;		this.upVotesRatio = 0;</b>
+<b class="fc">&nbsp;		this.description = description;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	public Channel(Long id, String name, String description) {
+<b class="nc">&nbsp;		this(name, description);</b>
+<b class="nc">&nbsp;		this.channelID = id;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	public void createPost(Post post) {
+<b class="fc">&nbsp;		posts.add(post);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	public void addUser(User user) {
+<b class="nc">&nbsp;		users.add(user);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public String toString() {
+<b class="nc">&nbsp;		return String.format(&quot;&quot;&quot;</b>
+&nbsp;				Channel %s
+&nbsp;				id: %d
+&nbsp;				\t- %s
+&nbsp;				&quot;&quot;&quot;, name, channelID, description);
+&nbsp;	}
+&nbsp;
+&nbsp;	public double calculateUpvoteRatio() {
+<b class="nc">&nbsp;		final int upVotes = posts.stream().mapToInt(Post::getUpVotes).sum();</b>
+<b class="nc">&nbsp;		return posts.isEmpty() ? 0 : (double) upVotes / posts.size();</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 16:15</div>
+</div>
+</body>
+</html>

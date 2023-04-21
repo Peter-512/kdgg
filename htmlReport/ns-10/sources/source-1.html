@@ -1,0 +1,175 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ConsoleJsonWriter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">be.kdg.programming5.util</a>
+</div>
+
+<h1>Coverage Summary for Class: ConsoleJsonWriter (be.kdg.programming5.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConsoleJsonWriter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20.7%
+  </span>
+  <span class="absValue">
+    (6/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package be.kdg.programming5.util;
+&nbsp;
+&nbsp;import be.kdg.programming5.model.Channel;
+&nbsp;import be.kdg.programming5.model.Post;
+&nbsp;import be.kdg.programming5.model.User;
+&nbsp;import com.google.gson.Gson;
+&nbsp;import com.google.gson.GsonBuilder;
+&nbsp;import org.slf4j.Logger;
+&nbsp;import org.slf4j.LoggerFactory;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;import java.io.FileWriter;
+&nbsp;import java.io.IOException;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Component
+&nbsp;public class ConsoleJsonWriter implements JsonWriter {
+&nbsp;	private static final String BASE_PATH = &quot;src/main/resources/&quot;;
+&nbsp;	private static final String POSTS_JSON = BASE_PATH + &quot;posts.json&quot;;
+&nbsp;	private static final String USERS_JSON = BASE_PATH + &quot;users.json&quot;;
+&nbsp;	private final Logger logger;
+&nbsp;	private final Gson gson;
+&nbsp;
+&nbsp;	@Autowired
+<b class="fc">&nbsp;	public ConsoleJsonWriter() {</b>
+<b class="fc">&nbsp;		gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()</b>
+<b class="fc">&nbsp;		                        .setPrettyPrinting()</b>
+<b class="fc">&nbsp;		                        .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())</b>
+<b class="fc">&nbsp;		                        .create();</b>
+<b class="fc">&nbsp;		this.logger = LoggerFactory.getLogger(ConsoleJsonWriter.class);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void writePosts(List&lt;Post&gt; posts) throws RuntimeException {
+<b class="nc">&nbsp;		String json = gson.toJson(posts);</b>
+<b class="nc">&nbsp;		try (FileWriter writer = new FileWriter(POSTS_JSON)) {</b>
+<b class="nc">&nbsp;			writer.write(json);</b>
+<b class="nc">&nbsp;			logger.info(&quot;Writing posts to JSON...&quot;);</b>
+<b class="nc">&nbsp;		} catch (IOException e) {</b>
+<b class="nc">&nbsp;			throw new RuntimeException(&quot;Unable to save posts to JSON&quot;, e);</b>
+<b class="nc">&nbsp;		}</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void writeUsers(List&lt;User&gt; users) throws RuntimeException {
+<b class="nc">&nbsp;		String json = gson.toJson(users);</b>
+<b class="nc">&nbsp;		try (FileWriter writer = new FileWriter(USERS_JSON)) {</b>
+<b class="nc">&nbsp;			writer.write(json);</b>
+<b class="nc">&nbsp;			logger.info(&quot;Writing users to JSON...&quot;);</b>
+<b class="nc">&nbsp;		} catch (IOException e) {</b>
+<b class="nc">&nbsp;			throw new RuntimeException(&quot;Unable to save users to JSON&quot;, e);</b>
+<b class="nc">&nbsp;		}</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void writeChannels(List&lt;Channel&gt; channels) throws RuntimeException {
+<b class="nc">&nbsp;		String json = gson.toJson(channels);</b>
+<b class="nc">&nbsp;		try (FileWriter writer = new FileWriter(USERS_JSON)) {</b>
+<b class="nc">&nbsp;			writer.write(json);</b>
+<b class="nc">&nbsp;			logger.info(&quot;Writing channels to JSON...&quot;);</b>
+<b class="nc">&nbsp;		} catch (IOException e) {</b>
+<b class="nc">&nbsp;			throw new RuntimeException(&quot;Unable to save channels to JSON&quot;, e);</b>
+<b class="nc">&nbsp;		}</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	public &lt;T&gt; byte[] getJsonBytes(List&lt;T&gt; list) {
+<b class="nc">&nbsp;		logger.info(&quot;Converting to JSON...&quot;);</b>
+<b class="nc">&nbsp;		return gson.toJson(list).getBytes();</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 16:15</div>
+</div>
+</body>
+</html>

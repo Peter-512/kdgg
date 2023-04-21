@@ -1,0 +1,180 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">be.kdg.programming5.controllers.mvc</a>
+</div>
+
+<h1>Coverage Summary for Class: UserController (be.kdg.programming5.controllers.mvc)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    46.2%
+  </span>
+  <span class="absValue">
+    (12/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package be.kdg.programming5.controllers.mvc;
+&nbsp;
+&nbsp;import be.kdg.programming5.exceptions.UserNotFoundException;
+&nbsp;import be.kdg.programming5.model.User;
+&nbsp;import be.kdg.programming5.model.session.PageVisit;
+&nbsp;import be.kdg.programming5.service.users.UserService;
+&nbsp;import be.kdg.programming5.util.JsonWriter;
+&nbsp;import org.slf4j.Logger;
+&nbsp;import org.slf4j.LoggerFactory;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.core.io.InputStreamResource;
+&nbsp;import org.springframework.http.MediaType;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;import org.springframework.web.servlet.ModelAndView;
+&nbsp;
+&nbsp;import javax.servlet.http.HttpServletRequest;
+&nbsp;import java.io.ByteArrayInputStream;
+&nbsp;import java.time.format.DateTimeFormatter;
+&nbsp;
+&nbsp;@Controller
+&nbsp;@RequestMapping (&quot;/users&quot;)
+&nbsp;public class UserController {
+&nbsp;	private final Logger logger;
+&nbsp;	private final UserService userService;
+&nbsp;	private final DateTimeFormatter dateTimeFormatter;
+&nbsp;	private final SessionHistoryController sessionHistoryController;
+&nbsp;	private final JsonWriter jsonWriter;
+&nbsp;
+&nbsp;	@Autowired
+<b class="fc">&nbsp;	public UserController(UserService userService, SessionHistoryController sessionHistoryController, JsonWriter jsonWriter) {</b>
+<b class="fc">&nbsp;		this.userService = userService;</b>
+<b class="fc">&nbsp;		this.jsonWriter = jsonWriter;</b>
+<b class="fc">&nbsp;		logger = LoggerFactory.getLogger(this.getClass());</b>
+<b class="fc">&nbsp;		dateTimeFormatter = DateTimeFormatter.ofPattern(&quot;d. MMMM yyyy&quot;);</b>
+<b class="fc">&nbsp;		this.sessionHistoryController = sessionHistoryController;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;
+&nbsp;	@GetMapping
+&nbsp;	public ModelAndView showUsersView(HttpServletRequest request) {
+<b class="fc">&nbsp;		logger.info(&quot;Controller is running showUsersView!&quot;);</b>
+<b class="fc">&nbsp;		final ModelAndView modelAndView = new ModelAndView(&quot;users/users&quot;);</b>
+<b class="fc">&nbsp;		modelAndView.addObject(&quot;users&quot;, userService.getUsersWithPosts());</b>
+<b class="fc">&nbsp;		modelAndView.addObject(&quot;dateFormatter&quot;, dateTimeFormatter);</b>
+<b class="fc">&nbsp;		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));</b>
+<b class="fc">&nbsp;		return modelAndView;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@GetMapping (&quot;/{id}&quot;)
+&nbsp;	public ModelAndView showUserView(@PathVariable Long id, HttpServletRequest request) {
+<b class="nc">&nbsp;		final User user = userService.getUser(id)</b>
+<b class="nc">&nbsp;		                             .orElseThrow(() -&gt; new UserNotFoundException(id));</b>
+&nbsp;
+<b class="nc">&nbsp;		logger.info(&quot;Controller is running showUserView with user {}!&quot;, user.getName());</b>
+&nbsp;
+<b class="nc">&nbsp;		final ModelAndView modelAndView = new ModelAndView(&quot;users/user&quot;);</b>
+<b class="nc">&nbsp;		modelAndView.addObject(&quot;user&quot;, user);</b>
+<b class="nc">&nbsp;		modelAndView.addObject(&quot;dateFormatter&quot;, dateTimeFormatter);</b>
+<b class="nc">&nbsp;		sessionHistoryController.add(new PageVisit(request.getRequestURL().toString()));</b>
+<b class="nc">&nbsp;		return modelAndView;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@GetMapping (value = &quot;/download&quot;, produces = &quot;application/json&quot;)
+&nbsp;	public ResponseEntity&lt;InputStreamResource&gt; downloadJSONFile() {
+<b class="nc">&nbsp;		final byte[] buf = jsonWriter.getJsonBytes(userService.getUsers());</b>
+&nbsp;		return ResponseEntity
+<b class="nc">&nbsp;				.ok()</b>
+<b class="nc">&nbsp;				.contentLength(buf.length)</b>
+<b class="nc">&nbsp;				.contentType(MediaType.parseMediaType(&quot;application/octet-stream&quot;))</b>
+<b class="nc">&nbsp;				.header(&quot;Content-Disposition&quot;, &quot;attachment; filename=\&quot;users.json\&quot;&quot;)</b>
+<b class="nc">&nbsp;				.body(new InputStreamResource(new ByteArrayInputStream(buf)));</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-21 16:15</div>
+</div>
+</body>
+</html>
