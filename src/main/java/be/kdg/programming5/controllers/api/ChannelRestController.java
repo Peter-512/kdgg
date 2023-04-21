@@ -6,7 +6,6 @@ import be.kdg.programming5.exceptions.ChannelNotFoundException;
 import be.kdg.programming5.model.Channel;
 import be.kdg.programming5.model.User;
 import be.kdg.programming5.service.channels.ChannelService;
-import be.kdg.programming5.service.posts.PostService;
 import be.kdg.programming5.service.users.UserService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -25,14 +24,12 @@ public class ChannelRestController {
 	private final ChannelService channelService;
 	private final ModelMapper modelMapper;
 	private final UserService userService;
-	private final PostService postService;
 	private final Logger logger;
 
-	public ChannelRestController(ChannelService channelService, ModelMapper modelMapper, UserService userService, PostService postService) {
+	public ChannelRestController(ChannelService channelService, ModelMapper modelMapper, UserService userService) {
 		this.channelService = channelService;
 		this.modelMapper = modelMapper;
 		this.userService = userService;
-		this.postService = postService;
 		logger = LoggerFactory.getLogger(this.getClass());
 	}
 
