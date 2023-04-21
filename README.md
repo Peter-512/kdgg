@@ -542,4 +542,30 @@ Passwords for all users are: `password`
 
 ### New profile
 
-- test 
+- test
+
+## Week 7
+
+### Code Coverage
+
+[Coverage Report](htmlReport/index.html)
+
+### Mocking tests
+
+- [ChannelRestControllerTest](src/test/java/be/kdg/programming5/controllers/api/ChannelRestControllerTest.java)
+- [PostRestControllerUnitTest](src/test/java/be/kdg/programming5/controllers/api/PostRestControllerUnitTest.java)
+- [UserRestControllerTest](src/test/java/be/kdg/programming5/controllers/api/UserRestControllerTest.java)
+- [UserRestControllerUnitTest](src/test/java/be/kdg/programming5/controllers/api/UserRestControllerUnitTest.java)
+- [ChannelControllerTest](src/test/java/be/kdg/programming5/controllers/mvc/ChannelControllerTest.java)
+- [ChannelServiceImplUnitTest](src/test/java/be/kdg/programming5/service/channels/ChannelServiceImplUnitTest.java)
+
+### `verify` tests
+
+- [PostRestControllerUnitTest](src/test/java/be/kdg/programming5/controllers/api/PostRestControllerUnitTest.java)
+- [UserRestControllerUnitTest](src/test/java/be/kdg/programming5/controllers/api/UserRestControllerUnitTest.java)
+- [ChannelServiceImplUnitTest](src/test/java/be/kdg/programming5/service/channels/ChannelServiceImplUnitTest.java)
+
+### Role verification tests
+
+- [PostRestControllerUnitTest](src/test/java/be/kdg/programming5/controllers/api/PostRestControllerUnitTest.java)
+- [UserRestControllerTest](src/test/java/be/kdg/programming5/controllers/api/UserRestControllerTest.java)
