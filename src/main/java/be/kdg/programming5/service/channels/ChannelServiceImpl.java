@@ -75,13 +75,11 @@ public class ChannelServiceImpl implements ChannelService {
 	@Transactional
 	public void joinChannel(User user, Channel channel) {
 		user.joinChannel(channel);
-		userRepository.save(user);
 	}
 
 	@Override
 	@Transactional
 	public void leaveChannel(User user, Channel channel) {
 		user.leaveChannel(channel);
-		userRepository.save(user);
 	}
 }

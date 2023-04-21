@@ -1,5 +1,6 @@
 package be.kdg.programming5.controllers.api;
 
+import be.kdg.programming5.config.security.AdminOnly;
 import be.kdg.programming5.controllers.api.dtos.ChannelDTO;
 import be.kdg.programming5.controllers.api.dtos.NewUserDTO;
 import be.kdg.programming5.controllers.api.dtos.UpdatedUserDTO;
@@ -66,6 +67,7 @@ public class UserRestController {
 		return ResponseEntity.ok(channels);
 	}
 
+	@AdminOnly
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
 		try {
