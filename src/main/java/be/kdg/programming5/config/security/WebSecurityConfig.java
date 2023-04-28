@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +28,8 @@ public class WebSecurityConfig {
 				.csrf()
 				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 				.and()
+				.cors()
+				.and()
 				.authorizeHttpRequests(auths -> auths
 						.antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/webjars/**", "/fonts/**", "/images/**", "/api/**")
 						.permitAll()
@@ -35,5 +39,15 @@ public class WebSecurityConfig {
 				.and()
 				.logout().permitAll();
 		return http.build();
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/**").allowedOrigins("http://localhost:9000");
+			}
+		};
 	}
 }
