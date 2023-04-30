@@ -19,4 +19,6 @@ public interface PostService {
 	void setPostUpvoteCount(Long postID, int upVotes);
 
 	Post updatePost(Long id, String content);
+
+	List<Post> getPostsBySearchValue(String searchValue);
 }

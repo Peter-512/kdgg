@@ -54,4 +54,9 @@ public class PostServiceImpl implements PostService {
 		post.setContent(content);
 		return postRepository.save(post);
 	}
+
+	@Override
+	public List<Post> getPostsBySearchValue(String searchValue) {
+		return postRepository.findByContentContainsIgnoreCase(searchValue);
+	}
 }

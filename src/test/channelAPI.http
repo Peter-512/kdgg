@@ -105,3 +105,26 @@ X-XSRF-TOKEN: {{XSRF-TOKEN}}
 {
   "userId": 1
 }
+
+### Add new channel, without cookie and xsrf-token since this is the endpoint for the client app; 201
+// @no-cookie-jar
+POST http://localhost:8081/api/channels
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "{{$random.alphabetic(20)}}",
+  "description": "{{$random.alphabetic(20)}}"
+}
+
+
+### Add new channel, body does not fulfill DTO requirements; 400
+// @no-cookie-jar
+POST http://localhost:8081/api/channels
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "{{$random.alphabetic(2)}}",
+  "description": "{{$random.alphabetic(2)}}"
+}

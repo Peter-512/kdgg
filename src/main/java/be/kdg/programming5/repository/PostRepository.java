@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 	@Transactional
@@ -17,4 +19,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	long countByChannel_ChannelID(Long channelID);
 
 	long countByUser_UserID(Long userID);
+
+	List<Post> findByContentContainsIgnoreCase(String searchValue);
 }

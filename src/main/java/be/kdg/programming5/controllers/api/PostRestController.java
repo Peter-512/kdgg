@@ -22,6 +22,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -46,6 +48,22 @@ public class PostRestController {
 		} catch (UsernameNotFoundException | ChannelNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
+	}
+
+	@GetMapping
+	public ResponseEntity<List<PostDTO>> getAllPosts(@RequestParam (required = false) Optional<String> searchValue) {
+		final List<PostDTO> posts = searchValue.map(s -> postService.getPostsBySearchValue(s)
+		                                                            .stream()
+		                                                            .map(post -> modelMapper.map(post, PostDTO.class))
+		                                                            .toList())
+		                                       .orElseGet(() -> postService.getPosts()
+		                                                                   .stream()
+		                                                                   .map(post -> modelMapper.map(post, PostDTO.class))
+		                                                                   .toList());
+		if (posts.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(posts);
 	}
 
 	@PatchMapping ("/{id}")

@@ -26,6 +26,7 @@ public class WebSecurityConfig {
 				httpBasic().authenticationEntryPoint(httpStatusEntryPoint())
 				.and()
 				.csrf()
+				.ignoringAntMatchers("/api/channels") // for separate client project
 				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 				.and()
 				.cors()
@@ -33,6 +34,7 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests(auths -> auths
 						.antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/webjars/**", "/fonts/**", "/images/**", "/api/**")
 						.permitAll()
+						.antMatchers(HttpMethod.POST, "/api/channels").permitAll()
 						.antMatchers("/", "/channels", "/users", "/signup").permitAll()
 						.anyRequest().authenticated())
 				.formLogin().loginPage("/login").permitAll()
