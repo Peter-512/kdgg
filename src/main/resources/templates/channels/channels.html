@@ -4,12 +4,9 @@
 	<meta charset="UTF-8">
 	<title th:text="#{messages.Channels}">Channels</title>
 	<link rel="icon" th:href="@{/images/icon.png}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-	<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css} ">
-	<link rel="stylesheet" th:href="@{/css/styles.css}">
-	<script defer th:src="@{/js/deleteEntity.js}" type="module"></script>
-	<script defer th:src="@{/js/showUsersOfChannel.js}" type="module"></script>
+	<th:block th:insert="~{fragments::head}"></th:block>
+	<script src="/js/bundle-deleteEntity.js" defer type="module"></script>
+	<script src="/js/bundle-showUsersOfChannel.js" defer type="module"></script>
 </head>
 <body class="mx-auto bg-dark text-light">
 

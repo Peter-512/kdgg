@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
+    id 'com.github.node-gradle.node' version '4.0.0'
 }
 
 group = 'be.kdg.programming3'
@@ -23,9 +24,6 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.google.code.gson:gson:2.10'
-    implementation 'org.webjars:bootstrap:5.2.2'
-    implementation 'org.webjars:webjars-locator:0.45'
-    implementation 'org.webjars.npm:bootstrap-icons:1.9.1'
     implementation('com.github.javafaker:javafaker:1.0.2') {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }

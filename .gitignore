@@ -162,3 +162,6 @@ public
 /.env
 /.settings/org.eclipse.buildship.core.prefs
 /.idea/discord.xml
+node_modules/
+/src/main/resources/static/js
+/src/main/resources/static/css
