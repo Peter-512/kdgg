@@ -1,0 +1,12 @@
+@use "variables" as *;
+
+@import "bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: moon;
+  src: url(../resources/static/fonts/moon-20-cufonfonts/Moon2.0-Regular.otf);
+}
+
+* {
+  font-family: moon, serif;
+}
