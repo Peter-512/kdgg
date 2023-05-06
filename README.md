@@ -603,3 +603,6 @@ Zod also allows me to parse the data from the server and validate it against the
     - [channel](src/main/resources/templates/channels/channel.html)
     - [channels](src/main/resources/templates/channels/channels.html)
     - [users](src/main/resources/templates/users/users.html)
+
+### Extra 
+🚀✨TYPESCRIPT✨🚀
