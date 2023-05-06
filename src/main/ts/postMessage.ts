@@ -144,7 +144,7 @@ async function postMessage() {
         })
     }
 
-    const postList = document.querySelector('main')
+    const postList = document.querySelector('#posts')
     postList?.append(post)
 
     document.querySelectorAll('.upvote, .downvote').forEach(button => button.addEventListener('click', vote))
