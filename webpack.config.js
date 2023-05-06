@@ -60,6 +60,7 @@ const config = {
     },
     devServer: {
         hot: true,
+        liveReload: false,
         open: true,
         port: 8081,
         static: {

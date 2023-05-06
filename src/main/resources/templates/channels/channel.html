@@ -8,6 +8,8 @@
 	<script src="/js/bundle-joinChannel.js" type="module" defer></script>
 	<script src="/js/bundle-deleteHoverButton.js" type="module" defer></script>
 	<th:block th:insert="~{fragments::head}"></th:block>
+	<script src="/js/bundle-dragNdrop.js" defer type="module"></script>
+	<link rel="stylesheet" href="/css/bundle-dragNdrop.css">
 </head>
 <body class="bg-dark text-light"
 	  th:attr="data-role=${#authentication.getAuthorities()}, data-channel-id=${channel.getChannelID()}">
@@ -49,7 +51,6 @@
 						   class="form-control bg-dark text-light border-primary"
 						   id="message-input"
 						   placeholder="Message"
-						   required
 						   type="text">
 					<label for="message-input">Message</label>
 					<div class="invalid-feedback position-absolute">Sending empty messages is stoopid</div>
@@ -70,9 +71,11 @@
 				<i class="ms-2 bi-emoji-dizzy"></i>
 			</h1>
 			<th:block th:case="*">
-				<th:block th:each="post: ${channel.getPosts()}">
-					<th:block th:insert="~{fragments::post(${post})}"></th:block>
-				</th:block>
+				<div id="posts">
+					<th:block th:each="post: ${channel.getPosts()}">
+						<th:block th:insert="~{fragments::post(${post})}"></th:block>
+					</th:block>
+				</div>
 			</th:block>
 		</main>
 

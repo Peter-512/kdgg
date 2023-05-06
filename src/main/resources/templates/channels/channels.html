@@ -7,6 +7,8 @@
 	<th:block th:insert="~{fragments::head}"></th:block>
 	<script src="/js/bundle-deleteEntity.js" defer type="module"></script>
 	<script src="/js/bundle-showUsersOfChannel.js" defer type="module"></script>
+	<script src="/js/bundle-dragNdrop.js" defer type="module"></script>
+	<link rel="stylesheet" href="/css/bundle-dragNdrop.css">
 </head>
 <body class="mx-auto bg-dark text-light">
 
@@ -27,7 +29,7 @@
 			<th sec:authorize="hasRole(T(be.kdg.programming5.model.Role).ADMIN.getCode())"></th>
 		</tr>
 		</thead>
-		<tbody class="table-group-divider">
+		<tbody id="channels" class="table-group-divider">
 		<tr class="" th:each="channel: ${channels}" th:id="'channel_' + ${channel.getChannelID()}">
 			<td>
 				<a class="text-decoration-none" th:href="@{/channels/{id}(id=${channel.getChannelID()})}"
@@ -48,7 +50,7 @@
 
 	<article class="visually-hidden card my-3"></article>
 
-	<a class="btn btn-outline-primary" th:href="@{channels/download}">Download</a>
+	<a class="btn btn-outline-primary" th:href="@{channels/download}"><i class="bi bi-box-arrow-down me-2"></i>Download</a>
 
 	<th:block th:insert="~{fragments::footer}"></th:block>
 </div>

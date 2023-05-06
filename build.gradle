@@ -38,6 +38,11 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 }
 
+tasks.register('webPack', YarnTask) {
+    dependsOn yarn
+    args = ['build-spring']
+}
+
 test {
     useJUnitPlatform()
 }

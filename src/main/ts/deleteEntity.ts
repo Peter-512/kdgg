@@ -1,11 +1,8 @@
 import csrfHeader from './modules/csrfHeader'
 import {Toast} from 'bootstrap'
 
-/**
- *
- * @type {NodeListOf<HTMLTableRowElement>}
- */
-const allRows = document.querySelectorAll('tbody tr td button.delete')
+// eslint-disable-next-line no-undef
+const allRows: NodeListOf<HTMLTableRowElement> = document.querySelectorAll('tbody tr td button.delete')
 
 
 export function createToast(id: number) {

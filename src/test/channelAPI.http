@@ -128,3 +128,7 @@ Content-Type: application/json
   "name": "{{$random.alphabetic(2)}}",
   "description": "{{$random.alphabetic(2)}}"
 }
+
+### Authenticate user; 200
+// @no-cookie-jar
+GET http://localhost:8081/api/authenticated

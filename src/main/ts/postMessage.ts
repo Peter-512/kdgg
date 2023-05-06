@@ -1,12 +1,11 @@
 import {vote} from './vote'
 import csrfHeader from './modules/csrfHeader'
-import {deletePost} from './deleteHoverButton'
-import {type Post} from './modules/types'
+import {deletePost} from './modules/deletePost'
+import {type Post, PostSchema} from './modules/types'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import {z, ZodError} from 'zod'
 
-/**
- *
- * @type {HTMLFormElement}
- */
 const addPostForm: HTMLFormElement | null = document.querySelector('#add-post-form')
 const submitButton = document.querySelector('#send-message')
 const messageContent: HTMLInputElement | null = document.querySelector('#message-input')
@@ -18,7 +17,12 @@ if (!addPostForm || !messageContent || !bodyElement || !channelID)  throw new Er
 
 addPostForm.onsubmit = (event) => event.preventDefault()
 
-async function postMessage(event: Event) {
+const schema = z.object({
+    content: z.string().min(1).max(255).trim().toLowerCase(),
+    channelID: z.number().int().positive()
+})
+
+async function postMessage() {
     if (!addPostForm || !messageContent || !bodyElement || !channelID)  return
     const isValid = addPostForm.checkValidity()
     addPostForm.classList.add('was-validated')
@@ -29,6 +33,18 @@ async function postMessage(event: Event) {
     const url = '/api/posts'
     const body = {content, channelID}
 
+    let parsedBody
+    try {
+        parsedBody = schema.parse(body)
+    } catch (e: ZodError) {
+        messageContent.classList.remove('is-valid')
+        messageContent.classList.add('is-invalid')
+        const invalidFeedbackElement: HTMLDivElement | null = document.querySelector('.invalid-feedback')
+        if (!invalidFeedbackElement) throw new Error('Element not found')
+        invalidFeedbackElement.innerText = e.errors[0].message
+        return
+    }
+
     const {name, value} = csrfHeader()
 
     const res = await fetch(url, {
@@ -38,7 +54,7 @@ async function postMessage(event: Event) {
             'Accept': 'application/json',
             [name]: value
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(parsedBody)
     })
 
     if (res.status === 404) {
@@ -49,21 +65,19 @@ async function postMessage(event: Event) {
         return alert('Invalid message')
     }
 
-
     const data: Post = await res.json()
+    const parsedData = PostSchema.parse(data)
     const {postID,
         content: message,
         username,
         userID,
         upVotes,
-        postedAt} = data
-
-    const date = Date.parse(postedAt)
+        postedAt} = parsedData
 
     let formattedDate
-    const timeDiff = Date.now() - date
+    const timeDiff = Date.now() - postedAt
     const oneDay = 1000 * 60 * 60 * 24
-    const timeString = new Date(date).toLocaleTimeString('en-US', {
+    const timeString = postedAt.toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
         hour12: false
@@ -73,7 +87,7 @@ async function postMessage(event: Event) {
     } else if (timeDiff < oneDay * 2) {
         formattedDate = `yesterday at ${timeString}`
     } else {
-        formattedDate = new Date(date).toLocaleString('en-US', {
+        formattedDate = postedAt.toLocaleString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -144,9 +158,19 @@ async function postMessage(event: Event) {
 submitButton?.addEventListener('click', postMessage)
 
 messageContent.addEventListener('keyup', () => {
-    const isValid = addPostForm.checkValidity()
-    messageContent.classList.remove(isValid ? 'is-invalid' : 'is-valid')
-    messageContent.classList.add(isValid ? 'is-valid' : 'is-invalid')
+    const body = {content: messageContent.value, channelID}
+    try {
+        schema.parse(body)
+        messageContent.classList.remove('is-invalid')
+        messageContent.classList.add('is-valid')
+    } catch (e: ZodError) {
+        messageContent.classList.remove('is-valid')
+        messageContent.classList.add('is-invalid')
+        const invalidFeedbackElement: HTMLDivElement | null = document.querySelector('.invalid-feedback')
+        if (!invalidFeedbackElement) throw new Error('Element not found')
+        invalidFeedbackElement.innerText = e.errors[0].message
+        return
+    }
 })
 
 window.addEventListener('keydown', (event) => {
@@ -159,7 +183,7 @@ window.addEventListener('keydown', (event) => {
         return
     }
 
-    if (event.key === 'Enter') return postMessage(event)
+    if (event.key === 'Enter') return postMessage()
 })
 
 document.querySelectorAll('.upvote, .downvote').forEach(button => button.addEventListener('click', vote))

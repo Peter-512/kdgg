@@ -6,6 +6,8 @@
 	<link rel="icon" th:href="@{/images/icon.png}">
 	<script src="/js/bundle-deleteEntity.js" defer type="module"></script>
 	<th:block th:insert="~{fragments::head}"></th:block>
+	<script src="/js/bundle-dragNdrop.js" defer type="module"></script>
+	<link rel="stylesheet" href="/css/bundle-dragNdrop.css">
 </head>
 <body class="bg-dark text-light">
 
@@ -26,7 +28,7 @@
 			<th></th>
 		</tr>
 		</thead>
-		<tbody class="table-group-divider">
+		<tbody id="users" class="table-group-divider">
 		<tr th:each="user: ${users}" th:id="'user_' + ${user.getUserID()}">
 			<td>
 				<a class="text-decoration-none"
@@ -46,7 +48,7 @@
 		</tbody>
 	</table>
 
-	<a class="btn btn-outline-primary" th:href="@{users/download}">Download</a>
+	<a class="btn btn-outline-primary" th:href="@{users/download}"><i class="bi bi-box-arrow-down me-2"></i>Download</a>
 
 	<th:block th:insert="~{fragments::footer}"></th:block>
 </div>

@@ -11,10 +11,14 @@
   "dependencies": {
     "@popperjs/core": "^2.11.7",
     "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.5"
+    "bootstrap-icons": "^1.10.5",
+    "bubbly-bg": "^1.0.0",
+    "dragula": "^3.7.3",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.6",
+    "@types/dragula": "^3.7.1",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",

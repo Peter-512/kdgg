@@ -569,3 +569,37 @@ Passwords for all users are: `password`
 
 - [PostRestControllerUnitTest](src/test/java/be/kdg/programming5/controllers/api/PostRestControllerUnitTest.java)
 - [UserRestControllerTest](src/test/java/be/kdg/programming5/controllers/api/UserRestControllerTest.java)
+
+## Week 9
+No new, build instructions, the ones on top still apply.
+
+### Bootstrap icon
+Download icon in the download buttons on the Users and Channels page.
+- Users: [Users](htpp://localhost:8081/users) 
+- Channels: [Channels](htpp://localhost:8081/channels)
+
+### Custom form validation (using zod)
+- Page: [Channel](http://localhost:8081/channels/1)
+- File: [postMessage.ts](src/main/ts/postMessage.ts)
+
+Interesting to see:
+- [types](src/main/ts/modules/types.ts)
+
+Here i define the schema for the objects I use in this project and also infer the types from the schemas.
+
+This allows me to only have to change the schema and the types will be updated automatically.
+
+Zod also allows me to parse the data from the server and validate it against the schema which returns me a parsed object that is now fully typesafe!
+
+### Additional Dependencies
+- [bubbly](http://localhost:8081) only shows when not logged in
+- Dragula:
+  - [Drag and drop posts](http://localhost:8081/channels/1)
+  - [Drag and drop channels](http://localhost:8081/channels)
+  - [Drag and drop users](http://localhost:8081/users)
+  - Source files
+    - [ts](src/main/ts/dragNdrop.ts)
+    - [scss](src/main/scss/dragula.scss)
+    - [channel](src/main/resources/templates/channels/channel.html)
+    - [channels](src/main/resources/templates/channels/channels.html)
+    - [users](src/main/resources/templates/users/users.html)
