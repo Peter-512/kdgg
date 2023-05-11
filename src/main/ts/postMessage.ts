@@ -4,6 +4,7 @@ import {deletePost} from './modules/deletePost'
 import {type Post, PostSchema} from './modules/types'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {z, ZodError} from 'zod'
 
 const addPostForm: HTMLFormElement | null = document.querySelector('#add-post-form')

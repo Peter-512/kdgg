@@ -16,12 +16,7 @@ export function createToast(id: number) {
     return {toastContainer, toastElement}
 }
 
-/**
- *
- * @param e {Event}
- * @returns {Promise<void>}
- */
-async function handleDelete(e:Event) {
+async function handleDelete(e: Event) {
     e.stopPropagation()
     const row = ( e.target as HTMLElement)?.closest('tr')
     if (!row) return
@@ -50,7 +45,7 @@ async function handleDelete(e:Event) {
     			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
   			</div>
   			<div class="toast-body">
-    			${entity.substring(0, 1).toUpperCase()}${entity.substring(1, entity.length - 1)} with id ${id} was deleted.  
+    			${entity.substring(0, 1).toUpperCase()}${entity.substring(1, entity.length - 1)} with id ${id} was deleted.
   			</div>`
 
         toastContainer.appendChild(toastElement)
@@ -68,7 +63,7 @@ async function handleDelete(e:Event) {
     			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
   			</div>
   			<div class="toast-body">
-    			You don't have permission to delete this ${entity} with id ${id}.  
+    			You don't have permission to delete this ${entity} with id ${id}.
   			</div>`
 
         toastContainer.appendChild(toastElement)
@@ -86,7 +81,7 @@ async function handleDelete(e:Event) {
     			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
   			</div>
   			<div class="toast-body">
-    			Something went wrong while deleting this ${entity} with id ${id}.  
+    			Something went wrong while deleting this ${entity} with id ${id}.
   			</div>`
 
         toastContainer.appendChild(toastElement)

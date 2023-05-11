@@ -1,10 +1,6 @@
 import csrfHeader from './modules/csrfHeader'
 
-/**
- *
- * @param action {string} - "join" or "leave"
- */
-function swapButtons(action: string) {
+function swapButtons(action: 'join' | 'leave') {
     const joinButton = document.querySelector('#join-channel')
     const leaveButton = document.querySelector('#leave-channel')
     if (!joinButton || !leaveButton) return console.log('Failed to swap buttons')
@@ -18,11 +14,6 @@ function swapButtons(action: string) {
     }
 }
 
-/**
- *
- * @param e {Event}
- * @returns {Promise<boolean>}
- */
 const joinOrLeaveChannel = async (e: Event) => {
     const channelId = document.URL.substring(document.URL.lastIndexOf('/') + 1)
 

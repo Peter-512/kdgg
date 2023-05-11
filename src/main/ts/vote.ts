@@ -1,9 +1,5 @@
 import csrfHeader from './modules/csrfHeader'
 
-/**
- *
- * @param event {Event}
- */
 export async function vote(event: Event) {
     const element = event.target as HTMLDivElement
     if (!element) return

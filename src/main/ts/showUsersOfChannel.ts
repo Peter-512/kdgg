@@ -4,11 +4,6 @@ import {type User} from './modules/types'
 const allUserRows: NodeListOf<HTMLTableRowElement> = document.querySelectorAll('tbody tr td')
 const channelDetails = document.querySelector('article.card')
 
-/**
- *
- * @param id {number}
- * @returns {Promise<void>}
- */
 async function fetchUsersOfChannel(id: number) {
     while (channelDetails?.firstChild) {
         channelDetails.removeChild(channelDetails.firstChild)
@@ -51,10 +46,6 @@ async function fetchUsersOfChannel(id: number) {
 
 }
 
-/**
- *
- * @param e {Event}
- */
 async function toggleRow(e: Event) {
     if (( e.target as HTMLLinkElement ).tagName.toLocaleLowerCase() === 'a' || ( e.target as HTMLButtonElement).tagName.toLocaleLowerCase() === 'button') return
 
