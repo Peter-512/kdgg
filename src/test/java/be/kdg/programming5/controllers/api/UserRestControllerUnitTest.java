@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -39,7 +40,7 @@ class UserRestControllerUnitTest {
 
 	@Test
 	@WithMockUser
-	void updateUserShouldUpdateTheNameAndRoleAndBirthdate() throws Exception {
+	void updateUserShouldCallSetNameAndSetBirthdayAndSetRole() throws Exception {
 		var id = 1L;
 		var name = "name";
 		var birthDate = LocalDate.of(2000, 1, 1);
