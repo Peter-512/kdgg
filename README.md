@@ -26,7 +26,7 @@ docker container start kdgg_db_container
 ### How to run
 
 - dev: `./gradlew bootRun --args='--spring.profiles.active=dev'`
-- prod: `./gradlew bootRun --args='--spring.profiles.active=prod` (
+- prod: `./gradlew bootRun --args='--spring.profiles.active=prod`
 
 Open [here](http://localhost:8081)
 
