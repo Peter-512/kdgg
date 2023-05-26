@@ -1,31 +1,33 @@
 package be.kdg.programming5.service.channels;
 
+import be.kdg.programming5.controllers.api.dtos.NewChannelDTO;
 import be.kdg.programming5.exceptions.ChannelNotFoundException;
 import be.kdg.programming5.model.Channel;
 import be.kdg.programming5.model.User;
 import be.kdg.programming5.repository.ChannelRepository;
 import be.kdg.programming5.repository.PostRepository;
-import be.kdg.programming5.repository.UserRepository;
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.opencsv.bean.CsvToBeanBuilder;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ChannelServiceImpl implements ChannelService {
 	private final ChannelRepository channelRepository;
 	private final PostRepository postRepository;
-	private final UserRepository userRepository;
-
-	@Autowired
-	public ChannelServiceImpl(ChannelRepository channelRepository, PostRepository postRepository, UserRepository userRepository) {
-		this.channelRepository = channelRepository;
-		this.postRepository = postRepository;
-		this.userRepository = userRepository;
-	}
+	private final ModelMapper modelMapper;
+	private final Logger logger = LoggerFactory.getLogger(ChannelServiceImpl.class);
 
 	@Override
 	@Transactional
@@ -81,5 +83,22 @@ public class ChannelServiceImpl implements ChannelService {
 	@Transactional
 	public void leaveChannel(User user, Channel channel) {
 		user.leaveChannel(channel);
+	}
+
+	@Override
+	@Async
+	public void handleChannelCsv(InputStream inputStream) {
+		try (InputStreamReader reader = new InputStreamReader(inputStream)) {
+			List<NewChannelDTO> channels = new CsvToBeanBuilder<NewChannelDTO>(reader)
+					.withType(NewChannelDTO.class)
+					.build()
+					.parse();
+			Thread.sleep(3000);
+
+			final Channel[] map = modelMapper.map(channels, Channel[].class);
+			channelRepository.saveAll(Arrays.stream(map).toList());
+		} catch (IOException | InterruptedException e) {
+			logger.error(e.getMessage());
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package be.kdg.programming5.controllers.mvc;
 
+import be.kdg.programming5.config.security.AdminOnly;
 import be.kdg.programming5.controllers.mvc.viewmodels.ChannelViewModel;
 import be.kdg.programming5.controllers.mvc.viewmodels.PostViewModel;
 import be.kdg.programming5.exceptions.ChannelNotFoundException;
@@ -19,11 +20,14 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -91,9 +95,29 @@ public class ChannelController {
 			errors.getAllErrors().forEach(error -> logger.error(error.toString()));
 			return new ModelAndView("channels/add-channel");
 		}
-
 		channelService.addChannel(channel.getName(), channel.getDescription());
 		return new ModelAndView("redirect:channels");
+	}
+
+	@AdminOnly
+	@PostMapping("/channel-csv")
+	public ModelAndView uploadCsv( @RequestParam("channel-csv") MultipartFile file)  {
+		try (InputStream inputStream = file.getInputStream()) {
+			channelService.handleChannelCsv(inputStream);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+		var mav = new ModelAndView("channels/add-channels");
+		mav.getModel().put("inProgress", true);
+		return mav;
+	}
+
+	@AdminOnly
+	@GetMapping("/upload")
+	public ModelAndView showUploadPage() {
+		var mav = new ModelAndView("channels/add-channels");
+		mav.getModel().put("inProgress", false);
+		return mav;
 	}
 
 	@GetMapping (value = "/download", produces = "application/json")

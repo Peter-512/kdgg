@@ -3,6 +3,7 @@ package be.kdg.programming5.service.channels;
 import be.kdg.programming5.model.Channel;
 import be.kdg.programming5.model.User;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +25,6 @@ public interface ChannelService {
 	void joinChannel(User user, Channel channel);
 
 	void leaveChannel(User user, Channel channel);
+
+	void handleChannelCsv(InputStream inputStream);
 }

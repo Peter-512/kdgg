@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{messages.Adding_a_channel}">Adding channels...</title>
+	<link rel="icon" th:href="@{/images/icon.png}">
+	<th:block th:insert="~{fragments::head}"></th:block>
+</head>
+<body class="bg-dark text-light">
+
+<th:block th:insert="~{fragments::nav('upload')}"></th:block>
+
+<div class="my-3 w-75 mx-auto">
+	<h2 class="my-2">Or multiple via CSV upload</h2>
+
+	<form class="my-5" th:action="@{/channels/channel-csv}" th:method="POST" enctype="multipart/form-data">
+		<div class="mb-3">
+			<label for="channel-csv" class="form-label bg-dark text-light">
+				Select a file to upload
+			</label>
+			<input class="form-control bg-dark text-light"
+				   type="file"
+				   name="channel-csv"
+				   id="channel-csv" />
+		</div>
+		<div class="mb-3">
+			<button type="submit" class="btn btn-primary">
+				Upload
+			</button>
+		</div>
+	</form>
+
+	<div th:if="${inProgress}" class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+		<strong>In progress!</strong> Your CSV is being processed.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	<th:block th:insert="~{fragments::footer}"></th:block>
+</div>
+
+</body>
+</html>
