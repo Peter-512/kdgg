@@ -10,11 +10,23 @@ Programming 5
 - Email: peter.buschenreiter@student.kdg.be
 - Student ID: 0152955-83
 
+### Database
+Run the following commands to set up the database:
+
+```shell
+docker build -t "kdgg_db_image:Dockerfile" .
+```
+```shell
+docker create --name kdgg_db_container -p 5433:5432 kdgg_db_image:Dockerfile
+```
+```shell
+docker container start kdgg_db_container
+```
+
 ### How to run
 
 - dev: `./gradlew bootRun --args='--spring.profiles.active=dev'`
-- prod: `./gradlew bootRun --args='--spring.profiles.active=prod --POSTGRES_PASSWORD=<yourpassword>'` (
-  replace `<yourpassword>` with the password you set for the postgres user)
+- prod: `./gradlew bootRun --args='--spring.profiles.active=prod` (
 
 Open [here](http://localhost:8081)
 

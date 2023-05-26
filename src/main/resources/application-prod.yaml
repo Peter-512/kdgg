@@ -1,4 +1,9 @@
 spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5433/kdgg
+        driver-class-name: org.postgresql.Driver
+        username: spring
+        password: spring
     jpa:
         hibernate:
             ddl-auto: create

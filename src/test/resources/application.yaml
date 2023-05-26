@@ -1,4 +1,9 @@
 spring:
+    datasource:
+        url: jdbc:hsqldb:file:./db/kdGG;DB_CLOSE_DELAY=-1;hsqldb.lock_file=false
+        driver-class-name: org.hsqldb.jdbc.JDBCDriver
+        username: admin
+        password: admin
     mvc:
         hiddenmethod:
             filter:
