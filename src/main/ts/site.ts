@@ -1,4 +1,5 @@
 import '../scss/site.scss'
+import "../scss/dragula.scss"
 
 import 'bootstrap'
 

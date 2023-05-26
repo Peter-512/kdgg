@@ -9,7 +9,6 @@
 	<script src="/js/bundle-deleteHoverButton.js" type="module" defer></script>
 	<th:block th:insert="~{fragments::head}"></th:block>
 	<script src="/js/bundle-dragNdrop.js" defer type="module"></script>
-	<link rel="stylesheet" href="/css/bundle-dragNdrop.css">
 </head>
 <body class="bg-dark text-light"
 	  th:attr="data-role=${#authentication.getAuthorities()}, data-channel-id=${channel.getChannelID()}">
