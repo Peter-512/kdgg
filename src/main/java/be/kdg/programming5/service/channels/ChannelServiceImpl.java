@@ -55,12 +55,6 @@ public class ChannelServiceImpl implements ChannelService {
 
 	@Override
 	@Transactional
-	public void setPostUpvoteCount(int upVotes, Long postID) {
-		postRepository.updateUpVotesByPostID(upVotes, postID);
-	}
-
-	@Override
-	@Transactional
 	public long getPostsCountOfChannel(long id) {
 		return postRepository.countByChannel_ChannelID(id);
 	}

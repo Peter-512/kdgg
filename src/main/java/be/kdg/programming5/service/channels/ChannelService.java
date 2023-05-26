@@ -16,8 +16,6 @@ public interface ChannelService {
 
 	void deleteChannel(Long id);
 
-	void setPostUpvoteCount(int upVotes, Long postID);
-
 	long getPostsCountOfChannel(long channelID);
 
 	Channel updateChannel(Long id, String description);
