@@ -81,18 +81,16 @@ public class ChannelServiceImpl implements ChannelService {
 
 	@Override
 	@Async
-	public void handleChannelCsv(InputStream inputStream) {
-		try (InputStreamReader reader = new InputStreamReader(inputStream)) {
-			List<NewChannelDTO> channels = new CsvToBeanBuilder<NewChannelDTO>(reader)
-					.withType(NewChannelDTO.class)
-					.build()
-					.parse();
-			Thread.sleep(3000);
+	public void handleChannelCsv(InputStream inputStream) throws InterruptedException {
+		List<NewChannelDTO> channels = new CsvToBeanBuilder<NewChannelDTO>(new InputStreamReader(inputStream))
+				.withType(NewChannelDTO.class)
+				.build()
+				.parse();
+		Thread.sleep(3000);
 
-			final Channel[] map = modelMapper.map(channels, Channel[].class);
-			channelRepository.saveAll(Arrays.stream(map).toList());
-		} catch (IOException | InterruptedException e) {
-			logger.error(e.getMessage());
-		}
+		logger.debug(channels.toString());
+
+		final Channel[] map = modelMapper.map(channels, Channel[].class);
+		channelRepository.saveAll(Arrays.stream(map).toList());
 	}
 }
