@@ -158,8 +158,9 @@ replay_pid*
 # custom
 src/**/*.json
 public
-/db/*
-/.env
+.idea/
+db/
+.env
 /.settings/org.eclipse.buildship.core.prefs
 /.idea/discord.xml
 node_modules/
