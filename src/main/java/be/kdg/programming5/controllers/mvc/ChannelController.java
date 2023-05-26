@@ -73,6 +73,7 @@ public class ChannelController {
 		return modelAndView;
 	}
 
+	@AdminOnly
 	@GetMapping ("/add")
 	public ModelAndView showAddChannelView(HttpServletRequest request) {
 		logger.info("Controller is running showAddChannelView!");
@@ -82,6 +83,7 @@ public class ChannelController {
 		return modelAndView;
 	}
 
+	@AdminOnly
 	@PostMapping
 	public ModelAndView processAddChannel(@Valid @ModelAttribute ("channel") ChannelViewModel channel, BindingResult errors, CsrfToken csrfToken) {
 		logger.info("Controller is running processAddChannel!");

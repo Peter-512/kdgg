@@ -48,8 +48,9 @@
 		</textarea>
 				<label class="form-label"
 					   th:for="*{description}"
-					   th:text="#{messages.Channel_description}"
-				>Description:</label>
+					   th:text="#{messages.Channel_description}">
+					Description:
+				</label>
 			</div>
 			<div class="invalid-feedback"
 				 th:if="${#fields.hasErrors('description')}"

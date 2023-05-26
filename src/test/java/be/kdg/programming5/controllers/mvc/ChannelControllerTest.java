@@ -39,7 +39,7 @@ class ChannelControllerTest {
 	}
 
 	@Test
-	@WithMockUser
+	@WithMockUser(roles = {"ADMIN"})
 	void showAddChannelView() throws Exception {
 		mockMvc.perform(get("/channels/add"))
 		       .andExpect(status().isOk())
