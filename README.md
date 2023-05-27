@@ -618,3 +618,7 @@ Zod also allows me to parse the data from the server and validate it against the
 
 ### Extra 
 🚀✨TYPESCRIPT✨🚀
+
+## Week 12
+
+CSV file to upload: [channels.csv](channels.csv) 
