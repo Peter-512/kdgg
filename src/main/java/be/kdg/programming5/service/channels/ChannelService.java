@@ -24,5 +24,5 @@ public interface ChannelService {
 
 	void leaveChannel(User user, Channel channel);
 
-	void handleChannelCsv(InputStream inputStream) throws InterruptedException;
+	void handleChannelCsv(InputStream inputStream);
 }

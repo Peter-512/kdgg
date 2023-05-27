@@ -104,7 +104,7 @@ public class ChannelController {
 	public ModelAndView uploadCsv( @RequestParam("channel-csv") MultipartFile file)  {
 		try {
 			channelService.handleChannelCsv(file.getInputStream());
-		} catch (IOException | InterruptedException e) {
+		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
 		var mav = new ModelAndView("channels/add-channels");
