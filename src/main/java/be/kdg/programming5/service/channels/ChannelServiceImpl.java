@@ -84,6 +84,7 @@ public class ChannelServiceImpl implements ChannelService {
 	public void handleChannelCsv(InputStream inputStream) throws InterruptedException {
 		List<NewChannelDTO> channels = new CsvToBeanBuilder<NewChannelDTO>(new InputStreamReader(inputStream))
 				.withType(NewChannelDTO.class)
+				.withSeparator(';')
 				.build()
 				.parse();
 		Thread.sleep(3000);
